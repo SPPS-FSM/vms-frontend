@@ -21,8 +21,10 @@ import { EyeIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import NavbarPetugasPeralatan from "../../components/petugas-peralatan/navbar";
 import SidebarPetugasPeralatan from "../../components/petugas-peralatan/sidebar";
+import { useNavigate } from "react-router-dom";
 
 export default function AllSuratPetugasPeralatan() {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -114,7 +116,10 @@ export default function AllSuratPetugasPeralatan() {
       )}
 
       {/* Navbar */}
-      <NavbarPetugasPeralatan openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+      <NavbarPetugasPeralatan
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
 
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">All Surat</div>
@@ -169,6 +174,7 @@ export default function AllSuratPetugasPeralatan() {
                   <Button
                     size="sm"
                     className="flex items-center justify-center gap-3 bg-light-green-500 xl:w-36"
+                    onClick={() => navigate("/petugas/edit-surat")}
                   >
                     <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
                     User

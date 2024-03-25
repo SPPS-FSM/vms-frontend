@@ -10,6 +10,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const EmblaCarousel = (props) => {
   const { slides, options } = props;
@@ -25,6 +26,7 @@ const EmblaCarousel = (props) => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
+  const navigate = useNavigate();
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
@@ -38,7 +40,9 @@ const EmblaCarousel = (props) => {
                 <Typography>{item.description}</Typography>
               </CardBody>
               <CardFooter className="pt-0">
-                <Button className="bg-[#019EDB]">Lihat Surat</Button>
+                  <Button className="bg-[#019EDB]" onClick={
+                    ()=>{navigate(item.link)}
+                  }>Lihat Surat</Button>
               </CardFooter>
             </Card>
           ))}

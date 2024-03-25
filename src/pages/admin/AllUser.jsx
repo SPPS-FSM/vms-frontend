@@ -18,8 +18,10 @@ import FooterAdmin from "../../components/admin/footer";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { EyeIcon, PencilIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AllUser() {
+  const  navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -177,6 +179,7 @@ export default function AllUser() {
               <Button
                 className="flex items-center gap-3 bg-light-green-500"
                 size="sm"
+                onClick={()=> navigate("/admin/tambah-user")}
               >
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add User
               </Button>

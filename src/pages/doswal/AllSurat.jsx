@@ -21,8 +21,10 @@ import { EyeIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import NavbarDoswal from "../../components/doswal/navbar";
 import SidebarDoswal from "../../components/doswal/sidebar";
+import { useNavigate } from "react-router-dom";
 
 export default function AllSuratDoswal() {
+  const  navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -169,6 +171,7 @@ export default function AllSuratDoswal() {
                   <Button
                     size="sm"
                     className="flex items-center justify-center gap-3 bg-light-green-500 xl:w-36"
+                    onClick={() => navigate("/doswal/edit-surat")}
                   >
                     <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
                     User

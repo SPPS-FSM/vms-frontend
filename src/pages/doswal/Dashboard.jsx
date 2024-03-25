@@ -6,8 +6,10 @@ import FooterAdmin from "../../components/admin/footer";
 import axios from "axios";
 import SidebarDoswal from "../../components/doswal/sidebar";
 import NavbarDoswal from "../../components/doswal/navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardDoswal() {
+  const navigate = useNavigate()
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);

@@ -6,6 +6,7 @@ import FooterAdmin from "../../components/admin/footer";
 import axios from "axios";
 import SidebarKaprodi from "../../components/kaprodi/sidebar";
 import NavbarKaprodi from "../../components/kaprodi/navbar";
+import { useAsyncValue } from "react-router-dom";
 
 export default function DashboardKaprodi() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);

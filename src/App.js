@@ -38,71 +38,100 @@ import EditSuratPetugasPeralatan from "./pages/petugas-peralatan/EditSurat";
 import AllSuratWadek from "./pages/wakil-dekan/AllSurat";
 import DashboardWadek from "./pages/wakil-dekan/Dashboard";
 import EditSuratWadek from "./pages/wakil-dekan/EditSurat";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      {/* Login Page */}
-      {/* <Login /> */}
+    <Router>
+      <div className="App">
+        <Routes>
+          {/* Login Page */}
+          <Route path="/login" element={<Login />} />
 
-      {/* Admin */}
-      {/* <DashboardAdmin /> */}
-      {/* <AllUser /> */}
-      {/* <DetailUser /> */}
-      {/* <AddUser/> */}
-      {/* <AllSurat /> */}
-      {/* <AddSurat/> */}
-      <EditSurat/>
-      {/* <TemplateSurat /> */}
+          {/* Admin */}
+          <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+          <Route path="/admin/users" element={<AllUser />} />
+          <Route path="/admin/detail-user" element={<DetailUser />} />
+          <Route path="/admin/tambah-user" element={<AddUser />} />
+          <Route path="/admin/semua-surat" element={<AllSurat />} />
+          <Route path="/admin/tambah-surat" element={<AddSurat />} />
+          <Route path="/admin/edit-surat" element={<EditSurat />} />
+          <Route path="/admin/template-surat" element={<TemplateSurat />} />
 
-      {/* Mahasiswa */}
-      {/* <Home /> */}
-      {/* <PersuratanAkademik /> */}
-      {/* <PersuratanBeasiswa /> */}
-      {/* <PersuratanKKN /> */}
-      {/* <PersuratanFasilitas /> */}
-      {/* <PersuratanDataAplikasi /> */}
+          {/* Mahasiswa */}
+          <Route path="/mahasiswa/home" element={<Home />} />
+          <Route
+            path="/mahasiswa/surat-akademik"
+            element={<PersuratanAkademik />}
+          />
+          <Route
+            path="/mahasiswa/surat-beasiswa"
+            element={<PersuratanBeasiswa />}
+          />
+          <Route path="/mahasiswa/surat-kkn" element={<PersuratanKKN />} />
+          <Route
+            path="/mahasiswa/surat-fasilitas"
+            element={<PersuratanFasilitas />}
+          />
+          <Route
+            path="/mahasiswa/surat-data-aplikasi"
+            element={<PersuratanDataAplikasi />}
+          />
 
-      {/* Kasubbag  */}
-      {/* <DashboardKasubbag /> */}
-      {/* <AllSuratKasubbag /> */}
-      {/* <EditSuratKasubbag /> */}
+          {/* Kasubbag  */}
+          <Route path="/kasubbag/dashboard" element={<DashboardKasubbag />} />
+          <Route path="/kasubbag/semua-surat" element={<AllSuratKasubbag />} />
+          <Route path="/kasubbag/edit-surat" element={<EditSuratKasubbag />} />
 
-      {/* Dekan */}
-      {/* <DashboardDekan /> */}
-      {/* <AllSuratDekan /> */}
-      {/* <EditSuratDekan /> */}
+          {/* Dekan */}
+          <Route path="/dekan/dashboard" element={<DashboardDekan />} />
+          <Route path="/dekan/semua-surat" element={<AllSuratDekan />} />
+          <Route path="/dekan/edit-surat" element={<EditSuratDekan />} />
 
-      {/* Wakil Dekan */}
-      {/* <DashboardWadek /> */}
-      {/* <AllSuratWadek /> */}
-      {/* <EditSuratWadek /> */}
+          {/* Wakil Dekan */}
+          <Route path="/wadek/dashboard" element={<DashboardWadek />} />
+          <Route
+            path="/wadek/semua-surat"
+            element={<AllSuratWadek />}
+          />
+          <Route path="/wadek/edit-surat" element={<EditSuratWadek />} />
 
-      {/* Kadep */}
-      {/* <DashboardKadep /> */}
-      {/* <AllSuratKadep /> */}
-      {/* <EditSuratKadep /> */}
+          {/* Kadep */}
+          <Route path="/kadep/dashboard" element={<DashboardKadep />} />
+          <Route path="/kadep/semua-surat" element={<AllSuratKadep />} />
+          <Route path="/kadep/edit-surat" element={<EditSuratKadep />} />
 
-      {/* Kaprodi */}
-      {/* <DashboardKaprodi /> */}
-      {/* <AllSuratKaprodi /> */}
-      {/* <EditSuratKaprodi /> */}
+          {/* Kaprodi */}
+          <Route path="/kaprodi/dashboard" element={<DashboardKaprodi />} />
+          <Route path="/kaprodi/semua-surat" element={<AllSuratKaprodi />} />
+          <Route path="/kaprodi/edit-surat" element={<EditSuratKaprodi />} />
 
-      {/* Koordinator PKL/Skripsi/Penelitian */}
-      {/* <DashboardKoor /> */}
-      {/* <AllSuratKoor /> */}
-      {/* <EditSuratKoor /> */}
+          {/* Koordinator PKL/Skripsi/Penelitian */}
+          <Route path="/koor/dashboard" element={<DashboardKoor />} />
+          <Route path="/koor/semua-surat" element={<AllSuratKoor />} />
+          <Route path="/koor/edit-surat" element={<EditSuratKoor />} />
 
-      {/* Petugas Peralatan */}
-      {/* <DashboardPetugasPeralatan /> */}
-      {/* <AllSuratPetugasPeralatan /> */}
-      {/* <EditSuratPetugasPeralatan /> */}
+          {/* Petugas Peralatan */}
+          <Route
+            path="/petugas/dashboard"
+            element={<DashboardPetugasPeralatan />}
+          />
+          <Route
+            path="/petugas/semua-surat"
+            element={<AllSuratPetugasPeralatan />}
+          />
+          <Route
+            path="/petugas/edit-surat"
+            element={<EditSuratPetugasPeralatan />}
+          />
 
-      {/* Doswal */}
-      {/* <DashboardDoswal /> */}
-      {/* <AllSuratDoswal /> */}
-      {/* <EditSuratDoswal /> */}
-    </div>
+          {/* Doswal */}
+          <Route path="/doswal/dashboard" element={<DashboardDoswal />} />
+          <Route path="/doswal/semua-surat" element={<AllSuratDoswal />} />
+          <Route path="/doswal/edit-surat" element={<EditSuratDoswal />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -11,31 +11,31 @@ const SLIDES = [
     title: "Persuratan Akademik",
     description:
       "Persuratan terkait dengan kegiatan akademik di Fakultas Sains dan Matematika",
-    link: "",
+    link: "/mahasiswa/surat-akademik",
   },
   {
     title: "Persuratan Beasiswa",
     description:
       "Persuratan terkait dengan kegiatan Beasiswa di Fakultas Sains dan Matematika",
-    link: "",
+    link: "/mahasiswa/surat-beasiswa",
   },
   {
     title: "Persuratan Kuliah Kerja Nyata (KKN)",
     description:
       "Persuratan terkait dengan kegiatan Kuliah Kerja Nyata (KKN) di Fakultas Sains dan Matematika",
-    link: "",
+    link: "/mahasiswa/surat-kkn",
   },
   {
     title: "Persuratan Data Aplikasi",
     description:
       "Persuratan terkait dengan Data Aplikasi di Fakultas Sains dan Matematika",
-    link: "",
+    link: "/mahasiswa/surat-data-aplikasi",
   },
   {
     title: "Persuratan Fasilitas",
     description:
       "Persuratan terkait dengan Fasilitas di Fakultas Sains dan Matematika",
-    link: "",
+    link: "/mahasiswa/surat-fasilitas",
   },
 ];
 

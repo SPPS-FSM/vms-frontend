@@ -19,8 +19,10 @@ import FooterAdmin from "../../components/admin/footer";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { EyeIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AllSurat() {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -138,7 +140,7 @@ export default function AllSurat() {
                   </Select>
                 </div>
                 <div className="col-span-3">
-                  <Input type="date" label="Tanggal Surat Dibuat"/>
+                  <Input type="date" label="Tanggal Surat Dibuat" />
                 </div>
                 <div className="mb-1 xl:mb-0 flex items-center justify-start xl:justify-center">
                   <Button size="sm" className="bg-light-green-500">
@@ -167,6 +169,7 @@ export default function AllSurat() {
                   <Button
                     size="sm"
                     className="flex items-center justify-center gap-3 bg-light-green-500 xl:w-36"
+                    onClick={() => navigate("/admin/tambah-surat")}
                   >
                     <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
                     User

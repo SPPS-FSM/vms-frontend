@@ -10,7 +10,7 @@ export default function FooterMahasiswa() {
         <li>
           <Typography
             as="a"
-            href="#"
+            href="/mahasiswa/home"
             color="blue-gray"
             className="font-normal transition-colors text-white"
           >

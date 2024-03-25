@@ -10,8 +10,11 @@ import {
 } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { SlChart, SlEnvolope, SlPeople } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
+
 
 export default function SidebarDekan() {
+  const navigate = useNavigate()
   const [open, setOpen] = React.useState(0);
   const [openAlert, setOpenAlert] = React.useState(true);
 
@@ -24,16 +27,16 @@ export default function SidebarDekan() {
         <img src="logo-fsm.png" alt="logo" className="h-[50px]" />
       </div>
       <List className="text-fsmblue-500 font-normal">
-        <a href="/Dashboard">
+        {/* <a href="/Dashboard"> */}
           <Accordion>
-            <ListItem>
+            <ListItem onClick={() => navigate("/dekan/dashboard")}>
               <ListItemPrefix>
                 <SlChart className="h-5 w-5" />
               </ListItemPrefix>
               Dashboard
             </ListItem>
           </Accordion>
-        </a>
+        {/* </a> */}
         {/* <a href="/AllUser">
           <Accordion>
             <ListItem>
@@ -71,12 +74,11 @@ export default function SidebarDekan() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <a href="/AllSurat">
-                <ListItem className="text-fsmblue-500">
+              
+                <ListItem className="text-fsmblue-500" onClick={() => navigate("/dekan/semua-surat") }>
                   <ListItemPrefix></ListItemPrefix>
                   Lihat Surat
                 </ListItem>
-              </a>
               {/* <a href="#">
                 <ListItem className="text-fsmblue-500">
                   <ListItemPrefix></ListItemPrefix>

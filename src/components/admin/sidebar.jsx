@@ -13,7 +13,7 @@ import { SlChart, SlEnvolope, SlPeople } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 
 export default function SidebarAdmin() {
-  const  navigate = useNavigate();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(0);
   const [openAlert, setOpenAlert] = React.useState(true);
 
@@ -23,28 +23,28 @@ export default function SidebarAdmin() {
   return (
     <div className=" w-full h-screen max-w-[20rem] p-4 shadow-md shadow-blue-gray-900/5">
       <div className="mb-2 flex items-center gap-4 p-4 justify-center">
-        <img src="logo-fsm.png" alt="logo" className="h-[50px]" />
+        <img src="../logo-fsm.png" alt="logo" className="h-[50px]" />
       </div>
       <List className="text-fsmblue-500 font-normal">
         {/* <a href="/Dashboard"> */}
-          <Accordion>
-            <ListItem onClick={() => navigate("/admin/dashboard")}>
-              <ListItemPrefix>
-                <SlChart className="h-5 w-5" />
-              </ListItemPrefix>
-              Dashboard
-            </ListItem>
-          </Accordion>
+        <Accordion>
+          <ListItem onClick={() => navigate("/admin/dashboard")}>
+            <ListItemPrefix>
+              <SlChart className="h-5 w-5" />
+            </ListItemPrefix>
+            Dashboard
+          </ListItem>
+        </Accordion>
         {/* </a> */}
         {/* <a href="/AllUser"> */}
-          <Accordion>
-            <ListItem onClick={() => navigate("/admin/users")}>
-              <ListItemPrefix>
-                <SlPeople className="h-5 w-5" />
-              </ListItemPrefix>
-              User
-            </ListItem>
-          </Accordion>
+        <Accordion>
+          <ListItem onClick={() => navigate("/admin/users")}>
+            <ListItemPrefix>
+              <SlPeople className="h-5 w-5" />
+            </ListItemPrefix>
+            User
+          </ListItem>
+        </Accordion>
         {/* </a> */}
         <hr className="my-2 border-blue-gray-50" />
         <Accordion
@@ -74,16 +74,22 @@ export default function SidebarAdmin() {
           <AccordionBody className="py-1">
             <List className="p-0">
               {/* <a href="/AllSurat"> */}
-                <ListItem className="text-fsmblue-500" onClick={() => navigate("/admin/semua-surat")}>
-                  <ListItemPrefix></ListItemPrefix>
-                  Lihat Surat
-                </ListItem>
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/admin/semua-surat")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                Lihat Surat
+              </ListItem>
               {/* </a> */}
               {/* <a href="#"> */}
-                <ListItem className="text-fsmblue-500" onClick={() => navigate("/admin/tambah-surat")}>
-                  <ListItemPrefix></ListItemPrefix>
-                  Buat Template Surat
-                </ListItem>
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/admin/tambah-surat")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                Buat Template Surat
+              </ListItem>
               {/* </a> */}
             </List>
           </AccordionBody>

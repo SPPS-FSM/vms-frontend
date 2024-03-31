@@ -46,7 +46,7 @@ export default function Home() {
         <NavbarMahasiswa />
       </div>
       <img
-        src="bg-fsm.jpg"
+        src="../bg-fsm.jpg"
         alt="banner"
         className="w-screen h-screen object-cover top-0"
         style={{ zIndex: -1 }}

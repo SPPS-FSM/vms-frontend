@@ -59,7 +59,7 @@ export default function NavbarMahasiswa() {
   return (
     <Navbar className="mx-auto max-w-screen-xl px-6 py-3 lg:rounded-full">
       <div className="flex items-center justify-between text-blue-gray-900">
-        <img src="logo-fsm.png" alt="logo" className="w-auto h-12" />
+        <img src="../logo-fsm.png" alt="logo" className="w-auto h-12" />
         <div className="hidden lg:block">
           <NavList />
         </div>

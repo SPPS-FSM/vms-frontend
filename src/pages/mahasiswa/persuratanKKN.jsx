@@ -20,7 +20,7 @@ export default function PersuratanKKN() {
       </div>
       <div className="relative">
         <img
-          src="bg-fsm.jpg"
+          src="../bg-fsm.jpg"
           alt="banner"
           className="w-screen h-96 object-cover object-center top-0"
           style={{ zIndex: -1 }}

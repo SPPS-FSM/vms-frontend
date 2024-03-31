@@ -46,7 +46,7 @@ function App() {
       <div className="App">
         <Routes>
           {/* Login Page */}
-          <Route path="/login" element={<Login />} />
+          <Route  default path="/login" element={<Login />} />
 
           {/* Admin */}
           <Route path="/admin/dashboard" element={<DashboardAdmin />} />

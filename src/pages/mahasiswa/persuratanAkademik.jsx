@@ -36,17 +36,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className=" block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className=" block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Perubahan Data Aplikasi SIAP
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-data-siap">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -56,17 +58,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Perubahan Data Aplikasi Wisuda
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-data-wisuda">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -76,17 +80,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Keterlambatan KRS
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-krs">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -96,17 +102,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Cuti Akademik
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-cuti">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -116,17 +124,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Aktif Kuliah Setelah Mangkir
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-aktif-kuliah">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -136,17 +146,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Undur Diri
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-undur-diri">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -156,17 +168,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Surat Pengantar PKL/KP/TA
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-surat-pengantar">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -176,17 +190,19 @@ export default function PersuratanAkademik() {
                 <img src="bg-fsm.jpg" alt="" className="rounded-lg" />
               </div>
               <div className="p-6 h-28">
-                <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                <h5 className="block mb-2 font-sans text-xl text-center antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   Form Penundaan UKT
                 </h5>
               </div>
               <div className="p-6 pt-0">
-                <button
-                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
-                  type="button"
-                >
-                  Buat Surat
-                </button>
+                <a href="/mahasiswa/detail-form-penundaan-ukt">
+                  <button
+                    className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-[#019EDB] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+                    type="button"
+                  >
+                    Buat Surat
+                  </button>
+                </a>
               </div>
             </div>
           </div>

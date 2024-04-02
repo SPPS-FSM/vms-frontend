@@ -26,6 +26,13 @@ import AllSuratKoor from "./pages/koor/AllSurat";
 import DashboardKoor from "./pages/koor/Dashboard";
 import EditSuratKoor from "./pages/koor/EditSurat";
 import Login from "./pages/login";
+import DetailFormCutiAkademik from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormCutiAkademik";
+import DetailFormKeterlambatanKRS from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormKeterlambatanKRS";
+import DetailFormSuratPengantar from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPengantar";
+import DetailFormAktifKuliah from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormAktifKuliah";
+import DetailFormPenundaanUKT from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPenundaanUKT";
+import DetailFormPerubahanDataWisuda from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPerubahanDataWisuda";
+import DetailFormUndurDiri from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormUndurDiri";
 import Home from "./pages/mahasiswa/Home";
 import PersuratanAkademik from "./pages/mahasiswa/persuratanAkademik";
 import PersuratanBeasiswa from "./pages/mahasiswa/persuratanBeasiswa";
@@ -39,6 +46,14 @@ import AllSuratWadek from "./pages/wakil-dekan/AllSurat";
 import DashboardWadek from "./pages/wakil-dekan/Dashboard";
 import EditSuratWadek from "./pages/wakil-dekan/EditSurat";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import DetailFormPerubahanDataSIAP from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPerubahanDataSIAP";
+import DetailSuratRekomendasiKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratRekomendasiKKN";
+import DetailSuratKeteranganKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratKeteranganKKN";
+import DetailSuratNilaiKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratKeteranganNilaiKKN";
+import DetailSuratPembekalanKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratKeteranganPembekalanKKN";
+import DetailSuratKeteranganBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratKeteranganBeasiswa";
+import DetailSuratPermohonanBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratPermohonanBeasiswa";
+import DetailSuratPernyataanBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratPernyataanBeasiswa";
 
 function App() {
   return (
@@ -46,7 +61,7 @@ function App() {
       <div className="App">
         <Routes>
           {/* Login Page */}
-          <Route  default path="/login" element={<Login />} />
+          <Route default path="/login" element={<Login />} />
 
           {/* Admin */}
           <Route path="/admin/dashboard" element={<DashboardAdmin />} />
@@ -65,10 +80,56 @@ function App() {
             element={<PersuratanAkademik />}
           />
           <Route
-            path="/mahasiswa/surat-beasiswa"
-            element={<PersuratanBeasiswa />}
+            path="/mahasiswa/detail-form-cuti"
+            element={<DetailFormCutiAkademik />}
           />
+          <Route
+            path="/mahasiswa/detail-form-krs"
+            element={<DetailFormKeterlambatanKRS />}
+          />
+          <Route
+            path="/mahasiswa/detail-form-data-wisuda"
+            element={<DetailFormPerubahanDataWisuda />}
+          />
+          <Route
+            path="/mahasiswa/detail-form-undur-diri"
+            element={<DetailFormUndurDiri />}
+          />
+          <Route
+            path="/mahasiswa/detail-form-surat-pengantar"
+            element={<DetailFormSuratPengantar />}
+          />
+          <Route
+            path="/mahasiswa/detail-form-penundaan-ukt"
+            element={<DetailFormPenundaanUKT />}
+          />
+          <Route
+            path="/mahasiswa/detail-form-aktif-kuliah"
+            element={<DetailFormAktifKuliah />}
+          />
+          <Route
+            path="/mahasiswa/detail-form-data-siap"
+            element={<DetailFormPerubahanDataSIAP />}
+          />
+
           <Route path="/mahasiswa/surat-kkn" element={<PersuratanKKN />} />
+          <Route
+            path="/mahasiswa/detail-rekomendasi-kkn"
+            element={<DetailSuratRekomendasiKKN />}
+          />
+          <Route
+            path="/mahasiswa/detail-keterangan-kkn"
+            element={<DetailSuratKeteranganKKN />}
+          />
+          <Route
+            path="/mahasiswa/detail-nilai-kkn"
+            element={<DetailSuratNilaiKKN />}
+          />
+          <Route
+            path="/mahasiswa/detail-pembekalan-kkn"
+            element={<DetailSuratPembekalanKKN />}
+          />
+
           <Route
             path="/mahasiswa/surat-fasilitas"
             element={<PersuratanFasilitas />}
@@ -76,6 +137,22 @@ function App() {
           <Route
             path="/mahasiswa/surat-data-aplikasi"
             element={<PersuratanDataAplikasi />}
+          />
+          <Route
+            path="/mahasiswa/surat-beasiswa"
+            element={<PersuratanBeasiswa />}
+          />
+          <Route
+            path="/mahasiswa/detail-surat-keterangan-beasiswa"
+            element={<DetailSuratKeteranganBeasiswa />}
+          />
+          <Route
+            path="/mahasiswa/detail-surat-permohonan-beasiswa"
+            element={<DetailSuratPermohonanBeasiswa />}
+          />
+          <Route
+            path="/mahasiswa/detail-surat-pernyataan-beasiswa"
+            element={<DetailSuratPernyataanBeasiswa />}
           />
 
           {/* Kasubbag  */}
@@ -90,10 +167,7 @@ function App() {
 
           {/* Wakil Dekan */}
           <Route path="/wadek/dashboard" element={<DashboardWadek />} />
-          <Route
-            path="/wadek/semua-surat"
-            element={<AllSuratWadek />}
-          />
+          <Route path="/wadek/semua-surat" element={<AllSuratWadek />} />
           <Route path="/wadek/edit-surat" element={<EditSuratWadek />} />
 
           {/* Kadep */}

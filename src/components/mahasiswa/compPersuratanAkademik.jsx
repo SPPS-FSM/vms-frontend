@@ -5,11 +5,14 @@ export default function CompPersuratanAkademik() {
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-2 lg:grid-cols-12 gap-3">
         <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -23,12 +26,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -42,12 +48,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -61,12 +70,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -80,12 +92,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -99,12 +114,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -118,12 +136,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}
@@ -137,12 +158,15 @@ export default function CompPersuratanAkademik() {
             </div>
           </a>
         </div>
-        <div className="col-span-12  md:col-span-1 lg:col-span-3  flex justify-center items-center">
-          <a href="/mahasiswa/detail-form-data-siap">
-            <div className="text-gray-700 border rounded-md">
-              <div className=" h-24 scale-100 hover:scale-105 transition-transform duration-300 ease-in-out flex justify-center items-center">
+        <div className="col-span-12 md:col-span-1 lg:col-span-3 flex justify-center items-center">
+          <a
+            href="/mahasiswa/detail-form-data-siap"
+            className="bg-white border border-gray-300 rounded-md hover:shadow-md"
+          >
+            <div className="text-gray-700">
+              <div className=" h-24 flex justify-center items-center">
                 <img
-                  src="../logo-akademik-1.png"
+                  src="../form.png"
                   alt=""
                   className="rounded-lg"
                   width={80}

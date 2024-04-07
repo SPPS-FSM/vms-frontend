@@ -22,6 +22,7 @@ export default function TrackingSurat() {
     "NIM/NIP",
     "Jurusan",
     "Jenis Surat",
+    "Tanggal Dibuat",
     "Status",
     "Action",
   ];
@@ -32,6 +33,7 @@ export default function TrackingSurat() {
       nim: "24060120140099",
       jurusan: "Informatika",
       jenis_surat: "Surat Rekomendasi KKN",
+      date: "11/01/2024",
       status: "Selesai",
     },
     {
@@ -39,6 +41,7 @@ export default function TrackingSurat() {
       nim: "24060120140150",
       jurusan: "Informatika",
       jenis_surat: "Surat Rekomendasi KKN",
+      date: "11/01/2024",
       status: "Menunggu Tanda Tangan WD1",
     },
   ];
@@ -132,7 +135,10 @@ export default function TrackingSurat() {
                   </thead>
                   <tbody>
                     {TABLE_ROWS.map(
-                      ({ nama, nim, jurusan, jenis_surat, status }, index) => {
+                      (
+                        { nama, nim, jurusan, jenis_surat, status, date },
+                        index
+                      ) => {
                         const isLast = index === TABLE_ROWS.length - 1;
                         const classes = isLast
                           ? "p-4"
@@ -182,6 +188,15 @@ export default function TrackingSurat() {
                                 className="font-normal"
                               >
                                 {jenis_surat}
+                              </Typography>
+                            </td>
+                            <td className={classes}>
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {date}
                               </Typography>
                             </td>
                             <td className={classes}>

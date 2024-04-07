@@ -5,6 +5,8 @@ import CompPersuratanAkademik from "../../components/mahasiswa/compPersuratanAka
 import CompPersuratanKKN from "../../components/mahasiswa/compPersuratanKKN";
 import CompPersuratanFasilitas from "../../components/mahasiswa/compPersuratanFasilitas";
 import CompPersuratanBeasiswa from "../../components/mahasiswa/compPersusratanBeasiswa";
+import { Typography } from "@material-tailwind/react";
+import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 
 export default function Home() {
   const [contentType, setContentType] = useState(null);
@@ -53,7 +55,7 @@ export default function Home() {
     //   />
 
     // NewNavbar
-    <div className="relative bg-white">
+    <div className="relative bg-gray-50">
       <div className="absolute top-2 left-0 right-0 z-50 ">
         <NavbarMahasiswa />
       </div>
@@ -103,10 +105,10 @@ export default function Home() {
       </div> */}
 
       {/* Filter Content */}
-      <div className=" container mx-auto grid grid-cols-12 text-center gap-x-2 gap-2 px-2 md:px-0 py-4 -translate-y-0 w-full lg:w-1/2">
+      <div className=" container mx-auto grid grid-cols-12 text-center gap-x-2 gap-2 px-2 md:px-0 mt-0 py-4 w-full lg:w-1/2">
         <button
           className={`col-span-12 md:col-span-3 border rounded-md border-gray-500 p-4 hover:shadow-lg ${
-            contentType === "akademik" && "bg-blue-500 text-white"
+            contentType === "akademik" && "bg-blue-500 text-white "
           }`}
           onClick={() => showContent("akademik")}
         >
@@ -162,12 +164,12 @@ export default function Home() {
       {renderContent()}
 
       {/* Description New */}
-      <div className="container mx-auto pb-8 px-6 md:px-0">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12 lg:col-span-5">
-            <img src="../hero.jpg" />
+      <div className="px-6 md:px-0 bg-white">
+        <div className="container mx-auto grid grid-cols-12">
+          <div className="col-span-12 lg:col-span-4">
+            <img src="../hero.jpg" className="w-full lg:w-[30rem]" />
           </div>
-          <div className="col-span-12 lg:col-span-7 flex flex-col items-center justify-center">
+          <div className="col-span-12 lg:col-span-8 flex flex-col items-center justify-center">
             {/* <p className="justify-start text-2xl font-bold">
               SPPS-FSM
             </p> */}
@@ -184,8 +186,38 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Map */}
+      <div className=" container mx-auto grid grid-cols-12 my-8 px-4 md:px-0 gap-4">
+        <div className="col-span-12 lg:col-span-6">
+          <div className="flex flex-col justify-end items-end">
+            <Typography variant="h3">
+              Gedung Acintya Prasada FSM UNDIP
+            </Typography>
+            <Typography variant="h6" className="font-medium">
+              Jl. Prof. Jacub Rais, Tembalang, Kec. Tembalang, Kota Semarang,
+              Jawa Tengah 50275
+            </Typography>
+            <div className="flex gap-1 mt-2">
+              <FaInstagram size={25} />
+              <FaFacebook size={25} />
+              <FaWhatsapp size={25} />
+            </div>
+          </div>
+        </div>
+        <div className="col-span-12 lg:col-span-6">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.660512779082!2d110.4391073751251!3d-7.049119792953092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708d8825d14be7%3A0xb0ecbfcecc6bd137!2sAcintya%20Prasada%20Building%20Diponegoro%20University!5e0!3m2!1sen!2sid!4v1712521842890!5m2!1sen!2sid"
+            style={{ border: 0 }}
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-w1en-downgrade"
+            className="w-full lg:w-[630px] h-[450px]"
+          ></iframe>
+        </div>
+      </div>
+
       {/* Footer Backup */}
-      <div className="bg-[#019EDB] px-6 rounded-lg py-10 absolute top-full left-0 w-full">
+      <div className="bg-[#019EDB] px-6 py-10 top-full left-0 w-full">
         <FooterMahasiswa />
       </div>
     </div>

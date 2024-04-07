@@ -32,6 +32,9 @@ export default function PersuratanFasilitas() {
         <div className="grid grid-cols-2 lg:grid-cols-12 gap-3">
           <div className="col-span-3 flex justify-center items-center">
             {/* gaada suratnya */}
+            <p>
+              gaada surat
+            </p>
           </div>
         </div>
       </div>

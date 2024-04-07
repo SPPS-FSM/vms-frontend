@@ -54,6 +54,7 @@ import DetailSuratPembekalanKKN from "./pages/mahasiswa/DetailPersuratanKKN/deta
 import DetailSuratKeteranganBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratKeteranganBeasiswa";
 import DetailSuratPermohonanBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratPermohonanBeasiswa";
 import DetailSuratPernyataanBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratPernyataanBeasiswa";
+import TrackingSurat from "./pages/mahasiswa/trackingSurat";
 
 function App() {
   return (
@@ -125,10 +126,10 @@ function App() {
             path="/mahasiswa/detail-nilai-kkn"
             element={<DetailSuratNilaiKKN />}
           />
-          <Route
+          {/* <Route
             path="/mahasiswa/detail-pembekalan-kkn"
             element={<DetailSuratPembekalanKKN />}
-          />
+          /> */}
 
           <Route
             path="/mahasiswa/surat-fasilitas"
@@ -154,6 +155,8 @@ function App() {
             path="/mahasiswa/detail-surat-pernyataan-beasiswa"
             element={<DetailSuratPernyataanBeasiswa />}
           />
+
+          <Route path="/mahasiswa/tracking-surat" element={<TrackingSurat />} />
 
           {/* Kasubbag  */}
           <Route path="/kasubbag/dashboard" element={<DashboardKasubbag />} />

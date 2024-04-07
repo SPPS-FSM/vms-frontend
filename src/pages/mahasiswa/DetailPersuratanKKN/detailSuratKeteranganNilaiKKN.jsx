@@ -59,7 +59,7 @@ export default function DetailSuratNilaiKKN() {
         <NavbarMahasiswa />
       </div>
       <div className="absolute top-60 md:top-56 lg:top-52 left-1/2 transform -translate-x-1/2 -translate-y-3/4 z-10 text-center">
-        <p className="text-5xl text-orange-500 font-bold">Form Aktif Kuliah Setelah Mangkir</p>
+        <p className="text-5xl text-orange-500 font-bold">Form Nilai KKN</p>
       </div>
       <div className="relative">
         <img
@@ -215,7 +215,7 @@ export default function DetailSuratNilaiKKN() {
           <div className="container mx-auto pb-8 border">
             <div className="pl-1 md:p-2">
               <p className="text-center font-bold text-4xl">
-                ISI FORM AKTIF KULIAH SETELAH MANGKIR
+                ISI FORM NILAI KKN
               </p>
               <div className="border-b-2 border-gray-400 my-4"></div>
               <div className="grid grid-cols-12 gap-x-9 gap-y-3">

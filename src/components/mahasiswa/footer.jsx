@@ -2,7 +2,7 @@ import { Typography } from "@material-tailwind/react";
 
 export default function FooterMahasiswa() {
   return (
-    <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t pt-2 border-blue-gray-50 text-center md:justify-between">
+    <footer className="container mx-auto flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 pt-2 text-center md:justify-between">
       <Typography color="blue-gray" className="font-bold text-white">
         SPSS-FSM
       </Typography>

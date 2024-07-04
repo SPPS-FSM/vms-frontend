@@ -1,60 +1,53 @@
 import "./App.css";
-import AddSurat from "./pages/admin/AddSurat";
-import AddUser from "./pages/admin/AddUser";
-import AllSurat from "./pages/admin/AllSurat";
-import AllUser from "./pages/admin/AllUser";
 import DashboardAdmin from "./pages/admin/Dashboard";
-import DetailUser from "./pages/admin/DetailUser";
-import EditSurat from "./pages/admin/EditSurat";
-import TemplateSurat from "./pages/admin/TemplateSurat";
-import AllSuratDekan from "./pages/dekan/AllSurat";
-import DashboardDekan from "./pages/dekan/Dashboard";
-import EditSuratDekan from "./pages/dekan/EditSurat";
-import AllSuratDoswal from "./pages/doswal/AllSurat";
-import DashboardDoswal from "./pages/doswal/Dashboard";
-import EditSuratDoswal from "./pages/doswal/EditSurat";
-import AllSuratKadep from "./pages/kadep/AllSurat";
-import DashboardKadep from "./pages/kadep/Dashboard";
-import EditSuratKadep from "./pages/kadep/EditSurat";
-import AllSuratKaprodi from "./pages/kaprodi/AllSurat";
-import DashboardKaprodi from "./pages/kaprodi/Dashboard";
-import EditSuratKaprodi from "./pages/kaprodi/EditSurat";
-import AllSuratKasubbag from "./pages/kasubbag/AllSurat";
-import DashboardKasubbag from "./pages/kasubbag/Dashboard";
-import EditSuratKasubbag from "./pages/kasubbag/EditSurat";
-import AllSuratKoor from "./pages/koor/AllSurat";
-import DashboardKoor from "./pages/koor/Dashboard";
-import EditSuratKoor from "./pages/koor/EditSurat";
+import DashboardSupplier from "./pages/supplier/Dashboard";
+import DashboardStaff from "./pages/staff/Dashboard";
 import Login from "./pages/login";
-import DetailFormCutiAkademik from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormCutiAkademik";
-import DetailFormKeterlambatanKRS from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormKeterlambatanKRS";
-import DetailFormSuratPengantar from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPengantar";
-import DetailFormAktifKuliah from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormAktifKuliah";
-import DetailFormPenundaanUKT from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPenundaanUKT";
-import DetailFormPerubahanDataWisuda from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPerubahanDataWisuda";
-import DetailFormUndurDiri from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormUndurDiri";
-import Home from "./pages/mahasiswa/Home";
-import PersuratanAkademik from "./pages/mahasiswa/persuratanAkademik";
-import PersuratanBeasiswa from "./pages/mahasiswa/persuratanBeasiswa";
-import PersuratanDataAplikasi from "./pages/mahasiswa/persuratanDataAplikasi";
-import PersuratanFasilitas from "./pages/mahasiswa/persuratanFasilitas";
-import PersuratanKKN from "./pages/mahasiswa/persuratanKKN";
-import AllSuratPetugasPeralatan from "./pages/petugas-peralatan/AllSurat";
-import DashboardPetugasPeralatan from "./pages/petugas-peralatan/Dashboard";
-import EditSuratPetugasPeralatan from "./pages/petugas-peralatan/EditSurat";
-import AllSuratWadek from "./pages/wakil-dekan/AllSurat";
-import DashboardWadek from "./pages/wakil-dekan/Dashboard";
-import EditSuratWadek from "./pages/wakil-dekan/EditSurat";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import DetailFormPerubahanDataSIAP from "./pages/mahasiswa/DetailPersuratanAkademik/detailFormPerubahanDataSIAP";
-import DetailSuratRekomendasiKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratRekomendasiKKN";
-import DetailSuratKeteranganKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratKeteranganKKN";
-import DetailSuratNilaiKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratKeteranganNilaiKKN";
-import DetailSuratPembekalanKKN from "./pages/mahasiswa/DetailPersuratanKKN/detailSuratKeteranganPembekalanKKN";
-import DetailSuratKeteranganBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratKeteranganBeasiswa";
-import DetailSuratPermohonanBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratPermohonanBeasiswa";
-import DetailSuratPernyataanBeasiswa from "./pages/mahasiswa/DetailPersuratanBeasiswa/detailSuratPernyataanBeasiswa";
-import TrackingSurat from "./pages/mahasiswa/trackingSurat";
+import UploadDokumen from "./pages/supplier/Dokumen/UploadDokumen";
+import SertifikasiPerusahaan from "./pages/supplier/Sertifikasi/SertifikasiPerusahaan";
+import PengalamanPerusahaan from "./pages/supplier/Pengalaman/PengalamanPerusahaan";
+import Penawaran from "./pages/supplier/Penawaran/Penawaran";
+import TambahDokumen from "./pages/supplier/Dokumen/TambahDokumen";
+import TambahSertifikasi from "./pages/supplier/Sertifikasi/TambahSertifikasi";
+import TambahPengalaman from "./pages/supplier/Pengalaman/TambahPengalaman";
+import TambahProduct from "./pages/supplier/Product/TambahProduct";
+import TambahPenawaran from "./pages/supplier/Penawaran/TambahPenawaran";
+import VerifikasiDRM from "./pages/staff/DRM/VerifikasiDRM";
+import SertifikasiVendor from "./pages/staff/Kompetensi/SertifikasiVendor";
+import PengalamanVendor from "./pages/staff/Kompetensi/PengalamanVendor";
+import ProductVendor from "./pages/staff/Kompetensi/ProductVendor";
+import PenawaranVendor from "./pages/staff/Penawaran/PenawaranVendor";
+import UserInternal from "./pages/admin/UserInternal";
+import AllUserDRM from "./pages/admin/AllUserDRM";
+import Register from "./pages/register";
+import DashboardManager from "./pages/manager/Dashboard";
+import ProductPerusahaan from "./pages/supplier/Product/ProductPerusahaan";
+import DetailDokumen from "./pages/supplier/Dokumen/DetailDokumen";
+import DetailPenawaran from "./pages/supplier/Penawaran/DetailPenawaran";
+import DetailPengalaman from "./pages/supplier/Pengalaman/DetailPengalaman";
+import DetailProduct from "./pages/supplier/Product/DetailProduct";
+import DetailSertifikasi from "./pages/supplier/Sertifikasi/DetailSertifikasi";
+import TambahUserInternal from "./pages/admin/TambahUserInternal";
+import EditDokumen from "./pages/supplier/Dokumen/EditDokumen";
+import EditPengalaman from "./pages/supplier/Pengalaman/EditPengalaman";
+import EditProduct from "./pages/supplier/Product/EditProduct";
+import EditSertifikasi from "./pages/supplier/Sertifikasi/EditSertifikasi";
+import EditPenawaran from "./pages/supplier/Penawaran/EditPenawaran";
+import ProfileSupplier from "./pages/supplier/ProfileSupplier";
+import ListDRM from "./pages/staff/DRM/ListDRM";
+import AjukanPenawaran from "./pages/staff/Penawaran/AjukanPenawaran";
+import PenawaranVendoManager from "./pages/manager/Penawaran/PenawaranVendorManager";
+import TambahDraftKontrak from "./pages/manager/PO/TambahPO";
+import ListVendor from "./pages/manager/Vendor/ListVendor";
+import VerifikasiVendor from "./pages/manager/Vendor/DetailVendor";
+import DetailPenawaranVendor from "./pages/manager/Penawaran/DetailPenawaranVendor";
+import PilihPenawaranVendor from "./pages/manager/Penawaran/PilihPenawaranVendor";
+import DraftPO from "./pages/manager/PO/DraftPO";
+import TambahPO from "./pages/manager/PO/TambahPO";
+import DetailVendor from "./pages/manager/Vendor/DetailVendor";
+import EditPO from "./pages/manager/PO/EditPO";
+import DetailPO from "./pages/manager/PO/DetailPO";
 
 function App() {
   return (
@@ -63,149 +56,120 @@ function App() {
         <Routes>
           {/* Login Page */}
           <Route default path="/login" element={<Login />} />
+          {/* Register Page */}
+          <Route default path="/register" element={<Register />} />
 
           {/* Admin */}
           <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-          <Route path="/admin/users" element={<AllUser />} />
-          <Route path="/admin/detail-user" element={<DetailUser />} />
-          <Route path="/admin/tambah-user" element={<AddUser />} />
-          <Route path="/admin/semua-surat" element={<AllSurat />} />
-          <Route path="/admin/tambah-surat" element={<AddSurat />} />
-          <Route path="/admin/edit-surat" element={<EditSurat />} />
-          <Route path="/admin/template-surat" element={<TemplateSurat />} />
+          <Route path="/admin/user-internal" element={<UserInternal />} />
+          <Route
+            path="/admin/tambah-user-internal"
+            element={<TambahUserInternal />}
+          />
+          <Route path="/admin/all-user-drm" element={<AllUserDRM />} />
 
-          {/* Mahasiswa */}
-          <Route path="/mahasiswa/home" element={<Home />} />
+          {/* Manager */}
+          <Route path="/manager/dashboard" element={<DashboardManager />} />
           <Route
-            path="/mahasiswa/surat-akademik"
-            element={<PersuratanAkademik />}
+            path="/manager/list-penawaran"
+            element={<PenawaranVendoManager />}
           />
           <Route
-            path="/mahasiswa/detail-form-cuti"
-            element={<DetailFormCutiAkademik />}
+            path="/manager/detail-penawaran-manager"
+            element={<DetailPenawaranVendor />}
           />
           <Route
-            path="/mahasiswa/detail-form-krs"
-            element={<DetailFormKeterlambatanKRS />}
+            path="/manager/pilih-penawaran-manager"
+            element={<PilihPenawaranVendor />}
           />
+          <Route path="/manager/buat-po" element={<DraftPO />} />
+          <Route path="/manager/edit-po" element={<EditPO />} />
+          <Route path="/manager/detail-po" element={<DetailPO />} />
           <Route
-            path="/mahasiswa/detail-form-data-wisuda"
-            element={<DetailFormPerubahanDataWisuda />}
+            path="/manager/tambah-po"
+            element={<TambahPO />}
           />
+          <Route path="/manager/list-vendor" element={<ListVendor />} />
           <Route
-            path="/mahasiswa/detail-form-undur-diri"
-            element={<DetailFormUndurDiri />}
-          />
-          <Route
-            path="/mahasiswa/detail-form-surat-pengantar"
-            element={<DetailFormSuratPengantar />}
-          />
-          <Route
-            path="/mahasiswa/detail-form-penundaan-ukt"
-            element={<DetailFormPenundaanUKT />}
-          />
-          <Route
-            path="/mahasiswa/detail-form-aktif-kuliah"
-            element={<DetailFormAktifKuliah />}
-          />
-          <Route
-            path="/mahasiswa/detail-form-data-siap"
-            element={<DetailFormPerubahanDataSIAP />}
+            path="/manager/detail-vendor"
+            element={<DetailVendor />}
           />
 
-          <Route path="/mahasiswa/surat-kkn" element={<PersuratanKKN />} />
+          {/* Supplier */}
+          <Route path="/supplier/dashboard" element={<DashboardSupplier />} />
+          <Route path="/supplier/upload_dokumen" element={<UploadDokumen />} />
+          <Route path="/supplier/tambah-dokumen" element={<TambahDokumen />} />
+          <Route path="/supplier/detail-dokumen" element={<DetailDokumen />} />
+          <Route path="/supplier/edit-dokumen" element={<EditDokumen />} />
           <Route
-            path="/mahasiswa/detail-rekomendasi-kkn"
-            element={<DetailSuratRekomendasiKKN />}
+            path="/supplier/sertifikasi_perusahaan"
+            element={<SertifikasiPerusahaan />}
           />
           <Route
-            path="/mahasiswa/detail-keterangan-kkn"
-            element={<DetailSuratKeteranganKKN />}
+            path="/supplier/tambah-sertifikasi"
+            element={<TambahSertifikasi />}
           />
           <Route
-            path="/mahasiswa/detail-nilai-kkn"
-            element={<DetailSuratNilaiKKN />}
+            path="/supplier/detail-sertifikasi"
+            element={<DetailSertifikasi />}
           />
-          {/* <Route
-            path="/mahasiswa/detail-pembekalan-kkn"
-            element={<DetailSuratPembekalanKKN />}
-          /> */}
+          <Route
+            path="/supplier/edit-sertifikasi"
+            element={<EditSertifikasi />}
+          />
+          <Route
+            path="/supplier/pengalaman_perushaan"
+            element={<PengalamanPerusahaan />}
+          />
+          <Route
+            path="/supplier/tambah-pengalaman"
+            element={<TambahPengalaman />}
+          />
+          <Route
+            path="/supplier/detail-pengalaman"
+            element={<DetailPengalaman />}
+          />
+          <Route
+            path="/supplier/edit-pengalaman"
+            element={<EditPengalaman />}
+          />
+          <Route
+            path="/supplier/product_perusahaan"
+            element={<ProductPerusahaan />}
+          />
+          <Route path="/supplier/tambah-product" element={<TambahProduct />} />
+          <Route path="/supplier/detail-product" element={<DetailProduct />} />
+          <Route path="/supplier/detail-product" element={<EditProduct />} />
+          <Route path="/supplier/penawaran" element={<Penawaran />} />
+          <Route
+            path="/supplier/tambah-penawaran"
+            element={<TambahPenawaran />}
+          />
+          <Route
+            path="/supplier/detail-penawaran"
+            element={<DetailPenawaran />}
+          />
+          <Route path="/supplier/edit-penawaran" element={<EditPenawaran />} />
+          <Route path="/supplier/edit-profile" element={<ProfileSupplier />} />
 
+          {/* Staff */}
+          <Route path="/staff/dashboard" element={<DashboardStaff />} />
+          <Route path="/staff/list-drm" element={<ListDRM />} />
+          <Route path="/staff/verifikasi-drm" element={<VerifikasiDRM />} />
           <Route
-            path="/mahasiswa/surat-fasilitas"
-            element={<PersuratanFasilitas />}
+            path="/staff/sertifikasi-vendor"
+            element={<SertifikasiVendor />}
           />
           <Route
-            path="/mahasiswa/surat-data-aplikasi"
-            element={<PersuratanDataAplikasi />}
+            path="/staff/pengalaman-vendor"
+            element={<PengalamanVendor />}
           />
+          <Route path="/staff/product-vendor" element={<ProductVendor />} />
+          <Route path="/staff/penawaran-vendor" element={<PenawaranVendor />} />
           <Route
-            path="/mahasiswa/surat-beasiswa"
-            element={<PersuratanBeasiswa />}
+            path="/staff/ajukan-penawaran-vendor"
+            element={<AjukanPenawaran />}
           />
-          <Route
-            path="/mahasiswa/detail-surat-keterangan-beasiswa"
-            element={<DetailSuratKeteranganBeasiswa />}
-          />
-          <Route
-            path="/mahasiswa/detail-surat-permohonan-beasiswa"
-            element={<DetailSuratPermohonanBeasiswa />}
-          />
-          <Route
-            path="/mahasiswa/detail-surat-pernyataan-beasiswa"
-            element={<DetailSuratPernyataanBeasiswa />}
-          />
-
-          <Route path="/mahasiswa/tracking-surat" element={<TrackingSurat />} />
-
-          {/* Kasubbag  */}
-          <Route path="/kasubbag/dashboard" element={<DashboardKasubbag />} />
-          <Route path="/kasubbag/semua-surat" element={<AllSuratKasubbag />} />
-          <Route path="/kasubbag/edit-surat" element={<EditSuratKasubbag />} />
-
-          {/* Dekan */}
-          <Route path="/dekan/dashboard" element={<DashboardDekan />} />
-          <Route path="/dekan/semua-surat" element={<AllSuratDekan />} />
-          <Route path="/dekan/edit-surat" element={<EditSuratDekan />} />
-
-          {/* Wakil Dekan */}
-          <Route path="/wadek/dashboard" element={<DashboardWadek />} />
-          <Route path="/wadek/semua-surat" element={<AllSuratWadek />} />
-          <Route path="/wadek/edit-surat" element={<EditSuratWadek />} />
-
-          {/* Kadep */}
-          <Route path="/kadep/dashboard" element={<DashboardKadep />} />
-          <Route path="/kadep/semua-surat" element={<AllSuratKadep />} />
-          <Route path="/kadep/edit-surat" element={<EditSuratKadep />} />
-
-          {/* Kaprodi */}
-          <Route path="/kaprodi/dashboard" element={<DashboardKaprodi />} />
-          <Route path="/kaprodi/semua-surat" element={<AllSuratKaprodi />} />
-          <Route path="/kaprodi/edit-surat" element={<EditSuratKaprodi />} />
-
-          {/* Koordinator PKL/Skripsi/Penelitian */}
-          <Route path="/koor/dashboard" element={<DashboardKoor />} />
-          <Route path="/koor/semua-surat" element={<AllSuratKoor />} />
-          <Route path="/koor/edit-surat" element={<EditSuratKoor />} />
-
-          {/* Petugas Peralatan */}
-          <Route
-            path="/petugas/dashboard"
-            element={<DashboardPetugasPeralatan />}
-          />
-          <Route
-            path="/petugas/semua-surat"
-            element={<AllSuratPetugasPeralatan />}
-          />
-          <Route
-            path="/petugas/edit-surat"
-            element={<EditSuratPetugasPeralatan />}
-          />
-
-          {/* Doswal */}
-          <Route path="/doswal/dashboard" element={<DashboardDoswal />} />
-          <Route path="/doswal/semua-surat" element={<AllSuratDoswal />} />
-          <Route path="/doswal/edit-surat" element={<EditSuratDoswal />} />
         </Routes>
       </div>
     </Router>

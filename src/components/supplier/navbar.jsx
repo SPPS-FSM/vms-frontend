@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function NavbarAdmin({ setOpenSidebar, openSidebar }) {
+export default function NavbarSupplier({ setOpenSidebar, openSidebar }) {
   const [notif, setNotif] = useState({});
 
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
@@ -39,7 +39,7 @@ export default function NavbarAdmin({ setOpenSidebar, openSidebar }) {
       </div>
 
       <div className="flex justify-end items-center shadow-sm gap-4 text-white relative pr-4">
-        <div className="font-medium">Selamat Datang, Admin</div>
+        <div className="font-medium">Selamat Datang, Supplier</div>
         {/* Profile */}
         <div className="relative">
           <img
@@ -61,7 +61,7 @@ export default function NavbarAdmin({ setOpenSidebar, openSidebar }) {
                 transform: "translateX(-100%)",
               }}
             >
-              <a href="#">
+              <a href="/supplier/edit-profile">
                 <button
                   role="menuitem"
                   class="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"

@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   return (
     <div className=" h-screen bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex items-center justify-center">
       <Card
@@ -17,10 +17,10 @@ export default function Login() {
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Login
+          Register
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
-          Selamat datang di Vendor Management System PT WPI
+          Jadilah bagian dari PT Warung Pangan Indonesia
         </Typography>
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-1 flex flex-col gap-6">
@@ -49,13 +49,14 @@ export default function Login() {
             />
           </div>
           <Button className="bg-wpigreen-100 mt-6" fullWidth>
-            Login
+            Daftar
           </Button>
-          <a href="/register">
-            <Button className="bg-wpiblue-100 mt-2" fullWidth>
-              Daftar
-            </Button>
-          </a>
+          <div className="flex mt-2 text-gray-500">
+            <p>Sudah memiliki akun?</p>
+            <a href="/login" className="hover:text-light-blue-500">
+              Login here
+            </a>
+          </div>
         </form>
       </Card>
     </div>

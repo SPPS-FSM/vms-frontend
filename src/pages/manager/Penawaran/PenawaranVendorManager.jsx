@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@material-tailwind/react";
-import SidebarAdmin from "../../components/admin/sidebar";
-import NavbarAdmin from "../../components/admin/navbar";
-import FooterAdmin from "../../components/admin/footer";
+import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
+import { TablePenawaranVendor } from "../../../components/manager/Kompetensi/tablePenawaranVendor";
+import SidebarManager from "../../../components/manager/sidebar";
+import NavbarManager from "../../../components/manager/navbar";
+import { BiSearch } from "react-icons/bi";
 
-export default function DashboardAdmin() {
+export default function PenawaranVendoManager() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -32,7 +33,7 @@ export default function DashboardAdmin() {
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarAdmin />
+        <SidebarManager />
       </div>
 
       {openSidebar && (
@@ -43,21 +44,31 @@ export default function DashboardAdmin() {
       )}
 
       {/* Navbar */}
-      <NavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+      <NavbarManager
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
 
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
-        <div className="mb-2">Dashboard</div>
-        {/* <Typography variant="h4">Selamat Datang di SPPS-FSM</Typography> */}
-        <div className="grid grid-cols-12 text-center gap-2 md:gap-4">
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            1
+        <div className="bg-white px-2 py-2 rounded-md shadow-md">
+          <div className="flex justify-between items-center mb-2">
+            <div className="font-semibold">List Penawaran Vendor </div>
+            <div className="flex gap-1">
+              <input
+                type="text"
+                className="border border-gray-500 rounded-md w-full md:w-auto"
+              />
+              <button className="bg-green-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
+                <BiSearch height={25} />
+              </button>
+            </div>
           </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            2
+          <div className="mb-4 text-gray-500">
+            <p>List Penawaran Vendor yang telah dipilih oleh Staff</p>
           </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            3
+          <div>
+            <TablePenawaranVendor />
           </div>
         </div>
       </div>

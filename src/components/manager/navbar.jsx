@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function NavbarAdmin({ setOpenSidebar, openSidebar }) {
+export default function NavbarManager({ setOpenSidebar, openSidebar }) {
   const [notif, setNotif] = useState({});
 
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
@@ -39,7 +39,7 @@ export default function NavbarAdmin({ setOpenSidebar, openSidebar }) {
       </div>
 
       <div className="flex justify-end items-center shadow-sm gap-4 text-white relative pr-4">
-        <div className="font-medium">Selamat Datang, Admin</div>
+        <div className="font-medium">Selamat Datang, Manager</div>
         {/* Profile */}
         <div className="relative">
           <img

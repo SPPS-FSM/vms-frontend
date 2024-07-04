@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@material-tailwind/react";
-import SidebarAdmin from "../../components/admin/sidebar";
-import NavbarAdmin from "../../components/admin/navbar";
-import FooterAdmin from "../../components/admin/footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import SidebarStaff from "../../../components/staff/sidebar";
+import NavbarStaff from "../../../components/staff/navbar";
+import FooterAdmin from "../../../components/admin/footer";
 
-export default function DashboardAdmin() {
+export default function AjukanPenawaran() {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -32,7 +33,7 @@ export default function DashboardAdmin() {
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarAdmin />
+        <SidebarStaff />
       </div>
 
       {openSidebar && (
@@ -43,21 +44,15 @@ export default function DashboardAdmin() {
       )}
 
       {/* Navbar */}
-      <NavbarAdmin openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+      <NavbarStaff openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
-        <div className="mb-2">Dashboard</div>
-        {/* <Typography variant="h4">Selamat Datang di SPPS-FSM</Typography> */}
-        <div className="grid grid-cols-12 text-center gap-2 md:gap-4">
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            1
-          </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            2
-          </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            3
+        <div className="bg-white px-2 py-2 rounded-md shadow-md">
+          <div className="md:flex justify-between items-center">
+            <div className="font-semibold mb-4 md:mb-0">
+              Ajukan Penawaran Vendor
+            </div>
           </div>
         </div>
       </div>

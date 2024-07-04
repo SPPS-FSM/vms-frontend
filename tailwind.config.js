@@ -4,11 +4,14 @@ module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      fsmblue: {
-        50: "#019EDB",
+      wpiblue: {
+        50: "#0E57A6",
+        100: "#007AFF",
       },
-      fsmblue: {
-        500: "#00034F",
+      wpigreen: {
+        50: "#6DBE45",
+        100: "#91C539",
+        200: "#009418",
       },
     },
     extend: {},

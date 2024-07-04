@@ -9,100 +9,101 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { SlChart, SlEnvolope, SlHome, SlPeople } from "react-icons/sl";
+import { SlChart, SlPeople, SlStar } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
-import { BiData } from "react-icons/bi";
-import { BsClockHistory } from "react-icons/bs";
 
-export default function SidebarAdmin() {
+export default function SidebarStaff() {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(0);
-  const [openAlert, setOpenAlert] = React.useState(true);
+  const [openAccordion, setOpenAccordion] = React.useState(null);
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
+  const handleAccordionToggle = (index) => {
+    setOpenAccordion(openAccordion === index ? null : index);
   };
+
+  const isAccordionOpen = (index) => {
+    return openAccordion === index;
+  };
+
   return (
-    <div className=" w-full h-screen max-w-[20rem] p-4 shadow-md shadow-blue-gray-900/5">
+    <div className="w-full h-screen max-w-[20rem] p-4 shadow-md shadow-blue-gray-900/5">
       <div className="mb-2 flex items-center gap-4 p-4 justify-center">
         <img src="../logo-wpi.png" alt="logo" className="h-[50px]" />
       </div>
       <List className="text-fsmblue-500 font-normal">
-        {/* <a href="/Dashboard"> */}
-        <Accordion>
-          <ListItem onClick={() => navigate("/admin/dashboard")}>
+        <Accordion open={isAccordionOpen(1)}>
+          <ListItem onClick={() => navigate("/staff/dashboard")}>
             <ListItemPrefix>
-              <SlHome className="h-5 w-5" />
+              <SlChart className="h-5 w-5" />
             </ListItemPrefix>
             Dashboard
           </ListItem>
         </Accordion>
         <Accordion
-          open={open === 1}
+          open={isAccordionOpen(2)}
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? "rotate-180" : ""
+                isAccordionOpen(2) ? "rotate-180" : ""
               }`}
             />
           }
         >
-          <ListItem className="p-0" selected={open === 1}>
+          <ListItem className="p-0">
             <AccordionHeader
-              onClick={() => handleOpen(1)}
+              onClick={() => handleAccordionToggle(2)}
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
                 <SlPeople className="h-5 w-5" />
               </ListItemPrefix>
               <Typography className="mr-auto font-normal text-fsmblue-500">
-                User
+                DRM
               </Typography>
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1">
-            <List className="p-0">
+            {/* <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/user-internal")}
+                onClick={() => navigate("/staff/user-drm")}
               >
                 <ListItemPrefix></ListItemPrefix>
-                User Internal
+                User DRM
               </ListItem>
-            </List>
+            </List> */}
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/all-user-drm")}
+                onClick={() => navigate("/staff/list-drm")}
               >
                 <ListItemPrefix></ListItemPrefix>
-                All User DRM
+                Verifikasi DRM
               </ListItem>
             </List>
           </AccordionBody>
         </Accordion>
         <Accordion
-          open={open === 2}
+          open={isAccordionOpen(3)}
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                isAccordionOpen(3) ? "rotate-180" : ""
               }`}
             />
           }
         >
-          <ListItem className="p-0" selected={open === 2}>
+          <ListItem className="p-0">
             <AccordionHeader
-              onClick={() => handleOpen(2)}
+              onClick={() => handleAccordionToggle(3)}
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
-                <BsClockHistory className="h-5 w-5" />
+                <SlStar className="h-5 w-5" />
               </ListItemPrefix>
               <Typography className="mr-auto font-normal text-fsmblue-500">
-                History
+                Kompetensi
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -110,44 +111,53 @@ export default function SidebarAdmin() {
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/history-drm")}
+                onClick={() => navigate("/staff/sertifikasi-vendor")}
               >
                 <ListItemPrefix></ListItemPrefix>
-                Vendor
+                Sertifikasi Vendor
               </ListItem>
             </List>
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/history-penawaran")}
+                onClick={() => navigate("/staff/pengalaman-vendor")}
               >
                 <ListItemPrefix></ListItemPrefix>
+                Pengalaman Vendor
+              </ListItem>
+            </List>
+            <List className="p-0">
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/staff/product-vendor")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                Product Vendor
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
+        <Accordion
+          open={isAccordionOpen(4)}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                isAccordionOpen(4) ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0">
+            <AccordionHeader
+              onClick={() => handleAccordionToggle(4)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <SlPeople className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography className="mr-auto font-normal text-fsmblue-500">
                 Penawaran
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        <Accordion
-          open={open === 3}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 3 ? "rotate-180" : ""
-              }`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(3)}
-              className="border-b-0 p-3"
-            >
-              <ListItemPrefix>
-                <BiData className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography className="mr-auto font-normal text-fsmblue-500">
-                Master Data
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -155,30 +165,21 @@ export default function SidebarAdmin() {
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/jenis-sertifikasi")}
+                onClick={() => navigate("/staff/penawaran-vendor")}
               >
                 <ListItemPrefix></ListItemPrefix>
-                Jenis Sertifikasi
+                Penawaran Vendor
               </ListItem>
             </List>
-            <List className="p-0">
+            {/* <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/jabatan")}
+                onClick={() => navigate("/staff/ajukan-penawaran-vendor")}
               >
                 <ListItemPrefix></ListItemPrefix>
-                Jabatan
+                Ajukan Penawaran
               </ListItem>
-            </List>
-            <List className="p-0">
-              <ListItem
-                className="text-fsmblue-500"
-                onClick={() => navigate("/admin/satuan")}
-              >
-                <ListItemPrefix></ListItemPrefix>
-                Satuan
-              </ListItem>
-            </List>
+            </List> */}
           </AccordionBody>
         </Accordion>
       </List>

@@ -7,18 +7,18 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
-import SidebarAdmin from "../../components/admin/sidebar";
-import NavbarAdmin from "../../components/admin/navbar";
-import FooterAdmin from "../../components/admin/footer";
+import SidebarAdmin from "../../../components/admin/sidebar";
+import NavbarAdmin from "../../../components/admin/navbar";
+import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../components/supplier/sidebar";
-import NavbarSupplier from "../../components/supplier/navbar";
-import { TableUploadDocument } from "../../components/supplier/tableUploadDocument";
+import SidebarDekan from "../../../components/supplier/sidebar";
+import NavbarSupplier from "../../../components/supplier/navbar";
+import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import SidebarSupplier from "../../components/supplier/sidebar";
-import { TableAllUserDRM } from "../../components/admin/tableAllUserDRM";
-import { TableUserInternal } from "../../components/admin/tableUserInternal";
+import SidebarSupplier from "../../../components/supplier/sidebar";
+import { TableAllUserDRM } from "../../../components/admin/User/tableAllUserDRM";
+import { TableUserInternal } from "../../../components/admin/User/tableUserInternal";
 
 export default function TambahUserInternal() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
@@ -77,23 +77,37 @@ export default function TambahUserInternal() {
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Nama
+              NIP
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Nama PIC
+            </label>
+            <input type="text" className="border w-full h-8 my-4 pl-2" />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Email
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input type="text" className="border w-full h-8 my-4 pl-2" />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Password
+              Nama Perusahaan
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              No Telephone
+            </label>
+            <input type="text" className="border w-full h-8 my-4 pl-2" />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -101,12 +115,13 @@ export default function TambahUserInternal() {
               Pilih Role
             </label>
             <select name="" id="" className="w-full border h-8 my-4">
-              <option value="">--Pilih Role--</option>
+              <option value=""></option>
               <option value="">Staff</option>
               <option value="">Manager</option>
             </select>
 
-            <div className="flex justify-end items-end">
+            <div className="flex justify-end items-end gap-2">
+              <Button color="red">Cancel</Button>
               <Button color="green">submit</Button>
             </div>
           </form>

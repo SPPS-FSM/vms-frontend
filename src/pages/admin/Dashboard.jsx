@@ -4,6 +4,8 @@ import SidebarAdmin from "../../components/admin/sidebar";
 import NavbarAdmin from "../../components/admin/navbar";
 import FooterAdmin from "../../components/admin/footer";
 import axios from "axios";
+import { BsCheckCircleFill, BsPeopleFill, BsStarFill } from "react-icons/bs";
+import { FiFile } from "react-icons/fi";
 
 export default function DashboardAdmin() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
@@ -49,15 +51,38 @@ export default function DashboardAdmin() {
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">Dashboard</div>
         {/* <Typography variant="h4">Selamat Datang di SPPS-FSM</Typography> */}
-        <div className="grid grid-cols-12 text-center gap-2 md:gap-4">
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            1
+        <div className="grid grid-cols-12 gap-2 md:gap-4">
+          <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
+            <div className="text-4xl">
+              <BsPeopleFill color="green" />
+            </div>
+            <div className="flex-col">
+              <p className="font-bold text-xl">Total Vendor</p>
+              <p className="text-gray-500">Total vendor yang terdaftar</p>
+              <p className="font-semibold text-2xl">100</p>
+            </div>
           </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            2
+          <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
+            <div className="text-4xl">
+              <BsCheckCircleFill color="green" />
+            </div>
+            <div className="flex-col">
+              <p className="font-bold text-xl">Total Vendor Terverifikasi</p>
+              <p className="text-gray-500">
+                Total vendor yang terpilih oleh Staff
+              </p>
+              <p className="font-semibold text-2xl">100</p>
+            </div>
           </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            3
+          <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
+            <div className="text-4xl">
+              <BsPeopleFill color="green" />
+            </div>
+            <div className="flex-col">
+              <p className="font-bold text-xl">Total User Internal</p>
+              <p className="text-gray-500">Total user internal</p>
+              <p className="font-semibold text-2xl">100</p>
+            </div>
           </div>
         </div>
       </div>

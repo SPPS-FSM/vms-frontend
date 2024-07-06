@@ -1,43 +1,24 @@
-import { CheckBadgeIcon } from "@heroicons/react/16/solid";
-import { CheckIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["No", "Nama Perusahaan ", "Jenis Perusahaan", "Aksi"];
+const TABLE_HEAD = ["No", "Nama", "Email", "Role", "Aksi"];
 
 const TABLE_ROWS = [
   {
     id: "1",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
+    name: "Farhan Dwicahyo",
+    email: "farhandiwcahyoo@gmail.com",
+    role: "Staff",
   },
   {
     id: "2",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "3",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "4",
-    name: "Surat Permohonan DRM",
-    status_upload: "Belum",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "5",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
+    name: "Tri Wahyundo",
+    email: "3wahyundo@gmail.com",
+    role: "Manager",
   },
 ];
 
-export function TableAllUserDRM() {
+export function TableUserInternal() {
   return (
     <div className="overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
@@ -60,7 +41,7 @@ export function TableAllUserDRM() {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ id, name, status_upload, status_doc }, index) => (
+          {TABLE_ROWS.map(({ id, name, email, role }, index) => (
             <tr key={name} className="even:bg-blue-gray-50/50">
               <td className="p-4">
                 <Typography
@@ -86,12 +67,27 @@ export function TableAllUserDRM() {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {status_upload}
+                  {email}
                 </Typography>
               </td>
-              <td className="p-4 flex gap-2">
-                <CheckIcon height={20} color="green"/>
-                <TrashIcon height={20} color="red"/>
+              <td className="p-4">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  {role}
+                </Typography>
+              </td>
+              <td className="">
+                <a href="/admin/edit-user-internal">
+                  <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
+                    <PencilSquareIcon height={20} color="white" />
+                  </button>
+                </a>
+                <button className="bg-red-500 p-2 rounded-md shadow-md">
+                  <TrashIcon height={20} color="white" />
+                </button>
               </td>
             </tr>
           ))}

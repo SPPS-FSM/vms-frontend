@@ -18,8 +18,8 @@ import SertifikasiVendor from "./pages/staff/Kompetensi/SertifikasiVendor";
 import PengalamanVendor from "./pages/staff/Kompetensi/PengalamanVendor";
 import ProductVendor from "./pages/staff/Kompetensi/ProductVendor";
 import PenawaranVendor from "./pages/staff/Penawaran/PenawaranVendor";
-import UserInternal from "./pages/admin/UserInternal";
-import AllUserDRM from "./pages/admin/AllUserDRM";
+import UserInternal from "./pages/admin/User/UserInternal";
+import AllUserDRM from "./pages/admin/User/AllUserDRM";
 import Register from "./pages/register";
 import DashboardManager from "./pages/manager/Dashboard";
 import ProductPerusahaan from "./pages/supplier/Product/ProductPerusahaan";
@@ -28,7 +28,7 @@ import DetailPenawaran from "./pages/supplier/Penawaran/DetailPenawaran";
 import DetailPengalaman from "./pages/supplier/Pengalaman/DetailPengalaman";
 import DetailProduct from "./pages/supplier/Product/DetailProduct";
 import DetailSertifikasi from "./pages/supplier/Sertifikasi/DetailSertifikasi";
-import TambahUserInternal from "./pages/admin/TambahUserInternal";
+import TambahUserInternal from "./pages/admin/User/TambahUserInternal";
 import EditDokumen from "./pages/supplier/Dokumen/EditDokumen";
 import EditPengalaman from "./pages/supplier/Pengalaman/EditPengalaman";
 import EditProduct from "./pages/supplier/Product/EditProduct";
@@ -38,9 +38,7 @@ import ProfileSupplier from "./pages/supplier/ProfileSupplier";
 import ListDRM from "./pages/staff/DRM/ListDRM";
 import AjukanPenawaran from "./pages/staff/Penawaran/AjukanPenawaran";
 import PenawaranVendoManager from "./pages/manager/Penawaran/PenawaranVendorManager";
-import TambahDraftKontrak from "./pages/manager/PO/TambahPO";
 import ListVendor from "./pages/manager/Vendor/ListVendor";
-import VerifikasiVendor from "./pages/manager/Vendor/DetailVendor";
 import DetailPenawaranVendor from "./pages/manager/Penawaran/DetailPenawaranVendor";
 import PilihPenawaranVendor from "./pages/manager/Penawaran/PilihPenawaranVendor";
 import DraftPO from "./pages/manager/PO/DraftPO";
@@ -48,6 +46,12 @@ import TambahPO from "./pages/manager/PO/TambahPO";
 import DetailVendor from "./pages/manager/Vendor/DetailVendor";
 import EditPO from "./pages/manager/PO/EditPO";
 import DetailPO from "./pages/manager/PO/DetailPO";
+import EditUserInternal from "./pages/admin/User/editUserInternal";
+import DetailUserDRM from "./pages/admin/User/detailUserDRM";
+import MasterJenisDocument from "./pages/admin/Master/masterJenisDocument";
+import MasterKota from "./pages/admin/Master/masterKota";
+import MasterProvinsi from "./pages/admin/Master/masterProvinsi";
+import MasterSatuan from "./pages/admin/Master/masterSatuan";
 
 function App() {
   return (
@@ -66,7 +70,15 @@ function App() {
             path="/admin/tambah-user-internal"
             element={<TambahUserInternal />}
           />
+          <Route
+            path="/admin/edit-user-internal"
+            element={<EditUserInternal />}
+          />
           <Route path="/admin/all-user-drm" element={<AllUserDRM />} />
+          <Route path="/admin/master-jenis-document" element={<MasterJenisDocument />} />
+          <Route path="/admin/master-kota" element={<MasterKota />} />
+          <Route path="/admin/master-provinsi" element={<MasterProvinsi />} />
+          <Route path="/admin/master-satuan" element={<MasterSatuan />} />
 
           {/* Manager */}
           <Route path="/manager/dashboard" element={<DashboardManager />} />
@@ -85,15 +97,9 @@ function App() {
           <Route path="/manager/buat-po" element={<DraftPO />} />
           <Route path="/manager/edit-po" element={<EditPO />} />
           <Route path="/manager/detail-po" element={<DetailPO />} />
-          <Route
-            path="/manager/tambah-po"
-            element={<TambahPO />}
-          />
+          <Route path="/manager/tambah-po" element={<TambahPO />} />
           <Route path="/manager/list-vendor" element={<ListVendor />} />
-          <Route
-            path="/manager/detail-vendor"
-            element={<DetailVendor />}
-          />
+          <Route path="/manager/detail-vendor" element={<DetailVendor />} />
 
           {/* Supplier */}
           <Route path="/supplier/dashboard" element={<DashboardSupplier />} />

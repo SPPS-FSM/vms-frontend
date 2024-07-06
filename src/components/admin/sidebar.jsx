@@ -82,7 +82,7 @@ export default function SidebarAdmin() {
             </List>
           </AccordionBody>
         </Accordion>
-        <Accordion
+        {/* <Accordion
           open={open === 2}
           icon={
             <ChevronDownIcon
@@ -126,7 +126,7 @@ export default function SidebarAdmin() {
               </ListItem>
             </List>
           </AccordionBody>
-        </Accordion>
+        </Accordion> */}
         <Accordion
           open={open === 3}
           icon={
@@ -155,28 +155,37 @@ export default function SidebarAdmin() {
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/jenis-sertifikasi")}
+                onClick={() => navigate("/admin/master-jenis-document")}
               >
                 <ListItemPrefix></ListItemPrefix>
-                Jenis Sertifikasi
+                Jenis Document
               </ListItem>
             </List>
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/admin/jabatan")}
-              >
-                <ListItemPrefix></ListItemPrefix>
-                Jabatan
-              </ListItem>
-            </List>
-            <List className="p-0">
-              <ListItem
-                className="text-fsmblue-500"
-                onClick={() => navigate("/admin/satuan")}
+                onClick={() => navigate("/admin/master-satuan")}
               >
                 <ListItemPrefix></ListItemPrefix>
                 Satuan
+              </ListItem>
+            </List>
+            <List className="p-0">
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/admin/master-provinsi")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                Provinsi
+              </ListItem>
+            </List>
+            <List className="p-0">
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/admin/master-kota")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                Kota
               </ListItem>
             </List>
           </AccordionBody>

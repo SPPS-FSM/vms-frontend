@@ -61,12 +61,11 @@ export default function DetailSertifikasi() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
-            <div className="font-semibold">Detail Sertifikasi</div>
-            <a href="/supplier/penawaran">
+            <div className="font-semibold">Detail Document</div>
+            <a href="/supplier/sertifikasi_perusahaan">
               <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
                 <ArrowLeftIcon height={25} />
               </button>
@@ -78,14 +77,36 @@ export default function DetailSertifikasi() {
               <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
               <p className="w-full md:w-1/3">PT BPYD JAYA</p>
             </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Jenis Barang/Jasa</p>
-              <p className="w-full md:w-1/3">Agriculture</p>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Nama Sertifikasi</p>
+              <p className="w-full md:w-1/3">Company Profile PT BPYD JAYA</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Nama Barang/Jasa</p>
-              <p className="w-full md:w-1/3">Mangoosteen</p>
+              <p className="font-bold w-full md:w-1/3">Jenis Sertifikasi</p>
+              <p className="w-full md:w-1/3">Company Profile</p>
             </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Tanggal Berlaku</p>
+              <p className="w-full md:w-1/3">2024-06-12</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Tanggal Berakhir</p>
+              <p className="w-full md:w-1/3">2026-06-12</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Status Upload</p>
+              <p className="w-full md:w-1/3">Sudah</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Nama File Upload</p>
+              <p className="w-full md:w-1/3">file.pdf</p>
+            </div>
+          </div>
+          <div className="flex justify-start gap-2 px-4">
+            <a href="/supplier/edit-sertifikasi">
+              <Button className="bg-green-500">Edit</Button>
+            </a>
+            {/* <Button className="bg-red-500">Cancel</Button> */}
           </div>
         </div>
       </div>

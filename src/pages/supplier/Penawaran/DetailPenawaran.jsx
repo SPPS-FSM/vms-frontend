@@ -22,6 +22,7 @@ export default function DetailPenawaran() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
+  const [showDetailProduct, setShowDetailProduct] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,7 +62,6 @@ export default function DetailPenawaran() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
@@ -78,14 +78,126 @@ export default function DetailPenawaran() {
               <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
               <p className="w-full md:w-1/3">PT BPYD JAYA</p>
             </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Jenis Barang/Jasa</p>
-              <p className="w-full md:w-1/3">Agriculture</p>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Nomor Penawaran</p>
+              <p className="w-full md:w-1/3">123456</p>
             </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Nama Barang/Jasa</p>
-              <p className="w-full md:w-1/3">Mangoosteen</p>
+            <div className="md:flex flex-none gap-0">
+              <p className="font-bold w-full md:w-1/3">ID Product</p>
+              <div>
+                <p className="w-full md:w-1/3">2</p>
+                <button
+                  className="text-blue-500"
+                  onClick={() => setShowDetailProduct(!showDetailProduct)}
+                >
+                  Detail Product
+                </button>
+              </div>
             </div>
+            {showDetailProduct && (
+              <div className="bg-gray-200 rounded-md p-2 ">
+                <div className="md:flex flex-none gap-0 mb-4">
+                  <p className="font-bold w-full md:w-1/3">Brand</p>
+                  <p className="w-full md:w-1/3">Mangosteen</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Price</p>
+                  <p className="w-full md:w-1/3">1000000</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Kurs</p>
+                  <p className="w-full md:w-1/3">IDR</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Stock</p>
+                  <p className="w-full md:w-1/3">500</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Volume</p>
+                  <p className="w-full md:w-1/3">.</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Satuan Klien</p>
+                  <p className="w-full md:w-1/3">Pcs</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Image</p>
+                  {/* <p className="w-full md:w-1/3"></p> */}
+                  <img
+                    src="../assets/manggis.png"
+                    alt="image2"
+                    className="w-full md:w-1/3 h-full "
+                  />
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Description</p>
+                  <p className="w-full md:w-1/3">.</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Jenis Product</p>
+                  <p className="w-full md:w-1/3">Agriculture</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Provinsi</p>
+                  <p className="w-full md:w-1/3">DKI JAKARTA</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Kota</p>
+                  <p className="w-full md:w-1/3">JAKARTA TIMUR</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Company Category</p>
+                  <p className="w-full md:w-1/3">FMCG</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Storage Type</p>
+                  <p className="w-full md:w-1/3">Dry</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Packaging</p>
+                  <p className="w-full md:w-1/3">Bulk</p>
+                </div>
+              </div>
+            )}
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">
+                Tanggal Dibuat Penawaran
+              </p>
+              <p className="w-full md:w-1/3">2024-07-01</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">
+                Tanggal Mulai Penawaran
+              </p>
+              <p className="w-full md:w-1/3">2024-07-10</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">
+                Tanggal Berakhir Penawaran
+              </p>
+              <p className="w-full md:w-1/3">2024-12-31</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Terms of Payment</p>
+              <p className="w-full md:w-1/3">COD</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Terms of Delivery</p>
+              <p className="w-full md:w-1/3">On Site</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Status Penawaran</p>
+              <p className="w-full md:w-1/3">Berlaku</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Status Proses Penawaran</p>
+              <p className="w-full md:w-1/3">Dipilih Staff</p>
+            </div>
+          </div>
+          <div className="flex justify-start gap-2 px-4">
+            <a href="/supplier/edit-penawaran">
+              <Button className="bg-green-500">Edit</Button>
+            </a>
           </div>
         </div>
       </div>

@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../components/admin/sidebar";
-import NavbarAdmin from "../../components/admin/navbar";
 import FooterAdmin from "../../components/admin/footer";
-import axios from "axios";
-import SidebarDekan from "../../components/supplier/sidebar";
 import NavbarSupplier from "../../components/supplier/navbar";
-import { EyeIcon } from "@heroicons/react/24/outline";
-import { TableDocument } from "../../components/supplier/tableDocument";
 import SidebarSupplier from "../../components/supplier/sidebar";
-import { TablePenawaran } from "../../components/supplier/tablePenawaran";
 
 export default function DashboardDekan() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
+  const [showContent, setShowContent] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,6 +22,11 @@ export default function DashboardDekan() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleClick = () => {
+    setShowContent(true);
+    setButtonDisabled(true);
+  };
 
   console.log(result);
   return (
@@ -63,48 +56,61 @@ export default function DashboardDekan() {
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">Dashboard</div>
-        {/* <Typography variant="h4">Selamat Datang di SPPS-FSM</Typography> */}
-        <div className="grid grid-cols-12 text-center gap-2 md:gap-4">
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            <div className="font-bold mt-4">
-              <p>STATUS</p>
-            </div>
-            <div className="flex justify-center items-center text-white p-2 font-bold ">
-              <p className="bg-light-green-400 w-max py-2 px-4 border rounded-full">
-                TERVERIFIKASI
-              </p>
-              <p className="bg-red-400 w-max py-2 px-4 border rounded-full">
-                TOLAK
+        <div className="grid grid-cols-12 gap-2 md:gap-4">
+          <div className="bg-white col-span-12 xl:col-span-2 rounded-md shadow-md flex items-center justify-center gap-4 p-4">
+            <div className="flex-col">
+              <p className="font-bold text-xl mb-2">Status Vendor</p>
+              <p className="font-semibold text-lg bg-green-300 rounded-xl text-center text-white border">
+                Terverifikasi
               </p>
             </div>
           </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            2
+          <div className="bg-white col-span-12 xl:col-span-5 rounded-md shadow-md flex items-center gap-4 p-4">
+            <div className="flex-col">
+              <p className="font-bold text-xl">Total Product</p>
+              <p className="font-semibold text-2xl">100</p>
+            </div>
           </div>
-          <div className="bg-white col-span-12 md:col-span-4 rounded-md shadow-md">
-            3
+          <div className="bg-white col-span-12 xl:col-span-5 rounded-md shadow-md flex items-center gap-4 p-4">
+            <button
+              className="text-start"
+              onClick={handleClick}
+              disabled={buttonDisabled}
+            >
+              <p className="font-bold text-xl">Total Penawaran</p>
+              <p className="font-semibold text-2xl">100</p>
+            </button>
           </div>
         </div>
-        <hr className="my-8 border-blue-gray-300 " />
-        <div className="bg-white px-2 py-2 rounded-md shadow-md">
-          <div className="font-semibold">Kelengkapan Dokumen Persyaratan</div>
-          <div className="text-sm text-gray-500 my-4">
-            untuk dapat menjadi Rekanan/Vendor anda harus melengkapi dokumen
-            persyaratan, berikut status dokumen persyaratan anda
-          </div>
-          <div>
-            <TableDocument />
-          </div>
-        </div>
-        <div className="bg-white px-2 py-2 rounded-md shadow-md mt-8">
-          <div className="font-semibold">Penawaran</div>
-          <div className="text-sm text-gray-500 my-4">
-            untuk menambahkan penawaran anda harus menambhakannya terlebih
-            dahulu, list daftar barang atau jasa yang ditawarkan
-          </div>
-          <div>
-            <TablePenawaran />
-          </div>
+        <div className="grid grid-cols-12 gap-2 md:gap-4 mt-4">
+          {showContent && (
+            <>
+              <div className="bg-white col-span-12 xl:col-span-3 rounded-md shadow-md flex items-center gap-4 p-4">
+                <div className="flex-col">
+                  <p className="font-bold text-xl">Penawaran Berlaku</p>
+                  <p className="font-semibold text-2xl">100</p>
+                </div>
+              </div>
+              <div className="bg-white col-span-12 xl:col-span-3 rounded-md shadow-md flex items-center gap-4 p-4">
+                <div className="flex-col">
+                  <p className="font-bold text-xl">Penawaran Tidak Berlaku</p>
+                  <p className="font-semibold text-2xl">100</p>
+                </div>
+              </div>
+              <div className="bg-white col-span-12 xl:col-span-3 rounded-md shadow-md flex items-center gap-4 p-4">
+                <div className="flex-col">
+                  <p className="font-bold text-xl">Penawaran Dipilih Staff</p>
+                  <p className="font-semibold text-2xl">100</p>
+                </div>
+              </div>
+              <div className="bg-white col-span-12 xl:col-span-3 rounded-md shadow-md flex items-center gap-4 p-4">
+                <div className="flex-col">
+                  <p className="font-bold text-xl">Penawaran Dipilih Manager</p>
+                  <p className="font-semibold text-2xl">100</p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

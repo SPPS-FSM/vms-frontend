@@ -61,12 +61,11 @@ export default function EditSertifikasi() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
-            <div className="font-semibold">Edit Sertifikasi </div>
-            <a href="/supplier/upload_dokumen">
+            <div className="font-semibold">Edit Sertifikasi</div>
+            <a href="/supplier/sertifikasi_perusahaan">
               <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
                 <ArrowLeftIcon height={25} />
               </button>
@@ -80,36 +79,53 @@ export default function EditSertifikasi() {
             >
               Nama Perusahaan
             </label>
-            <input type="text" className="border w-full h-8 my-4" disabled />
+            <input
+              type="text"
+              className="border w-full h-8 my-4 bg-gray-200 pl-2"
+              disabled
+              value={"PT BPYD JAYA"}
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Pilih Dokumen
+              Nama Sertifikasi
+            </label>
+            <input type="text" className="border w-full h-8 my-4" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Jenis Sertifikasi
             </label>
             <select name="" id="" className="w-full border h-8 my-4">
-              <option value="">--Pilih Doukemen--</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
+              <option value=""></option>
+              <option value="">Company Profile</option>
+              <option value="">NPWP</option>
             </select>
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Keterangan Dokumen
+              Tanggal Berlaku
             </label>
-            <textarea type="text" className="border w-full h-20 my-4" />
+            <input type="date" className="border w-full  my-4" />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Upload Dokumen
+              Tanggal Berakhir
+            </label>
+            <input type="date" className="border w-full  my-4" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Upload Sertifikasi
             </label>
             <input type="file" name="" id="" className="æ" />
             <div className="flex justify-end items-end">
-              <Button color="green">edit</Button>
+              <Button color="green">Submit</Button>
             </div>
           </form>
         </div>

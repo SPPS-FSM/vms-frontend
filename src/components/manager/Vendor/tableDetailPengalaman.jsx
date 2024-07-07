@@ -15,7 +15,7 @@ const TABLE_HEAD = [
   "Kontak Klien",
   "Tanggal Mulai",
   "Tanggal Selesai",
-  "Aksi",
+  // "Aksi",
 ];
 
 const TABLE_ROWS = [
@@ -153,11 +153,11 @@ export function TableDetailPengalaman() {
                       {tanggal_berakhir}
                     </Typography>
                   </td>
-                  <td className="p-4">
+                  {/* <td className="p-4">
                     <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                       <EyeIcon height={17} color="white" />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               )
             )}

@@ -90,30 +90,8 @@ export default function DetailPO() {
                   <p className="w-full md:w-1/3">085710116209</p>
                 </div>
                 <div className="md:flex flex-none gap-0 mb-4">
-                  <p className="font-bold w-full md:w-1/3">Product</p>
-                  <p className="w-full md:w-1/3">Mangosteen</p>
-                </div>
-                <div className="md:flex flex-none gap-0 mb-4">
-                  <p className="font-bold w-full md:w-1/3">Harga</p>
-                  <p className="w-full md:w-1/3">Rp 100.000,00</p>
-                </div>
-                <div className="md:flex flex-none gap-0 mb-4">
-                  <p className="font-bold w-full md:w-1/3">Kuantitas</p>
-                  <p className="w-full md:w-1/3">100</p>
-                </div>
-                <div className="md:flex flex-none gap-0 mb-4">
-                  <p className="font-bold w-full md:w-1/3">Satuan</p>
-                  <p className="w-full md:w-1/3">KG</p>
-                </div>
-                <div className="md:flex flex-none gap-0 mb-4">
-                  <p className="font-bold w-full md:w-1/3">Keterangan</p>
-                  <p className="w-full md:w-1/3">
-                    Buah Manggis Manis dari Semarang
-                  </p>
-                </div>
-                <div className="md:flex flex-none gap-0 mb-4">
-                  <p className="font-bold w-full md:w-1/3">Gambar Product</p>
-                  <p className="w-full md:w-1/3"></p>
+                  <p className="font-bold w-full md:w-1/3">ID Product</p>
+                  <p className="w-full md:w-1/3">2</p>
                 </div>
                 <div className="md:flex flex-none gap-0 mb-4">
                   <p className="font-bold w-full md:w-1/3">

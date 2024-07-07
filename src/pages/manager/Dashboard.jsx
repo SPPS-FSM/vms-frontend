@@ -64,7 +64,6 @@ export default function DashboardManager() {
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">Dashboard</div>
-        {/* <Typography variant="h4">Selamat Datang di SPPS-FSM</Typography> */}
         <div className="grid grid-cols-12 gap-2 md:gap-4">
           <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
             <div className="text-4xl">

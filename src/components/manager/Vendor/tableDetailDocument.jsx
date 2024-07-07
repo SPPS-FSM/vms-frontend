@@ -12,7 +12,7 @@ const TABLE_HEAD = [
   "Tanggal Beralaku",
   "Tanggal Berakhir",
   "Status Upload",
-  "Aksi",
+  // "Aksi",
 ];
 
 const TABLE_ROWS = [
@@ -118,11 +118,11 @@ export function TableDetailDocument() {
                       {status_upload}
                     </Typography>
                   </td>
-                  <td className="p-4">
+                  {/* <td className="p-4">
                     <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                       <EyeIcon height={17} color="white" />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               )
             )}

@@ -81,7 +81,7 @@ export default function SidebarSupplier() {
             <List className="p-0">
               <ListItem
                 className="text-fsmblue-500"
-                onClick={() => navigate("/supplier/pengalaman_perushaan")}
+                onClick={() => navigate("/supplier/pengalaman_perusahaan")}
               >
                 <ListItemPrefix></ListItemPrefix>
                 Pengalaman

@@ -84,7 +84,7 @@ export default function EditPO() {
             </label>
             <input
               type="text"
-              className="border w-full h-8 my-4"
+              className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
               value={"PO101"}
             />

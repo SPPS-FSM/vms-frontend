@@ -5,7 +5,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan", "Aksi"];
+const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan"];
 
 const TABLE_ROWS = [
   {
@@ -99,11 +99,11 @@ export function TableDetailProduct() {
                       {satuan}
                     </Typography>
                   </td>
-                  <td className="">
+                  {/* <td className="">
                     <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                       <EyeIcon height={17} color="white" />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               )
             )}

@@ -4,11 +4,11 @@ import DashboardSupplier from "./pages/supplier/Dashboard";
 import DashboardStaff from "./pages/staff/Dashboard";
 import Login from "./pages/login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UploadDokumen from "./pages/supplier/Dokumen/UploadDokumen";
+import UploadDokumen from "./pages/supplier/Document/UploadDokumen";
 import SertifikasiPerusahaan from "./pages/supplier/Sertifikasi/SertifikasiPerusahaan";
 import PengalamanPerusahaan from "./pages/supplier/Pengalaman/PengalamanPerusahaan";
 import Penawaran from "./pages/supplier/Penawaran/Penawaran";
-import TambahDokumen from "./pages/supplier/Dokumen/TambahDokumen";
+import TambahDokumen from "./pages/supplier/Document/TambahDokumen";
 import TambahSertifikasi from "./pages/supplier/Sertifikasi/TambahSertifikasi";
 import TambahPengalaman from "./pages/supplier/Pengalaman/TambahPengalaman";
 import TambahProduct from "./pages/supplier/Product/TambahProduct";
@@ -23,13 +23,13 @@ import AllUserDRM from "./pages/admin/User/AllUserDRM";
 import Register from "./pages/register";
 import DashboardManager from "./pages/manager/Dashboard";
 import ProductPerusahaan from "./pages/supplier/Product/ProductPerusahaan";
-import DetailDokumen from "./pages/supplier/Dokumen/DetailDokumen";
+import DetailDokumen from "./pages/supplier/Document/DetailDokumen";
 import DetailPenawaran from "./pages/supplier/Penawaran/DetailPenawaran";
 import DetailPengalaman from "./pages/supplier/Pengalaman/DetailPengalaman";
 import DetailProduct from "./pages/supplier/Product/DetailProduct";
 import DetailSertifikasi from "./pages/supplier/Sertifikasi/DetailSertifikasi";
 import TambahUserInternal from "./pages/admin/User/TambahUserInternal";
-import EditDokumen from "./pages/supplier/Dokumen/EditDokumen";
+import EditDokumen from "./pages/supplier/Document/EditDokumen";
 import EditPengalaman from "./pages/supplier/Pengalaman/EditPengalaman";
 import EditProduct from "./pages/supplier/Product/EditProduct";
 import EditSertifikasi from "./pages/supplier/Sertifikasi/EditSertifikasi";
@@ -124,7 +124,7 @@ function App() {
             element={<EditSertifikasi />}
           />
           <Route
-            path="/supplier/pengalaman_perushaan"
+            path="/supplier/pengalaman_perusahaan"
             element={<PengalamanPerusahaan />}
           />
           <Route
@@ -145,7 +145,7 @@ function App() {
           />
           <Route path="/supplier/tambah-product" element={<TambahProduct />} />
           <Route path="/supplier/detail-product" element={<DetailProduct />} />
-          <Route path="/supplier/detail-product" element={<EditProduct />} />
+          <Route path="/supplier/edit-product" element={<EditProduct />} />
           <Route path="/supplier/penawaran" element={<Penawaran />} />
           <Route
             path="/supplier/tambah-penawaran"

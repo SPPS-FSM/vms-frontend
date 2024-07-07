@@ -118,11 +118,11 @@ export function TableSertifikasiVendor() {
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <a href="/supplier/edit-sertifikasi">
+                    {/* <a href="/supplier/edit-sertifikasi">
                       <button className="bg-green-500 p-2 rounded-md shadow-md">
                         <PencilSquareIcon height={17} color="white" />
                       </button>
-                    </a>
+                    </a> */}
                     <a href="/supplier/detail-sertifikasi">
                       <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                         <EyeIcon height={17} color="white" />

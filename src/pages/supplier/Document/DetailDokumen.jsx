@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import { Button } from "@material-tailwind/react";
 
-export default function EditDokumen() {
+export default function DetailDokumen() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -61,11 +49,10 @@ export default function EditDokumen() {
         setOpenSidebar={setOpenSidebar}
       />
 
-      {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
-            <div className="font-semibold">Tambah Dokumen </div>
+            <div className="font-semibold">Detail Document</div>
             <a href="/supplier/upload_dokumen">
               <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
                 <ArrowLeftIcon height={25} />
@@ -73,45 +60,42 @@ export default function EditDokumen() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Nama Perusahaan
-            </label>
-            <input type="text" className="border w-full h-8 my-4" disabled />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Pilih Dokumen
-            </label>
-            <select name="" id="" className="w-full border h-8 my-4">
-              <option value="">--Pilih Doukemen--</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
-            </select>
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Keterangan Dokumen
-            </label>
-            <textarea type="text" className="border w-full h-20 my-4" />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Upload Dokumen
-            </label>
-            <input type="file" name="" id="" className="æ" />
-            <div className="flex justify-end items-end">
-              <Button color="green">Edit</Button>
+          <div className="p-4 text-md ">
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
+              <p className="w-full md:w-1/3">PT BPYD JAYA</p>
             </div>
-          </form>
+            <div className="md:flex flex-none gap-0 mb-4">
+              <p className="font-bold w-full md:w-1/3">Nama Document</p>
+              <p className="w-full md:w-1/3">Company Profile PT BPYD JAYA</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Jenis Document</p>
+              <p className="w-full md:w-1/3">Company Profile</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Tanggal Berlaku</p>
+              <p className="w-full md:w-1/3">2024-06-12</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Tanggal Berakhir</p>
+              <p className="w-full md:w-1/3">2026-06-12</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Status Upload</p>
+              <p className="w-full md:w-1/3">Sudah</p>
+            </div>
+            <div className="md:flex flex-none gap-0 mb-4  ">
+              <p className="font-bold w-full md:w-1/3">Nama File Upload</p>
+              <p className="w-full md:w-1/3">file.pdf</p>
+            </div>
+          </div>
+          <div className="flex justify-start gap-2 px-4">
+            <a href="/supplier/edit-dokumen">
+              <Button className="bg-green-500">Edit</Button>
+            </a>
+            {/* <Button className="bg-red-500">Cancel</Button> */}
+          </div>
         </div>
       </div>
 

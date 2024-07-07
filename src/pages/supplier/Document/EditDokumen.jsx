@@ -18,7 +18,7 @@ import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
 
-export default function DetailPengalaman() {
+export default function EditDokumen() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -64,58 +64,77 @@ export default function DetailPengalaman() {
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
-            <div className="font-semibold">Detail Pengalaman</div>
-            <a href="/supplier/pengalaman_perusahaan">
+            <div className="font-semibold">Edit Documment</div>
+            <a href="/supplier/upload_dokumen">
               <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
                 <ArrowLeftIcon height={25} />
               </button>
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <div className="p-4 text-md ">
-            <div className="md:flex flex-none gap-0 mb-4">
-              <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
-              <p className="w-full md:w-1/3">PT BPYD JAYA</p>
+          <form action="" className="p-4">
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Nama Perusahaan
+            </label>
+            <input type="text" className="border w-full h-8 my-4 bg-gray-200 pl-2" disabled value={'PT BPYD JAYA'}/>
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Nama Document
+            </label>
+            <input type="text" className="border w-full h-8 my-4" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Jenis Document
+            </label>
+            <select name="" id="" className="w-full border h-8 my-4">
+              <option value=""></option>
+              <option value="">Company Profile</option>
+              <option value="">NPWP</option>
+            </select>
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Tanggal Berlaku
+            </label>
+            <input type="date" className="border w-full  my-4" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Tanggal Berakhir
+            </label>
+            <input type="date" className="border w-full  my-4" />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Status Upload
+            </label>
+            <input
+              type="text"
+              className="border w-full h-8 my-4 pl-2 bg-gray-200"
+              disabled
+              value={"Sudah"}
+            />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Upload Dokumen
+            </label>
+            <input type="file" name="" id="" className="æ" />
+            <div className="flex justify-end items-end">
+              <Button color="green">Submit</Button>
             </div>
-            <div className="md:flex flex-none gap-0 mb-4">
-              <p className="font-bold w-full md:w-1/3">Nama Klien</p>
-              <p className="w-full md:w-1/3">PT ABC</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Nama Proyek</p>
-              <p className="w-full md:w-1/3">Pengadaan Barang</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Kurs</p>
-              <p className="w-full md:w-1/3">IDR</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Nilai Proyek</p>
-              <p className="w-full md:w-1/3">1000000</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">No Kontrak</p>
-              <p className="w-full md:w-1/3">123ABC</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Kontak Klien</p>
-              <p className="w-full md:w-1/3">085710116402</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Tanggal Mulai</p>
-              <p className="w-full md:w-1/3">2024-06-12</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Tanggal Selesai</p>
-              <p className="w-full md:w-1/3">2026-06-12</p>
-            </div>
-          </div>
-          <div className="flex justify-start gap-2 px-4">
-            <a href="/supplier/edit-pengalaman">
-              <Button className="bg-green-500">Edit</Button>
-            </a>
-            {/* <Button className="bg-red-500">Cancel</Button> */}
-          </div>
+          </form>
         </div>
       </div>
 

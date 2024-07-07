@@ -80,28 +80,28 @@ export default function DetailVendor() {
             >
               Nama Perusahaan
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input type="text" className="border w-full h-8 my-2 bg-gray-200" disabled />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama PIC
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input type="text" className="border w-full h-8 my-2 bg-gray-200" disabled />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               No Telephone
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input type="text" className="border w-full h-8 my-2 bg-gray-200" disabled />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Status Vendor
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input type="text" className="border w-full h-8 my-2 bg-gray-200" disabled />
           </form>
 
           <div className="px-4">
@@ -130,14 +130,7 @@ export default function DetailVendor() {
           </div>
           <div className="text-gray-500 px-4 my-4">
             <p>* CATATAN :</p>
-            <p>1. Pastikan Berkas yang sudah diupload dicek dan sudah sesuai</p>
-            <p>
-              2. Jika ada berkas yang salah tolong tuliskan di keterangan dan
-              tekan tombol <b>TOLAK</b>
-            </p>
-            <p>
-              2. Jika berkas sudah sesuai tekan tombol <b>VERIFIKASI</b>
-            </p>
+            <p>Pastikan Berkas yang sudah diupload dicek dan sudah sesuai</p>
           </div>
         </div>
       </div>

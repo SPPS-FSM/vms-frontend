@@ -9,6 +9,7 @@ export default function DetailPenawaranVendor() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
+  const [showDetailProduct, setShowDetailProduct] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -77,40 +78,99 @@ export default function DetailPenawaranVendor() {
               <p className="font-bold w-full md:w-1/3">No Telephone</p>
               <p className="w-full md:w-1/3">085710116209</p>
             </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Product</p>
-              <p className="w-full md:w-1/3">Mangosteen</p>
+            <div className="md:flex flex-none gap-0">
+              <p className="font-bold w-full md:w-1/3">ID Product</p>
+              <div>
+                <p className="w-full md:w-1/3">2</p>
+                <button
+                  className="text-blue-500"
+                  onClick={() => setShowDetailProduct(!showDetailProduct)}
+                >
+                  Detail Product
+                </button>
+              </div>
             </div>
+            {showDetailProduct && (
+              <div className="bg-gray-200 rounded-md p-2 ">
+                <div className="md:flex flex-none gap-0 mb-4">
+                  <p className="font-bold w-full md:w-1/3">Brand</p>
+                  <p className="w-full md:w-1/3">Mangosteen</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Price</p>
+                  <p className="w-full md:w-1/3">1000000</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Kurs</p>
+                  <p className="w-full md:w-1/3">IDR</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Stock</p>
+                  <p className="w-full md:w-1/3">500</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Volume</p>
+                  <p className="w-full md:w-1/3">.</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Satuan Klien</p>
+                  <p className="w-full md:w-1/3">Pcs</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Image</p>
+                  {/* <p className="w-full md:w-1/3"></p> */}
+                  <img
+                    src="../assets/manggis.png"
+                    alt="image2"
+                    className="w-full md:w-1/3 h-full "
+                  />
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Description</p>
+                  <p className="w-full md:w-1/3">.</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Jenis Product</p>
+                  <p className="w-full md:w-1/3">Agriculture</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Provinsi</p>
+                  <p className="w-full md:w-1/3">DKI JAKARTA</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Kota</p>
+                  <p className="w-full md:w-1/3">JAKARTA TIMUR</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Company Category</p>
+                  <p className="w-full md:w-1/3">FMCG</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Storage Type</p>
+                  <p className="w-full md:w-1/3">Dry</p>
+                </div>
+                <div className="md:flex flex-none gap-0 mb-4  ">
+                  <p className="font-bold w-full md:w-1/3">Packaging</p>
+                  <p className="w-full md:w-1/3">Bulk</p>
+                </div>
+              </div>
+            )}
             <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Harga</p>
-              <p className="w-full md:w-1/3">Rp 100.000,00</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Kuantitas</p>
-              <p className="w-full md:w-1/3">100</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Satuan</p>
-              <p className="w-full md:w-1/3">KG</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Keterangan</p>
-              <p className="w-full md:w-1/3">Buah Manggis Manis dari Semarang</p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Gambar Product</p>
-              <p className="w-full md:w-1/3"></p>
-            </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Tanggal Dibuat Penawaran</p>
+              <p className="font-bold w-full md:w-1/3">
+                Tanggal Dibuat Penawaran
+              </p>
               <p className="w-full md:w-1/3">04/07/2024</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Tanggal Mulai Penawaran</p>
+              <p className="font-bold w-full md:w-1/3">
+                Tanggal Mulai Penawaran
+              </p>
               <p className="w-full md:w-1/3">04/07/2024</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Tangal Berakhir Penawaran</p>
+              <p className="font-bold w-full md:w-1/3">
+                Tangal Berakhir Penawaran
+              </p>
               <p className="w-full md:w-1/3">04/07/2025</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
@@ -139,7 +199,7 @@ export default function DetailPenawaranVendor() {
               </p>
               <p className="w-full md:w-1/3">Dipilih Staff</p>
             </div>
-            <div className="pt-4 flex md:justify-start justify-center">
+            <div className="pt-4 flex justify-start">
               <a href="/manager/pilih-penawaran-manager">
                 <Button color="orange">Pilih Penawaran</Button>
               </a>

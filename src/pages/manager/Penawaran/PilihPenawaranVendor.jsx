@@ -128,81 +128,10 @@ export default function PilihPenawaranVendor() {
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Product
+              ID Product
             </label>
             <input
-              value={"Mangosteen"}
-              type="text"
-              className="text-gray-700 border border-gray-300 rounded w-full h-8 my-1 px-1 bg-gray-200"
-              disabled
-            />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Nama Perusahaan
-            </label>
-            <input
-              value={"PT Mangosteen"}
-              type="text"
-              className="text-gray-700 border border-gray-300 rounded w-full h-8 my-1 px-1 bg-gray-200"
-              disabled
-            />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Harga
-            </label>
-            <input
-              value={"Rp 100.000,00"}
-              type="text"
-              className="text-gray-700 border border-gray-300 rounded w-full h-8 my-1 px-1 bg-gray-200"
-              disabled
-            />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Kuantitas
-            </label>
-            <input
-              value={"100"}
-              type="text"
-              className="text-gray-700 border border-gray-300 rounded w-full h-8 my-1 px-1 bg-gray-200"
-              disabled
-            />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Satuan
-            </label>
-            <input
-              value={"KG"}
-              type="text"
-              className="text-gray-700 border border-gray-300 rounded w-full h-8 my-1 px-1 bg-gray-200"
-              disabled
-            />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Keterangan
-            </label>
-            <textarea
-              value={"Buah Manggis Manis dari Semarang"}
-              className="border w-full h-20 my-1 text-gray-700 border-gray-300 rounded px-1 bg-gray-200"
-              disabled
-            />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Gambar Product
-            </label>
-            <input
-              value={""}
+              value={"2"}
               type="text"
               className="text-gray-700 border border-gray-300 rounded w-full h-8 my-1 px-1 bg-gray-200"
               disabled
@@ -312,7 +241,7 @@ export default function PilihPenawaranVendor() {
               <option value="Dipilih Staff">Dipilih Staff</option>
               <option value="Dipilih Manager">Dipilih Manager</option>
             </select>
-            <div className="pt-4 flex md:justify-start justify-center">
+            <div className="pt-4 flex justify-end">
               <Button color="green">Submit</Button>
             </div>
           </form>

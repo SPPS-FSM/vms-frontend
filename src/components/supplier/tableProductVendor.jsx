@@ -100,11 +100,11 @@ export function TableProductVendor() {
                     </Typography>
                   </td>
                   <td className="">
-                    <a href="supplier/edit-product">
+                    {/* <a href="/supplier/edit-product">
                       <button className="bg-green-500 p-2 rounded-md shadow-md">
                         <PencilSquareIcon height={17} color="white" />
                       </button>
-                    </a>
+                    </a> */}
                     <a href="/supplier/detail-product">
                       <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                         <EyeIcon height={17} color="white" />

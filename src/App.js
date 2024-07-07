@@ -36,7 +36,6 @@ import EditSertifikasi from "./pages/supplier/Sertifikasi/EditSertifikasi";
 import EditPenawaran from "./pages/supplier/Penawaran/EditPenawaran";
 import ProfileSupplier from "./pages/supplier/ProfileSupplier";
 import ListDRM from "./pages/staff/DRM/ListDRM";
-import AjukanPenawaran from "./pages/staff/Penawaran/AjukanPenawaran";
 import PenawaranVendoManager from "./pages/manager/Penawaran/PenawaranVendorManager";
 import ListVendor from "./pages/manager/Vendor/ListVendor";
 import DetailPenawaranVendor from "./pages/manager/Penawaran/DetailPenawaranVendor";
@@ -47,11 +46,14 @@ import DetailVendor from "./pages/manager/Vendor/DetailVendor";
 import EditPO from "./pages/manager/PO/EditPO";
 import DetailPO from "./pages/manager/PO/DetailPO";
 import EditUserInternal from "./pages/admin/User/editUserInternal";
-import DetailUserDRM from "./pages/admin/User/detailUserDRM";
 import MasterJenisDocument from "./pages/admin/Master/masterJenisDocument";
 import MasterKota from "./pages/admin/Master/masterKota";
 import MasterProvinsi from "./pages/admin/Master/masterProvinsi";
 import MasterSatuan from "./pages/admin/Master/masterSatuan";
+import DetailPengalamanVendor from "./pages/staff/Kompetensi/DetailPengalamanVendor";
+import DetailProductVendor from "./pages/staff/Kompetensi/DetailProductVendor";
+import DetailPenawaranDRM from "./pages/staff/Penawaran/DetailPenawaranVendor";
+import PilihPenawaranDRM from "./pages/staff/Penawaran/PilihPenawaranVendor";
 
 function App() {
   return (
@@ -75,7 +77,10 @@ function App() {
             element={<EditUserInternal />}
           />
           <Route path="/admin/all-user-drm" element={<AllUserDRM />} />
-          <Route path="/admin/master-jenis-document" element={<MasterJenisDocument />} />
+          <Route
+            path="/admin/master-jenis-document"
+            element={<MasterJenisDocument />}
+          />
           <Route path="/admin/master-kota" element={<MasterKota />} />
           <Route path="/admin/master-provinsi" element={<MasterProvinsi />} />
           <Route path="/admin/master-satuan" element={<MasterSatuan />} />
@@ -170,11 +175,23 @@ function App() {
             path="/staff/pengalaman-vendor"
             element={<PengalamanVendor />}
           />
+          <Route
+            path="/staff/detail-pengalaman-vendor"
+            element={<DetailPengalamanVendor />}
+          />
           <Route path="/staff/product-vendor" element={<ProductVendor />} />
+          <Route
+            path="/staff/detail-product-vendor"
+            element={<DetailProductVendor />}
+          />
           <Route path="/staff/penawaran-vendor" element={<PenawaranVendor />} />
           <Route
-            path="/staff/ajukan-penawaran-vendor"
-            element={<AjukanPenawaran />}
+            path="/staff/detail-penawaran-vendor"
+            element={<DetailPenawaranDRM />}
+          />
+          <Route
+            path="/staff/pilih-penawaran-vendor"
+            element={<PilihPenawaranDRM />}
           />
         </Routes>
       </div>

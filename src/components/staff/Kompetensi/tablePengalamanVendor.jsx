@@ -4,7 +4,13 @@ import {
   EyeIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { Button, Card, IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Card,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@material-tailwind/react";
 
 const TABLE_HEAD = [
   "No",
@@ -15,7 +21,7 @@ const TABLE_HEAD = [
   "No Kontak",
   "Tanggal Mulai",
   "Tanggal Selesai",
-  "Deskripsi",
+  "Aksi",
 ];
 
 const TABLE_ROWS = [
@@ -28,7 +34,6 @@ const TABLE_ROWS = [
     no_kontak: "",
     tanggal_mulai: "",
     tanggal_selesai: "",
-    desc: "",
   },
 ];
 
@@ -57,8 +62,17 @@ export default function TablePengalamanVendor() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              ({ id, name, status_upload, status_doc }, index) => (
-                <tr key={name} className="even:bg-blue-gray-50/50">
+              ({
+                id,
+                klien,
+                proyek,
+                nilai_proyek,
+                kurs,
+                no_kontak,
+                tanggal_mulai,
+                tanggal_selesai,
+              }) => (
+                <tr key={id} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -74,7 +88,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {name}
+                      {klien}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -83,36 +97,63 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {status_upload}
+                      {proyek}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {status_doc}
+                      {nilai_proyek}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {status_doc}
+                      {kurs}
                     </Typography>
                   </td>
-                  {/* <td className="p-4">
-                    <a href="#">
-                      <Tooltip content="Lihat Pengalaman" placement="top">
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {no_kontak}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {tanggal_mulai}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {tanggal_selesai}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <a href="/staff/detail-pengalaman-vendor">
+                      <Tooltip content="Detail Pengalaman Vendor" placement="top">
                         <button className="bg-blue-500 rounded-md p-1">
                           <EyeIcon height={17} color="white" />
                         </button>
                       </Tooltip>
                     </a>
-                  </td> */}
+                  </td>
                 </tr>
               )
             )}

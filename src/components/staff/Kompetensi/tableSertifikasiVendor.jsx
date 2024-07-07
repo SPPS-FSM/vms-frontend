@@ -18,10 +18,9 @@ import LihatSertifikasi from "./LihatSertifikasi";
 
 const TABLE_HEAD = [
   "No",
-  "Nama Perusahaan",
-  "No Sertifikat",
-  "Dikeluarkan Oleh",
-  "Tanggal Berlaku",
+  "Nama Sertifikasi",
+  "Jenis Sertifikasi",
+  "Tanggal Beralaku",
   "Tanggal Berakhir",
   "Aksi",
 ];
@@ -29,11 +28,10 @@ const TABLE_HEAD = [
 const TABLE_ROWS = [
   {
     id: "1",
-    company_name: "Surat Permohonan DRM",
-    no_sertifikasi: "Sudah",
-    dikeluarkan: "Sudah Selesai",
-    tanggal_berlaku: "Sudah Selesai",
-    tanggal_berakhir: "Sudah Selesai",
+    nama_sertifikasi: "Sertifikasi BNSP",
+    jenis_sertifikasi: "Keahlian",
+    tanggal_berlaku: "2024-06-12",
+    tanggal_berakhir: "2026-06-12",
   },
 ];
 
@@ -66,9 +64,8 @@ export default function TableSertifikasiVendor() {
             {TABLE_ROWS.map(
               ({
                 id,
-                company_name,
-                no_sertifikasi,
-                dikeluarkan,
+                nama_sertifikasi,
+                jenis_sertifikasi,
                 tanggal_berlaku,
                 tanggal_berakhir,
               }) => (
@@ -88,7 +85,7 @@ export default function TableSertifikasiVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
+                      {nama_sertifikasi}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -97,16 +94,7 @@ export default function TableSertifikasiVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {no_sertifikasi}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {dikeluarkan}
+                      {jenis_sertifikasi}
                     </Typography>
                   </td>
                   <td className="p-4">

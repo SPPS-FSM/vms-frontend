@@ -92,6 +92,13 @@ export default function DetailVendor() {
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
+              Email
+            </label>
+            <input type="text" className="border w-full h-8 my-2 bg-gray-200" disabled />
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
               No Telephone
             </label>
             <input type="text" className="border w-full h-8 my-2 bg-gray-200" disabled />

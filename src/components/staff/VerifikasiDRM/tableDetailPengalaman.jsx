@@ -1,50 +1,41 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
   EyeIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import { BiCheck, BiPencil } from "react-icons/bi";
+import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
 
 const TABLE_HEAD = [
   "No",
-  "Kode Penawaran",
-  "Nama Vendor",
-  "PIC Vendor",
-  "No Telephone",
-  "Product",
-  "Status Vendor",
-  "Status Penawaran",
-  "Status Proses Penawaran",
-  "Aksi",
+  "Nama Klien",
+  "Nama Proyek",
+  "Nilai Proyek",
+  "Kurs",
+  "No Kontrak",
+  "Kontak Klien",
+  "Tanggal Mulai",
+  "Tanggal Selesai",
+  // "Aksi",
 ];
 
 const TABLE_ROWS = [
   {
     id: "1",
-    kode_penawaran: "A101",
-    pic_vendor: "Farhan",
-    company_name: "PT Mangosteen",
-    no_hp: "085710116209",
-    product: "Mangosteen",
-    status_vendor: "Terverifikasi",
-    status_penawaran: "Berlaku",
-    status_proses_vendor: "",
+    nama_klien: "PT ABC",
+    nama_proyek: "Proyek Pengadaan Barang",
+    nilai_proyek: "1000000",
+    kurs: "Rp",
+    no_kontrak: "123",
+    kontak_klien: "085710116209",
+    tanggal_mulai: "2024-06-13",
+    tanggal_berakhir: "2026-06-13",
   },
 ];
 
-export default function TablePenawaranVendor() {
+export function TableDetailPengalaman() {
   return (
     <div>
-      <div className="overflow-scroll">
+      <div className="overflow-y-scroll">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -69,18 +60,18 @@ export default function TablePenawaranVendor() {
               (
                 {
                   id,
-                  kode_penawaran,
-                  pic_vendor,
-                  company_name,
-                  no_hp,
-                  product,
-                  status_vendor,
-                  status_penawaran,
-                  status_proses_vendor,
+                  nama_klien,
+                  nama_proyek,
+                  nilai_proyek,
+                  kurs,
+                  no_kontrak,
+                  kontak_klien,
+                  tanggal_mulai,
+                  tanggal_berakhir,
                 },
                 index
               ) => (
-                <tr key={company_name} className="even:bg-blue-gray-50/50">
+                <tr key={nama_klien} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -96,7 +87,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {kode_penawaran}
+                      {nama_klien}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -105,25 +96,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {pic_vendor}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {no_hp}
+                      {nama_proyek}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -132,7 +105,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {product}
+                      {nilai_proyek}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -141,7 +114,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_vendor}
+                      {kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -150,7 +123,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_penawaran}
+                      {no_kontrak}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -159,31 +132,38 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_proses_vendor}
+                      {kontak_klien}
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <a href="/staff/detail-penawaran-vendor">
-                      <Tooltip content="Detail Penawaran Vendor">
-                        <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                          <EyeIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
-                    </a>
-                    {/* <a href="/manaeger/pilih-penawaran-manager">
-                      <Tooltip content="Edit Status Penawaran Vendor">
-                        <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
-                          <PencilSquareIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
-                    </a> */}
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
+                      {tanggal_mulai}
+                    </Typography>
                   </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
+                      {tanggal_berakhir}
+                    </Typography>
+                  </td>
+                  {/* <td className="p-4">
+                    <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
+                      <EyeIcon height={17} color="white" />
+                    </button>
+                  </td> */}
                 </tr>
               )
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -213,7 +193,7 @@ export default function TablePenawaranVendor() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

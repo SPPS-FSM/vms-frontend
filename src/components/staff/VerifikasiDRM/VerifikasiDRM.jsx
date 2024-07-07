@@ -10,10 +10,6 @@ import { TableVerifDRM } from "../../../components/staff/VerifikasiDRM/tableVeri
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Button } from "@material-tailwind/react";
 import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
-import { TableDetailDocument } from "../../../components/staff/VerifikasiDRM/tableDetailDocument";
-import { TableDetailSertifikasi } from "../../../components/staff/VerifikasiDRM/tableDetailSertifikasi";
-import { TableDetailProduct } from "../../../components/staff/VerifikasiDRM/tableDetailProduct";
-import { TableDetailPengalaman } from "../../../components/staff/VerifikasiDRM/tableDetailPengalaman";
 
 export default function VerifikasiDRM() {
   const navigate = useNavigate();
@@ -117,27 +113,23 @@ export default function VerifikasiDRM() {
             >
               Document Persyaratan
             </label>
-            <div className="mt-8">
-              <TableDetailDocument />
+            <div className="p-4 mb-4 bg-gray-400 text-center">
+              Data Document Persyaratan DRM Masih Kosong
             </div>
-            <hr className="my-3 border-blue-gray-300 " />
-            <div className=" mt-8">
-              <TableDetailSertifikasi />
+            <div className="p-4 mb-4 bg-gray-400 text-center">
+              Data Document Persyaratan DRM Masih Kosong
             </div>
-            <hr className="my-3 border-blue-gray-300 " />
-            <div className=" mt-8">
-              <TableDetailProduct />
+            <div className="p-4 mb-4 bg-gray-400 text-center">
+              Data Document Persyaratan DRM Masih Kosong
             </div>
-            <hr className="my-3 border-blue-gray-300 " />
-            <div className=" mt-8">
-              <TableDetailPengalaman />
+            <div className="p-4 mb-4 bg-gray-400 text-center">
+              Data Document Persyaratan DRM Masih Kosong
             </div>
-            <hr className="my-3 border-blue-gray-300 " />
+            <div className="flex justify-end gap-2">
+              <Button color="red">Tolak</Button>
+              <Button color="green">Verifikasi</Button>
+            </div>
           </div>
-          <div className="flex justify-end mr-4">
-            <Button color="green">Verifikasi</Button>
-          </div>
-
           <div className="text-gray-500 px-4 my-4">
             <p>* CATATAN :</p>
             <p>1. Pastikan Berkas yang sudah diupload dicek dan sudah sesuai</p>

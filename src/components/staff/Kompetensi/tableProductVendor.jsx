@@ -12,38 +12,16 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["No", "Nama File", "Jenis Dokumen", "Status", "Keterangan"];
+const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan", "Aksi"];
 
 const TABLE_ROWS = [
   {
     id: "1",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "2",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "3",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "4",
-    name: "Surat Permohonan DRM",
-    status_upload: "Belum",
-    status_doc: "Sudah Selesai",
-  },
-  {
-    id: "5",
-    name: "Surat Permohonan DRM",
-    status_upload: "Sudah",
-    status_doc: "Sudah Selesai",
+    brand: "Mangosteen",
+    price: "1000",
+    kurs: "Rp",
+    stock: "100000",
+    satuan: "Kg",
   },
 ];
 
@@ -72,8 +50,8 @@ export default function TableProductVendor() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              ({ id, name, status_upload, status_doc }, index) => (
-                <tr key={name} className="even:bg-blue-gray-50/50">
+              ({ id, brand, price, kurs, stock, satuan }, index) => (
+                <tr key={brand} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -89,7 +67,7 @@ export default function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {name}
+                      {brand}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -98,7 +76,7 @@ export default function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {status_upload}
+                      {price}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -107,7 +85,7 @@ export default function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_doc}
+                      {kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -116,18 +94,35 @@ export default function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_doc}
+                      {stock}
                     </Typography>
                   </td>
-                  {/* <td className="p-4">
-                    <a href="#">
-                      <Tooltip content="Lihat Sertifikat" placement="top">
-                        <button className="bg-blue-500 rounded-md p-1">
-                          <EyeIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
+                      {satuan}
+                    </Typography>
+                  </td>
+                  <td className="">
+                    {/* <a href="/supplier/edit-product">
+                      <button className="bg-green-500 p-2 rounded-md shadow-md">
+                        <PencilSquareIcon height={17} color="white" />
+                      </button>
+                    </a> */}
+                    <a href="/staff/detail-product-vendor">
+                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
+                        <EyeIcon height={17} color="white" />
+                      </button>
                     </a>
-                  </td> */}
+                    {/* <a href="#">
+                      <button className="bg-red-500 p-2 rounded-md shadow-md">
+                        <TrashIcon height={17} color="white" />
+                      </button>
+                    </a> */}
+                  </td>
                 </tr>
               )
             )}

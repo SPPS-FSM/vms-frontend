@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
-import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import SidebarSupplier from "../../../components/supplier/sidebar";
-import SidebarManager from "../../../components/manager/sidebar";
-import NavbarManager from "../../../components/manager/navbar";
+import SidebarStaff from "../../../components/staff/sidebar";
+import NavbarStaff from "../../../components/staff/navbar";
 
-export default function PilihPenawaranVendor() {
+export default function PilihPenawaranDRM() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -47,7 +33,7 @@ export default function PilihPenawaranVendor() {
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarManager />
+        <SidebarStaff />
       </div>
 
       {openSidebar && (
@@ -58,17 +44,14 @@ export default function PilihPenawaranVendor() {
       )}
 
       {/* Navbar */}
-      <NavbarManager
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <NavbarStaff openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <div className="font-semibold">Pilih Penawaran</div>
-            <a href="/manager/list-penawaran">
+            <a href="/staff/penawaran-vendor">
               <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
                 <ArrowLeftIcon height={25} />
               </button>
@@ -238,8 +221,8 @@ export default function PilihPenawaranVendor() {
               Status Proses Penawaran
             </label>
             <select name="" id="" className="w-full border h-8 my-1">
-              <option value="Dipilih Staff">Dipilih Manager</option>
-              <option value="Dipilih Manager">Ditolak Manager</option>
+              <option value="Dipilih Staff">Dipilih Staff</option>
+              <option value="Dipilih Manager">Ditolak Staff</option>
             </select>
             <div className="pt-4 flex justify-end">
               <Button color="green">Submit</Button>

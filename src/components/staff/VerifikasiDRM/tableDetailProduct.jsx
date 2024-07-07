@@ -1,50 +1,27 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
   EyeIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import { BiCheck, BiPencil } from "react-icons/bi";
+import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
 
-const TABLE_HEAD = [
-  "No",
-  "Kode Penawaran",
-  "Nama Vendor",
-  "PIC Vendor",
-  "No Telephone",
-  "Product",
-  "Status Vendor",
-  "Status Penawaran",
-  "Status Proses Penawaran",
-  "Aksi",
-];
+const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan"];
 
 const TABLE_ROWS = [
   {
     id: "1",
-    kode_penawaran: "A101",
-    pic_vendor: "Farhan",
-    company_name: "PT Mangosteen",
-    no_hp: "085710116209",
-    product: "Mangosteen",
-    status_vendor: "Terverifikasi",
-    status_penawaran: "Berlaku",
-    status_proses_vendor: "",
+    brand: "Mangosteen",
+    price: "1000",
+    kurs: "Rp",
+    stock: "100000",
+    satuan: "Kg",
   },
 ];
 
-export default function TablePenawaranVendor() {
+export function TableDetailProduct() {
   return (
     <div>
-      <div className="overflow-scroll">
+      <div className="overflow-y-scroll">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -66,21 +43,8 @@ export default function TablePenawaranVendor() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              (
-                {
-                  id,
-                  kode_penawaran,
-                  pic_vendor,
-                  company_name,
-                  no_hp,
-                  product,
-                  status_vendor,
-                  status_penawaran,
-                  status_proses_vendor,
-                },
-                index
-              ) => (
-                <tr key={company_name} className="even:bg-blue-gray-50/50">
+              ({ id, brand, price, kurs, stock, satuan }, index) => (
+                <tr key={brand} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -96,7 +60,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {kode_penawaran}
+                      {brand}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -105,25 +69,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {pic_vendor}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {no_hp}
+                      {price}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -132,7 +78,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {product}
+                      {kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -141,7 +87,7 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_vendor}
+                      {stock}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -150,40 +96,20 @@ export default function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_penawaran}
+                      {satuan}
                     </Typography>
                   </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {status_proses_vendor}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <a href="/staff/detail-penawaran-vendor">
-                      <Tooltip content="Detail Penawaran Vendor">
-                        <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                          <EyeIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
-                    </a>
-                    {/* <a href="/manaeger/pilih-penawaran-manager">
-                      <Tooltip content="Edit Status Penawaran Vendor">
-                        <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
-                          <PencilSquareIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
-                    </a> */}
-                  </td>
+                  {/* <td className="">
+                    <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
+                      <EyeIcon height={17} color="white" />
+                    </button>
+                  </td> */}
                 </tr>
               )
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -213,7 +139,7 @@ export default function TablePenawaranVendor() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

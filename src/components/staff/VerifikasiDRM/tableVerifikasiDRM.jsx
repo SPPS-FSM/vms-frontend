@@ -14,24 +14,20 @@ import {
 
 const TABLE_HEAD = [
   "No",
-  "Tanggal",
-  "Perusahaan",
-  "Pemilik",
-  "Email",
+  "Nama Perusahaan",
+  "Nama PIC",
   "No Telephone",
-  "Status",
+  "Status Vendor",
   "Aksi",
 ];
 
 const TABLE_ROWS = [
   {
-    id: "1",
-    date: "Surat Permohonan DRM",
-    company_name: "Sudah",
-    owner: "Sudah Selesai",
-    email: "1",
-    no_hp: "Surat Permohonan DRM",
-    status: "Sudah",
+    no: "1",
+    company_name: "PT Mangosteen",
+    pic: "Farhan",
+    no_hp: "085710116209",
+    status_vendor: "Terverifikasi",
   },
 ];
 
@@ -60,24 +56,15 @@ export function TableVerifDRM() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              ({ id, name, status_upload, status_doc }, index) => (
-                <tr key={name} className="even:bg-blue-gray-50/50">
+              ({ no, company_name, pic, no_hp, status_vendor }, index) => (
+                <tr key={company_name} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {name}
+                      {no}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -86,7 +73,16 @@ export function TableVerifDRM() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {status_upload}
+                      {company_name}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {pic}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -95,7 +91,7 @@ export function TableVerifDRM() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_doc}
+                      {no_hp}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -104,25 +100,7 @@ export function TableVerifDRM() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_doc}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {status_doc}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {status_doc}
+                      {status_vendor}
                     </Typography>
                   </td>
                   <td className="p-4">

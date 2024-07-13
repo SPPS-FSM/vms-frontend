@@ -1,31 +1,35 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
-  EyeIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Jenis Document", "Aksi"];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    document_type: "Company Profile",
-  },
-  {
-    no: "2",
-    document_type: "NPWP",
-  },
-];
-
 export function TableJenisDocument() {
+  const [jenisDocument, setJenisDocument] = useState([])
+  const fetchJenisDocument = async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/api/jenis-document/documents", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      })
+      setJenisDocument(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+  useEffect(()=>{
+    fetchJenisDocument()
+  },[])
+
+  console.log(Cookies.get("accessToken"))
   return (
     <div>
       <div className="overflow-scroll">
@@ -49,15 +53,15 @@ export function TableJenisDocument() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ no, document_type }, index) => (
-              <tr key={no} className="even:bg-blue-gray-50/50">
+            {jenisDocument.map(({ id_jenis_document, nama_document }, index) => (
+              <tr key={id_jenis_document} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {no}
+                    {id_jenis_document}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -66,7 +70,7 @@ export function TableJenisDocument() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {document_type}
+                    {nama_document}
                   </Typography>
                 </td>
                 <td className="p-4">

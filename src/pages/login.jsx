@@ -1,14 +1,38 @@
 import {
   Button,
   Card,
-  Checkbox,
   Input,
   Typography,
 } from "@material-tailwind/react";
 import React from "react";
 import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    identifier:"",
+    password:""
+  })
+  const handleChange = (e)=>{
+    setFormData({...formData,[e.target.name]: e.target.value})
+  }
+  const handleSubmit = async()=>{
+    const data = {
+      identifier: formData.identifier,
+      password: formData.password
+    }
+    try {
+      const response = await axios.post("http://localhost:4000/api/auth/login", data)
+      console.log(response.data)
+      Cookies.set("accessToken", response.data.tokens.accessToken, {expires: 7})
+      Cookies.set("refreshToken", response.data.tokens.refreshToken, {expires: 7})
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+  console.log(formData)
   return (
     <div className=" h-screen bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex items-center justify-center">
       <Card
@@ -29,11 +53,13 @@ export default function Login() {
             </Typography>
             <Input
               size="lg"
-              placeholder="nama@students.undip.ac.id"
+              placeholder="email"
+              name="identifier"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              onChange={handleChange}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Password
@@ -42,13 +68,15 @@ export default function Login() {
               type="password"
               size="lg"
               placeholder="********"
+              name="password"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              onChange={handleChange}
             />
           </div>
-          <Button className="bg-wpigreen-100 mt-6" fullWidth>
+          <Button className="bg-wpigreen-100 mt-6" fullWidth onClick={handleSubmit}>
             Login
           </Button>
           <a href="/register">

@@ -10,7 +10,7 @@ export const login = async (identifier, password) => {
     if (response.data.tokens) {
       Cookies.set('accessToken', response.data.tokens.accessToken);
       Cookies.set('refreshToken', response.data.tokens.refreshToken);
-      Cookies.set('id', response.data.user.id);
+      Cookies.set('user', response.data.user.id);
 
       return response.data.user.role;
     }

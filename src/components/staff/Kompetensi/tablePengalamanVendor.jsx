@@ -1,16 +1,15 @@
+import React, { useState, useEffect } from "react";
 import {
-  CheckBadgeIcon,
-  CheckIcon,
   EyeIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
   Button,
-  Card,
   IconButton,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const TABLE_HEAD = [
   "No",
@@ -24,20 +23,27 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    klien: "",
-    proyek: "",
-    nilai_proyek: "",
-    kurs: "",
-    no_kontak: "",
-    tanggal_mulai: "",
-    tanggal_selesai: "",
-  },
-];
-
 export default function TablePengalamanVendor() {
+  const [pengalamanData, setPengalamanData] = useState([]);
+
+  const fetchPengalamanData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/userpengalaman", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      });
+      console.log("API Response:", response.data);
+      setPengalamanData(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchPengalamanData();
+  }, []);
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -61,25 +67,25 @@ export default function TablePengalamanVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {pengalamanData.map(
               ({
-                id,
-                klien,
-                proyek,
+                id_pengalaman,
+                nama_klien,
+                nama_proyek,
                 nilai_proyek,
-                kurs,
-                no_kontak,
+                nama_kurs,
+                kontak_klien,
                 tanggal_mulai,
                 tanggal_selesai,
-              }) => (
-                <tr key={id} className="even:bg-blue-gray-50/50">
+              }, index) => (
+                <tr key={id_pengalaman} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -88,7 +94,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {klien}
+                      {nama_klien}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -97,7 +103,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {proyek}
+                      {nama_proyek}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -115,7 +121,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {kurs}
+                      {nama_kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -124,7 +130,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {no_kontak}
+                      {kontak_klien}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -133,7 +139,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {tanggal_mulai}
+                      {new Date(tanggal_mulai).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -142,7 +148,7 @@ export default function TablePengalamanVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {tanggal_selesai}
+                      {new Date(tanggal_selesai).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -159,7 +165,7 @@ export default function TablePengalamanVendor() {
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2">
           <Button variant="outlined" size="sm">
             Previous
           </Button>

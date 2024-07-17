@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import NavbarStaff from "../../../components/staff/navbar";
 import SidebarStaff from "../../../components/staff/sidebar";
+import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function DetailPengalamanVendor() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [experienceDetails, setExperienceDetails] = useState(null);
+  const { id } = useParams(); // Assuming you are using react-router-dom to get the experience ID from the URL
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,7 +25,39 @@ export default function DetailPengalamanVendor() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchExperienceDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/userpengalaman/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        });
+        setExperienceDetails(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchExperienceDetails();
+  }, [id]);
+
+  if (!experienceDetails) {
+    return <div>Loading...</div>;
+  }
+
+  const {
+    nama_perusahaan,
+    nama_klien,
+    nama_proyek,
+    nilai_proyek,
+    nama_kurs,
+    no_kontrak,
+    kontak_klien,
+    tanggal_mulai,
+    tanggal_selesai,
+  } = experienceDetails;
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -60,47 +93,41 @@ export default function DetailPengalamanVendor() {
           <div className="p-4 text-md ">
             <div className="md:flex flex-none gap-0 mb-4">
               <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
-              <p className="w-full md:w-1/3">PT BPYD JAYA</p>
+              <p className="w-full md:w-1/3">{nama_perusahaan}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4">
               <p className="font-bold w-full md:w-1/3">Nama Klien</p>
-              <p className="w-full md:w-1/3">PT ABC</p>
+              <p className="w-full md:w-1/3">{nama_klien}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Nama Proyek</p>
-              <p className="w-full md:w-1/3">Pengadaan Barang</p>
+              <p className="w-full md:w-1/3">{nama_proyek}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Kurs</p>
-              <p className="w-full md:w-1/3">IDR</p>
+              <p className="w-full md:w-1/3">{nama_kurs}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Nilai Proyek</p>
-              <p className="w-full md:w-1/3">1000000</p>
+              <p className="w-full md:w-1/3">{nilai_proyek}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">No Kontrak</p>
-              <p className="w-full md:w-1/3">123ABC</p>
+              <p className="w-full md:w-1/3">{no_kontrak}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Kontak Klien</p>
-              <p className="w-full md:w-1/3">085710116402</p>
+              <p className="w-full md:w-1/3">{kontak_klien}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Mulai</p>
-              <p className="w-full md:w-1/3">2024-06-12</p>
+              <p className="w-full md:w-1/3">{new Date(tanggal_mulai).toLocaleDateString()}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Selesai</p>
-              <p className="w-full md:w-1/3">2026-06-12</p>
+              <p className="w-full md:w-1/3">{new Date(tanggal_selesai).toLocaleDateString()}</p>
             </div>
           </div>
-          {/* <div className="flex justify-start gap-2 px-4">
-            <a href="/supplier/edit-pengalaman">
-              <Button className="bg-green-500">Edit</Button>
-            </a>
-            <Button className="bg-red-500">Cancel</Button>
-          </div> */}
         </div>
       </div>
 

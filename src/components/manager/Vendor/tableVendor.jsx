@@ -1,16 +1,8 @@
-import {
-  CheckBadgeIcon,
-  CheckIcon,
-  EyeIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
+import { EyeIcon } from "@heroicons/react/24/outline";
+import { Button, IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = [
   "No",
@@ -21,17 +13,26 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    company_name: "PT Mangosteen",
-    pic: "Farhan",
-    no_hp: "085710116209",
-    status_vendor: "Terverifikasi",
-  },
-];
-
 export function TableVendor() {
+  const [DRM, setDRM] = useState([]);
+
+  const fetchDRM = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/user/userDRM", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      });
+      setDRM(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchDRM();
+  }, []);
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -55,8 +56,8 @@ export function TableVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ no, company_name, pic, no_hp, status_vendor }, index) => (
+            {DRM.map(
+              ({ no, nama_perusahaan, nama_pic, no_telephone, nama_status }) => (
                 <tr key={no} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -73,7 +74,7 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
+                      {nama_perusahaan}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -82,7 +83,7 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {pic}
+                      {nama_pic}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -91,7 +92,7 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {no_hp}
+                      {no_telephone}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -100,7 +101,7 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_vendor}
+                      {nama_status}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -110,11 +111,11 @@ export function TableVendor() {
                       className="font-normal "
                     >
                       <a href="/manager/detail-vendor">
-                      <Tooltip content="Detail Vendor">
-                        <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                          <EyeIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
+                        <Tooltip content="Detail Vendor">
+                          <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
+                            <EyeIcon height={17} color="white" />
+                          </button>
+                        </Tooltip>
                       </a>
                     </Typography>
                   </td>
@@ -123,7 +124,7 @@ export function TableVendor() {
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2">
           <Button variant="outlined" size="sm">
             Previous
           </Button>

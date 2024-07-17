@@ -1,39 +1,34 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
-  EyeIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Provinsi", "Aksi"];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    province_name: "DKI JAKARTA",
-  },
-  {
-    no: "2",
-    province_name: "JAWA BARAT",
-  },
-  {
-    no: "3",
-    province_name: "JAWA TENGAH",
-  },
-  {
-    no: "4",
-    province_name: "JAWA TIMUR",
-  },
-];
 
 export function TableProvinsi() {
+  const [Provinsi, setProvinsi] = useState([])
+  const fetchProvinsi = async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/api/provinsi/provinsi", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      })
+      setProvinsi(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+  useEffect(()=>{
+    fetchProvinsi()
+  },[])
   return (
     <div>
       <div className="overflow-scroll">
@@ -57,15 +52,15 @@ export function TableProvinsi() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ no, province_name }, index) => (
-              <tr key={no} className="even:bg-blue-gray-50/50">
+            {Provinsi.map(({ id_provinsi, nama_provinsi }, index) => (
+              <tr key={id_provinsi} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {no}
+                    {id_provinsi}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -74,7 +69,7 @@ export function TableProvinsi() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {province_name}
+                    {nama_provinsi}
                   </Typography>
                 </td>
                 <td className="p-4">

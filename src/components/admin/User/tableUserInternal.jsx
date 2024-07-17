@@ -1,24 +1,29 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama", "Email", "Role", "Aksi"];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    name: "Farhan Dwicahyo",
-    email: "farhandiwcahyoo@gmail.com",
-    role: "Staff",
-  },
-  {
-    id: "2",
-    name: "Tri Wahyundo",
-    email: "3wahyundo@gmail.com",
-    role: "Manager",
-  },
-];
-
 export function TableUserInternal() {
+  const [UserInternal, setUserInternal] = useState([])
+  const fetchUserInternal = async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/api/user/userInternal", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      })
+      setUserInternal(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+  useEffect(()=>{
+    fetchUserInternal()
+  },[])
   return (
     <div className="overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
@@ -41,15 +46,15 @@ export function TableUserInternal() {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ id, name, email, role }, index) => (
-            <tr key={name} className="even:bg-blue-gray-50/50">
+          {UserInternal.map(({ id_user, nama_pic, email, nama_role }, index) => (
+            <tr key={id_user} className="even:bg-blue-gray-50/50">
               <td className="p-4">
                 <Typography
                   variant="small"
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {id}
+                  {id_user}
                 </Typography>
               </td>
               <td className="p-4">
@@ -58,7 +63,7 @@ export function TableUserInternal() {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {name}
+                  {nama_pic}
                 </Typography>
               </td>
               <td className="p-4">
@@ -76,7 +81,7 @@ export function TableUserInternal() {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  {role}
+                  {nama_role}
                 </Typography>
               </td>
               <td className="">

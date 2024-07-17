@@ -1,42 +1,47 @@
 import {
   EyeIcon,
-  PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, IconButton, Typography } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = [
   "No",
-  "Kode PO",
+  "Nomor PO",
+  "Nomor Penawaran",
+  "Brand",
   "Tanggal Dibuat PO",
   "Tanggal Mulai PO",
   "Tanggal Berakhir PO",
   "Terms of Payment",
   "Terms of Delivery",
+  "Description",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    No: "1",
-    kode_po: "PO101",
-    kode_penawaran: "A101",
-    pic_vendor: "-",
-    company_name: "-",
-    no_hp: "-",
-    product: "-",
-    status_vendor: "-",
-    status_penawaran: "-",
-    status_proses_vendor: "-",
-    date_buat_po: "03/07/2024",
-    date_start_po: "03/07/2024",
-    date_end_po: "03/07/2025",
-    top: "CBD",
-    tod: "CPT",
-  },
-];
-
 export function TableDraftPO() {
+  const [poData, setPoData] = useState([]);
+
+  const fetchPoData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/userpo/userPO", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      });
+      console.log("API Response:", response.data); // Log the API response
+      setPoData(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchPoData();
+  }, []);
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -60,35 +65,29 @@ export function TableDraftPO() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {poData.map(
               (
                 {
-                  No,
-                  kode_po,
-                  kode_penawaran,
-                  pic_vendor,
-                  company_name,
-                  no_hp,
-                  product,
-                  status_vendor,
-                  status_penawaran,
-                  status_proses_vendor,
-                  date_buat_po,
-                  date_start_po,
-                  date_end_po,
-                  top,
-                  tod,
+                  no_po,
+                  no_penawaran,
+                  brand,
+                  tanggal_dibuat_po,
+                  tanggal_mulai_po,
+                  tanggal_berakhir_po,
+                  Terms_of_Payment,
+                  Terms_of_Delivery,
+                  description,
                 },
                 index
               ) => (
-                <tr key={company_name} className="even:bg-blue-gray-50/50">
+                <tr key={no_po} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {No}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -97,7 +96,7 @@ export function TableDraftPO() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {kode_po}
+                      {no_po}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -106,7 +105,7 @@ export function TableDraftPO() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {date_buat_po}
+                      {no_penawaran}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -115,7 +114,7 @@ export function TableDraftPO() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {date_start_po}
+                      {brand}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -124,7 +123,7 @@ export function TableDraftPO() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {date_end_po}
+                      {new Date(tanggal_dibuat_po).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -133,7 +132,7 @@ export function TableDraftPO() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {top}
+                      {new Date(tanggal_mulai_po).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -142,7 +141,34 @@ export function TableDraftPO() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {tod}
+                      {new Date(tanggal_berakhir_po).toLocaleDateString()}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {Terms_of_Payment}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {Terms_of_Delivery}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {description}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -151,18 +177,16 @@ export function TableDraftPO() {
                         <EyeIcon height={17} color="white" />
                       </button>
                     </a>
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button className="bg-red-500 p-2 rounded-md shadow-md">
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2">
           <Button variant="outlined" size="sm">
             Previous
           </Button>

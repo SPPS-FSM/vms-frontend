@@ -1,46 +1,55 @@
 import {
-  CheckIcon,
   EyeIcon,
-  PencilSquareIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
   Button,
-  Card,
-  Chip,
   IconButton,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = [
   "No",
   "Kode Penawaran",
-  "Nama Vendor",
-  "PIC Vendor",
-  "No Telephone",
-  "Product",
-  "Status Vendor",
+  "Brand",
+  "Price",
+  "Currency",
+  "Stock",
+  "Unit",
+  "Created Date",
+  "Start Date",
+  "End Date",
+  "Payment Terms",
+  "Delivery Terms",
+  "Description",
   "Status Penawaran",
-  "Status Proses Penawaran",
+  "Proses Penawaran",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    kode_penawaran: "A101",
-    pic_vendor: "Farhan",
-    company_name: "PT Mangosteen",
-    no_hp: "085710116209",
-    product: "Mangosteen",
-    status_vendor: "Terverifikasi",
-    status_penawaran: "Berlaku",
-    status_proses_vendor: "Dipilih oleh Staff",
-  },
-];
-
 export function TablePenawaranVendor() {
+  const [penawaranManager, setpenawaranManager] = useState([]);
+  
+  const fetchpenawaranManager = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/userpenawaran/manager", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      });
+      setpenawaranManager(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
+  useEffect(() => {
+    fetchpenawaranManager();
+  }, []);
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -64,25 +73,16 @@ export function TablePenawaranVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ id, kode_penawaran, pic_vendor, company_name, no_hp, product, status_vendor, status_penawaran, status_proses_vendor }, index) => (
-                <tr key={company_name} className="even:bg-blue-gray-50/50">
+            {penawaranManager.map(
+              ({ no_penawaran, brand, price, nama_kurs, stock, nama_satuan, tanggal_dibuat_penawaran, tanggal_mulai_penawaran, tanggal_berakhir_penawaran, Terms_of_Payment, Terms_of_Delivery, description, nama_status_penawaran, nama_status_proses_penawaran }, index) => (
+                <tr key={no_penawaran} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {kode_penawaran}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -91,7 +91,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
+                      {no_penawaran}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -100,7 +100,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {pic_vendor}
+                      {brand}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -109,43 +109,106 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {no_hp}
+                      {price}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {product}
+                      {nama_kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {status_vendor}
+                      {stock}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {status_penawaran}
+                      {nama_satuan}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {status_proses_vendor}
+                      {new Date(tanggal_dibuat_penawaran).toLocaleDateString()}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {new Date(tanggal_mulai_penawaran).toLocaleDateString()}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {new Date(tanggal_berakhir_penawaran).toLocaleDateString()}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {Terms_of_Payment}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {Terms_of_Delivery}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {description}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {nama_status_penawaran}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {nama_status_proses_penawaran}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -156,20 +219,13 @@ export function TablePenawaranVendor() {
                         </button>
                       </Tooltip>
                     </a>
-                    {/* <a href="/manaeger/pilih-penawaran-manager">
-                      <Tooltip content="Edit Status Penawaran Vendor">
-                        <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
-                          <PencilSquareIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
-                    </a> */}
                   </td>
                 </tr>
               )
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2">
           <Button variant="outlined" size="sm">
             Previous
           </Button>

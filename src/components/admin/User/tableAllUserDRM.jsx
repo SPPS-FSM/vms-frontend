@@ -1,16 +1,15 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
   EyeIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
   Button,
-  Card,
   IconButton,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = [
   "No",
@@ -21,17 +20,27 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    company_name: "PT Mangosteen",
-    pic: "Farhan",
-    no_hp: "085710116209",
-    status_vendor: "Terverifikasi",
-  },
-];
 
 export function TableAllUserDRM() {
+
+  const [DRM, setDRM] = useState([])
+  const fetchDRM = async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/api/user/userDRM", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      })
+      setDRM(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+  useEffect(()=>{
+    fetchDRM()
+  },[])
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -55,8 +64,8 @@ export function TableAllUserDRM() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ no, company_name, pic, no_hp, status_vendor }, index) => (
+            {DRM.map(
+              ({ no, nama_perusahaan, nama_pic, no_telephone, nama_status }, index) => (
                 <tr key={no} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -64,7 +73,7 @@ export function TableAllUserDRM() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {no}
+                      {index+1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -73,7 +82,7 @@ export function TableAllUserDRM() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
+                      {nama_perusahaan}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -82,7 +91,7 @@ export function TableAllUserDRM() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {pic}
+                      {nama_pic}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -91,7 +100,7 @@ export function TableAllUserDRM() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {no_hp}
+                      {no_telephone}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -100,7 +109,7 @@ export function TableAllUserDRM() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_vendor}
+                      {nama_status}
                     </Typography>
                   </td>
                   <td className="p-4">

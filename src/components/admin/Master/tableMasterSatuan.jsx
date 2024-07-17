@@ -1,39 +1,35 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
-  EyeIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Satuan", "Aksi"];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    satuan_name: "Unit",
-  },
-  {
-    no: "2",
-    satuan_name: "KG",
-  },
-  {
-    no: "1",
-    satuan_name: "Ton",
-  },
-  {
-    no: "1",
-    satuan_name: "Pcs",
-  },
-];
-
 export function TableSatuan() {
+  const [Satuan, setSatuan] = useState([])
+  const fetchSatuan = async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/api/satuan/satuan", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      })
+      setSatuan(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+  useEffect(()=>{
+    fetchSatuan()
+  },[])
+
+  console.log(Cookies.get("accessToken"))
   return (
     <div>
       <div className="overflow-scroll">
@@ -57,15 +53,15 @@ export function TableSatuan() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ no, satuan_name }, index) => (
-              <tr key={no} className="even:bg-blue-gray-50/50">
+            {Satuan.map(({ id_satuan, nama_satuan }, index) => (
+              <tr key={id_satuan} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {no}
+                    {id_satuan}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -74,7 +70,7 @@ export function TableSatuan() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {satuan_name}
+                    {nama_satuan}
                   </Typography>
                 </td>
                 <td className="p-4">

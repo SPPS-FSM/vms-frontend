@@ -1,28 +1,33 @@
 import {
-  CheckBadgeIcon,
-  CheckIcon,
-  EyeIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import {
-  Button,
-  Card,
-  IconButton,
-  Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Provinsi", "Nama Kota", "Aksi"];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    province_name: "DKI JAKARTA",
-    city_name: "JAKARTA TIMUR",
-  },
-];
-
 export function TableKota() {
+  const [Kota, setKota] = useState([])
+  const fetchKota = async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/api/kota/kota", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        }
+      })
+      setKota(response.data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  
+  useEffect(()=>{
+    fetchKota()
+  },[])
   return (
     <div>
       <div className="overflow-scroll">
@@ -46,15 +51,15 @@ export function TableKota() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ no, province_name, city_name }, index) => (
-              <tr key={no} className="even:bg-blue-gray-50/50">
+            {Kota.map(({ id_kota, nama_provinsi, nama_kota }, index) => (
+              <tr key={id_kota} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {no}
+                    {id_kota}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -63,7 +68,7 @@ export function TableKota() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {province_name}
+                    {nama_provinsi}
                   </Typography>
                 </td>
                 <td className="p-4">
@@ -72,7 +77,7 @@ export function TableKota() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {city_name}
+                    {nama_kota}
                   </Typography>
                 </td>
                 <td className="p-4">

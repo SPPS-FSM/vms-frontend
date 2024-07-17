@@ -1,42 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  CheckBadgeIcon,
-  CheckIcon,
   EyeIcon,
-  TrashIcon,
-  XCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
   Button,
-  Card,
   IconButton,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import LihatSertifikasi from "./LihatSertifikasi";
 
 const TABLE_HEAD = [
   "No",
   "Nama Sertifikasi",
   "Jenis Sertifikasi",
-  "Tanggal Beralaku",
+  "Tanggal Berlaku",
   "Tanggal Berakhir",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    nama_sertifikasi: "Sertifikasi BNSP",
-    jenis_sertifikasi: "Keahlian",
-    tanggal_berlaku: "2024-06-12",
-    tanggal_berakhir: "2026-06-12",
-  },
-];
-
 export default function TableSertifikasiVendor() {
+  const [sertifikasiData, setSertifikasiData] = useState([]);
   const [showModal, setShowModal] = useState(false);
+
+  const fetchSertifikasiData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/api/usersertifikasi", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      });
+      console.log("API Response:", response.data);
+      setSertifikasiData(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchSertifikasiData();
+  }, []);
 
   return (
     <div>
@@ -61,22 +67,22 @@ export default function TableSertifikasiVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {sertifikasiData.map(
               ({
-                id,
+                id_sertifikasi,
                 nama_sertifikasi,
                 jenis_sertifikasi,
                 tanggal_berlaku,
                 tanggal_berakhir,
-              }) => (
-                <tr key={id} className="even:bg-blue-gray-50/50">
+              }, index) => (
+                <tr key={id_sertifikasi} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -101,18 +107,18 @@ export default function TableSertifikasiVendor() {
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {tanggal_berlaku}
+                      {new Date(tanggal_berlaku).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {tanggal_berakhir}
+                      {new Date(tanggal_berakhir).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">

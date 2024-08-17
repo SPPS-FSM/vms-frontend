@@ -19,6 +19,16 @@ export default function NavbarStaff({ setOpenSidebar, openSidebar }) {
     setIsNotificationDropdownOpen(false);
   };
 
+  const handleSignOut = () => {
+    // clear all cookies then redirect to /
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    window.location.href = "/";
+  };
+
   return (
     <div className="bg-gradient-to-t from-wpigreen-50 to-wpiblue-50 flex justify-between items-center px-8 h-[80px] shadow-sm gap-4 relative">
       <div onClick={() => setOpenSidebar(!openSidebar)} className="text-white">
@@ -90,6 +100,7 @@ export default function NavbarStaff({ setOpenSidebar, openSidebar }) {
                 <button
                   role="menuitem"
                   className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  onClick={handleSignOut}
                 >
                   <svg
                     width="16"

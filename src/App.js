@@ -61,6 +61,7 @@ function App() {
       <div className="App">
         <Routes>
           {/* Login Page */}
+          <Route default path="/" element={<Login />} />
           <Route default path="/login" element={<Login />} />
           {/* Register Page */}
           <Route default path="/register" element={<Register />} />

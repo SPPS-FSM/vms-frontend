@@ -68,7 +68,7 @@ export function TableProvinsi({ provinsi, setProvinsi }) {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {id_provinsi}
+                    {index + 1}
                   </Typography>
                 </td>
                 <td className="p-4">

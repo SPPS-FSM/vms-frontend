@@ -11,19 +11,48 @@ import SidebarAdmin from "../../../components/admin/sidebar";
 import NavbarAdmin from "../../../components/admin/navbar";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
-import NavbarSupplier from "../../../components/supplier/navbar";
 import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import SidebarSupplier from "../../../components/supplier/sidebar";
-import { TableAllUserDRM } from "../../../components/admin/User/tableAllUserDRM";
-import { TableUserInternal } from "../../../components/admin/User/tableUserInternal";
+import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function EditUserInternal() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [data, setData] = useState({});
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get("id");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        "http://localhost:4000/api/user/" + userId,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      if (response) {
+        navigate("/admin/user-internal");
+      }
+
+      console.log(data);
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,7 +67,26 @@ export default function EditUserInternal() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    (async (userId) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/user/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+        setData(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    })(userId);
+  }, []);
+
+  // console.log(data);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -72,7 +120,8 @@ export default function EditUserInternal() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} className="p-4">
+            <input type="text" name="id" value={data.id_user} hidden />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -83,18 +132,20 @@ export default function EditUserInternal() {
               type="text"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
-              value={"001"}
+              defaultValue={data.nip}
             />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
-            > 
-              Nama PIC  
+            >
+              Nama PIC
             </label>
             <input
               type="text"
               className="border w-full h-8 my-4 pl-2"
-              value={"Farhan Dwicahyo"}
+              defaultValue={data.nama_pic}
+              onChange={handleChange}
+              name="nama_pic"
             />
             <label
               htmlFor="first-name"
@@ -103,9 +154,11 @@ export default function EditUserInternal() {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               className="border w-full h-8 my-4 pl-2"
-              value={"farhandwicahyoo@gmail.com"}
+              defaultValue={data.email}
+              onChange={handleChange}
+              name="email"
             />
             <label
               htmlFor="first-name"
@@ -114,9 +167,11 @@ export default function EditUserInternal() {
               Nama Perusahaan
             </label>
             <input
+              defaultValue={data.nama_perusahaan}
+              onChange={handleChange}
               type="text"
               className="border w-full h-8 my-4 pl-2"
-              value={"PT Warung Pangan Indonesia"}
+              name="nama_perusahaan"
             />
             <label
               htmlFor="first-name"
@@ -127,7 +182,9 @@ export default function EditUserInternal() {
             <input
               type="text"
               className="border w-full h-8 my-4 pl-2"
-              value={"085710116209"}
+              defaultValue={data.no_telephone}
+              onChange={handleChange}
+              name="no_telephone"
             />
             <label
               htmlFor="first-name"
@@ -139,23 +196,21 @@ export default function EditUserInternal() {
               type="text"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
-              value={"Staff"}
+              defaultValue={
+                data.id_role === 2
+                  ? "Staff"
+                  : data.id_role === 3
+                  ? "Manager"
+                  : ""
+              }
+              value={data.id_role}
             />
-            {/* <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Pilih Role
-            </label> */}
-            {/* <select name="" id="" className="w-full border h-8 my-4">
-              <option value="">--Pilih Role--</option>
-              <option value="">Staff</option>
-              <option value="">Manager</option>
-            </select> */}
 
             <div className="flex justify-end items-end gap-2">
               <Button color="red">Cancel</Button>
-              <Button color="green">Edit</Button>
+              <Button type="submit" color="green">
+                Edit
+              </Button>
             </div>
           </form>
         </div>

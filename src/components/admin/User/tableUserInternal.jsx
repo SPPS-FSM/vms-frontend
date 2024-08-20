@@ -84,7 +84,7 @@ export function TableUserInternal({ userInternal, setUserInternal }) {
                   </Typography>
                 </td>
                 <td className="">
-                  <a href="/admin/edit-user-internal">
+                  <a href={"/admin/edit-user-internal?id=" + id_user}>
                     <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
                       <PencilSquareIcon height={20} color="white" />
                     </button>

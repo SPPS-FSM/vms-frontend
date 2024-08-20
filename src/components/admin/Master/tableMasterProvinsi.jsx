@@ -2,7 +2,6 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Provinsi", "Aksi"];
 

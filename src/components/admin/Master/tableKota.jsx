@@ -1,33 +1,23 @@
-import {
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import {
-  Typography,
-} from "@material-tailwind/react";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Provinsi", "Nama Kota", "Aksi"];
 
-export function TableKota() {
-  const [Kota, setKota] = useState([])
-  const fetchKota = async()=>{
+export function TableKota({ kota, setKota, fetchKota }) {
+  const handleDeleteKota = async (id_kota) => {
     try {
-      const response = await axios.get("http://localhost:4000/api/kota/kota", {
+      await axios.delete(`http://localhost:4000/api/kota/kota/${id_kota}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        }
-      })
-      setKota(response.data)
+        },
+      });
+      fetchKota();
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
-  
-  useEffect(()=>{
-    fetchKota()
-  },[])
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -51,7 +41,7 @@ export function TableKota() {
             </tr>
           </thead>
           <tbody>
-            {Kota.map(({ id_kota, nama_provinsi, nama_kota }, index) => (
+            {kota.map(({ id_kota, nama_provinsi, nama_kota }, index) => (
               <tr key={id_kota} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
@@ -86,11 +76,12 @@ export function TableKota() {
                     color="blue-gray"
                     className="font-normal "
                   >
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md mx-2">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      className="bg-red-500 p-2 rounded-md shadow-md mx-2"
+                      onClick={() => handleDeleteKota(id_kota)}
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </Typography>
                 </td>
               </tr>

@@ -1,35 +1,29 @@
-import {
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import {
-  Typography,
-} from "@material-tailwind/react";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Jenis Document", "Aksi"];
 
-export function TableJenisDocument() {
-  const [jenisDocument, setJenisDocument] = useState([])
-  const fetchJenisDocument = async()=>{
+export function TableJenisDocument({ jenisDocument, setJenisDocument }) {
+  const handleDelete = async (id_jenis_document) => {
     try {
-      const response = await axios.get("http://localhost:4000/api/jenis-document/documents", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      await axios.delete(
+        `http://localhost:4000/api/jenis-document/documents/${id_jenis_document}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
         }
-      })
-      setJenisDocument(response.data)
+      );
+      setJenisDocument((prevState) =>
+        prevState.filter((item) => item.id_jenis_document !== id_jenis_document)
+      );
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
-  
-  useEffect(()=>{
-    fetchJenisDocument()
-  },[])
+  };
 
-  console.log(Cookies.get("accessToken"))
   return (
     <div>
       <div className="overflow-scroll">
@@ -53,41 +47,44 @@ export function TableJenisDocument() {
             </tr>
           </thead>
           <tbody>
-            {jenisDocument.map(({ id_jenis_document, nama_document }, index) => (
-              <tr key={id_jenis_document} className="even:bg-blue-gray-50/50">
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {id_jenis_document}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {nama_document}
-                  </Typography>
-                </td>
-                <td className="p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal "
-                  >
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md mx-2">
+            {jenisDocument.map(
+              ({ id_jenis_document, nama_document }, index) => (
+                <tr key={id_jenis_document} className="even:bg-blue-gray-50/50">
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {index + 1}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {nama_document}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
+                      <button
+                        onClick={() => handleDelete(id_jenis_document)}
+                        className="bg-red-500 p-2 rounded-md shadow-md mx-2"
+                      >
                         <TrashIcon height={17} color="white" />
                       </button>
-                    </a>
-                  </Typography>
-                </td>
-              </tr>
-            ))}
+                    </Typography>
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
         {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">

@@ -1,34 +1,43 @@
-import {
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import {
-  Typography,
-} from "@material-tailwind/react";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama Provinsi", "Aksi"];
 
-
-export function TableProvinsi() {
-  const [Provinsi, setProvinsi] = useState([])
-  const fetchProvinsi = async()=>{
+export function TableProvinsi({ provinsi, setProvinsi }) {
+  const fetchProvinsi = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/provinsi/provinsi", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      const response = await axios.get(
+        "http://localhost:4000/api/provinsi/provinsi",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
         }
-      })
-      setProvinsi(response.data)
+      );
+      setProvinsi(response.data);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
-  
-  useEffect(()=>{
-    fetchProvinsi()
-  },[])
+  };
+
+  const handleDeleteProvinsi = async (id_provinsi) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/provinsi/provinsi/${id_provinsi}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      fetchProvinsi();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -52,7 +61,7 @@ export function TableProvinsi() {
             </tr>
           </thead>
           <tbody>
-            {Provinsi.map(({ id_provinsi, nama_provinsi }, index) => (
+            {provinsi.map(({ id_provinsi, nama_provinsi }, index) => (
               <tr key={id_provinsi} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <Typography
@@ -78,48 +87,18 @@ export function TableProvinsi() {
                     color="blue-gray"
                     className="font-normal "
                   >
-                    <a href="#">
-                        <button className="bg-red-500 p-2 rounded-md shadow-md mx-2">
-                          <TrashIcon height={17} color="white" />
-                        </button>
-                    </a>
+                    <button
+                      onClick={() => handleDeleteProvinsi(id_provinsi)}
+                      className="bg-red-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </Typography>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
-          <Button variant="outlined" size="sm">
-            Previous
-          </Button>
-          <div className="flex items-center gap-2">
-            <IconButton variant="outlined" size="sm">
-              1
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              2
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              3
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              ...
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              8
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              9
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              10
-            </IconButton>
-          </div>
-          <Button variant="outlined" size="sm">
-            Next
-          </Button>
-        </div> */}
       </div>
     </div>
   );

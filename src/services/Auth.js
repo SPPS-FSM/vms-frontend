@@ -22,20 +22,22 @@ export const login = async (identifier, password) => {
   }
 };
 
-export const register = async (data) => {
+export const register = async (data, admin) => {
   try {
     const response = await axios.post(
       "http://localhost:4000/api/auth/register",
       data
     );
 
-    if (response.data.tokens) {
+    if (response.data.tokens && !admin) {
       Cookies.set("accessToken", response.data.tokens.accessToken);
       Cookies.set("refreshToken", response.data.tokens.refreshToken);
       Cookies.set("user", response.data.user.id);
 
       return response.data;
     }
+
+    if (admin) return true;
 
     return null;
   } catch (error) {

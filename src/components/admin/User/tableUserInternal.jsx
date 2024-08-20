@@ -6,24 +6,22 @@ import { useState, useEffect } from "react";
 
 const TABLE_HEAD = ["No", "Nama", "Email", "Role", "Aksi"];
 
-export function TableUserInternal() {
-  const [UserInternal, setUserInternal] = useState([])
-  const fetchUserInternal = async()=>{
+export function TableUserInternal({ userInternal, setUserInternal }) {
+  const handleDelete = async (id_user) => {
     try {
-      const response = await axios.get("http://localhost:4000/api/user/userInternal", {
+      await axios.delete(`http://localhost:4000/api/user/${id_user}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        }
-      })
-      setUserInternal(response.data)
+        },
+      });
+      setUserInternal((prevState) =>
+        prevState.filter((item) => item.id_user !== id_user)
+      );
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
-  
-  useEffect(()=>{
-    fetchUserInternal()
-  },[])
+  };
+
   return (
     <div className="overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
@@ -46,56 +44,61 @@ export function TableUserInternal() {
           </tr>
         </thead>
         <tbody>
-          {UserInternal.map(({ id_user, nama_pic, email, nama_role }, index) => (
-            <tr key={id_user} className="even:bg-blue-gray-50/50">
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  {id_user}
-                </Typography>
-              </td>
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  {nama_pic}
-                </Typography>
-              </td>
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  {email}
-                </Typography>
-              </td>
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  {nama_role}
-                </Typography>
-              </td>
-              <td className="">
-                <a href="/admin/edit-user-internal">
-                  <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
-                    <PencilSquareIcon height={20} color="white" />
+          {userInternal.map(
+            ({ id_user, nama_pic, email, nama_role }, index) => (
+              <tr key={id_user} className="even:bg-blue-gray-50/50">
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {index + 1}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {nama_pic}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {email}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {nama_role}
+                  </Typography>
+                </td>
+                <td className="">
+                  <a href="/admin/edit-user-internal">
+                    <button className="bg-green-500 p-2 rounded-md shadow-md mx-2">
+                      <PencilSquareIcon height={20} color="white" />
+                    </button>
+                  </a>
+                  <button
+                    onClick={() => handleDelete(id_user)}
+                    className="bg-red-500 p-2 rounded-md shadow-md"
+                  >
+                    <TrashIcon height={20} color="white" />
                   </button>
-                </a>
-                <button className="bg-red-500 p-2 rounded-md shadow-md">
-                  <TrashIcon height={20} color="white" />
-                </button>
-              </td>
-            </tr>
-          ))}
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>

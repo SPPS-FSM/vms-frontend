@@ -1,29 +1,48 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import SidebarAdmin from "../../../components/admin/sidebar";
 import NavbarAdmin from "../../../components/admin/navbar";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
-import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import SidebarSupplier from "../../../components/supplier/sidebar";
-import { TableAllUserDRM } from "../../../components/admin/User/tableAllUserDRM";
-import { TableUserInternal } from "../../../components/admin/User/tableUserInternal";
+import { register } from "../../../services/Auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function TambahUserInternal() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [formData, setFormData] = useState({
+    nip: "",
+    email: "",
+    username: "",
+    nama_perusahaan: "",
+    nama_pic: "",
+    no_telephone: "",
+    password: "",
+    id_role: 1,
+  });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // convert id_role to number
+      formData.id_role = parseInt(formData.id_role);
+
+      const response = await register(formData, true);
+
+      if (response) {
+        navigate("/admin/user-internal");
+      }
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,7 +57,6 @@ export default function TambahUserInternal() {
     };
   }, []);
 
-  console.log(result);
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -72,57 +90,120 @@ export default function TambahUserInternal() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} className="p-4">
             <label
-              htmlFor="first-name"
+              htmlFor="nip"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               NIP
             </label>
-            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <input
+              onChange={handleChange}
+              type="text"
+              name="nip"
+              id="nip"
+              className="border w-full h-8 my-4 pl-2"
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="usernamename"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Username
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="border w-full h-8 my-4 pl-2"
+              onChange={handleChange}
+            />
+            <label
+              htmlFor="nama_pic"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama PIC
             </label>
-            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <input
+              type="text"
+              id="nama_pic"
+              name="nama_pic"
+              className="border w-full h-8 my-4 pl-2"
+              onChange={handleChange}
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="email"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Email
             </label>
-            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <input
+              onChange={handleChange}
+              type="text"
+              id="email"
+              name="email"
+              className="border w-full h-8 my-4 pl-2"
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="nama_perusahaan"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama Perusahaan
             </label>
-            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <input
+              onChange={handleChange}
+              type="text"
+              id="nama_perusahaan"
+              name="nama_perusahaan"
+              className="border w-full h-8 my-4 pl-2"
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="no_telephone"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               No Telephone
             </label>
-            <input type="text" className="border w-full h-8 my-4 pl-2" />
+            <input
+              onChange={handleChange}
+              type="text"
+              id="no_telephone"
+              name="no_telephone"
+              className="border w-full h-8 my-4 pl-2"
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="id_role"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Pilih Role
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              onChange={handleChange}
+              name="id_role"
+              id="id_role"
+              className="w-full border h-8 my-4"
+            >
               <option value=""></option>
-              <option value="">Staff</option>
-              <option value="">Manager</option>
+              <option value="2">Staff</option>
+              <option value="3">Manager</option>
             </select>
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Password
+            </label>
+            <input
+              onChange={handleChange}
+              type="password"
+              id="password"
+              name="password"
+              className="border w-full h-8 my-4 pl-2"
+            />
 
             <div className="flex justify-end items-end gap-2">
               <Button color="red">Cancel</Button>
-              <Button color="green">submit</Button>
+              <Button type="submit" color="green">
+                submit
+              </Button>
             </div>
           </form>
         </div>

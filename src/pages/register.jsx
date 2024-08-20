@@ -14,6 +14,7 @@ import { register } from "../services/Auth";
 export default function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    nip: "",
     email: "",
     username: "",
     nama_perusahaan: "",
@@ -61,6 +62,19 @@ export default function Register() {
           onSubmit={handleSubmit}
         >
           <div className="mb-1 flex flex-col gap-6">
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              NIP
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="nama@students.undip.ac.id"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              onChange={handleChange}
+              name="nip"
+            />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Email
             </Typography>

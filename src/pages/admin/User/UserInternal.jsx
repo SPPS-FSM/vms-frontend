@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
+
 import SidebarAdmin from "../../../components/admin/sidebar";
 import NavbarAdmin from "../../../components/admin/navbar";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
-import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import SidebarSupplier from "../../../components/supplier/sidebar";
-import { TableAllUserDRM } from "../../../components/admin/User/tableAllUserDRM";
 import { TableUserInternal } from "../../../components/admin/User/tableUserInternal";
+import Cookies from "js-cookie";
 
 export default function UserInternal() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
+  const fetchUserInternal = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/user/userInternal",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInternal();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,7 +45,6 @@ export default function UserInternal() {
     };
   }, []);
 
-  console.log(result);
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -75,7 +81,7 @@ export default function UserInternal() {
             *catatan: <br /> - untuk menambah pengalaman tekan tombol Tambah (+)
           </div> */}
           <div>
-            <TableUserInternal />
+            <TableUserInternal userInternal={data} setUserInternal={setData} />
           </div>
         </div>
       </div>

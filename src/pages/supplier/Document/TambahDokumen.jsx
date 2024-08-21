@@ -1,27 +1,57 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import { getJenisDokumen, submitDokumen } from "../../../services/Dokumen";
+import { useNavigate } from "react-router-dom";
 
 export default function TambahDokumen() {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [jenisDokumen, setJenisDokumen] = useState([]);
+  const [file, setFile] = useState(null);
+
+  const [formData, setFormData] = useState({
+    nama_document: "",
+    id_jenis_document: "",
+    tanggal_berlaku: "",
+    tanggal_berakhir: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("nama_document", formData.nama_document);
+      data.append("id_jenis_document", formData.id_jenis_document);
+      data.append("tanggal_berlaku", formData.tanggal_berlaku);
+      data.append("tanggal_berakhir", formData.tanggal_berakhir);
+
+      const res = await submitDokumen(data);
+
+      if (res) {
+        navigate("/supplier/upload_dokumen");
+      }
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +66,20 @@ export default function TambahDokumen() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchJenisDokumen = async () => {
+      try {
+        const response = await getJenisDokumen();
+
+        setJenisDokumen(response);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+      }
+    };
+
+    fetchJenisDokumen();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -65,7 +108,7 @@ export default function TambahDokumen() {
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
-            <div className="font-semibold">Tambah Dokumen </div>
+            <div className="font-semibold">Tambah Dokumen</div>
             <a href="/supplier/upload_dokumen">
               <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
                 <ArrowLeftIcon height={25} />
@@ -73,43 +116,84 @@ export default function TambahDokumen() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Nama Perusahaan
-            </label>
-            <input type="text" className="border w-full h-8 my-4" disabled />
+          <form onSubmit={handleSubmit} className="p-4">
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Pilih Dokumen
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
-              <option value="">--Pilih Doukemen--</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
+            <select
+              name="id_jenis_document"
+              onChange={handleChange}
+              id=""
+              className="w-full border h-8 my-4"
+            >
+              <option value="">--Pilih Dokumen--</option>
+              {jenisDokumen.map((dokumen) => (
+                <option
+                  key={dokumen.id_jenis_document}
+                  value={dokumen.id_jenis_document}
+                >
+                  {dokumen.nama_document}
+                </option>
+              ))}
             </select>
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Keterangan Dokumen
+              Nama Dokumen
             </label>
-            <textarea type="text" className="border w-full h-20 my-4" />
+            <input
+              type="text"
+              className="border w-full h-8 my-4"
+              onChange={handleChange}
+              name="nama_document"
+            />
+
+            <label
+              htmlFor="tanggal_berlaku"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Tanggal Berlaku
+            </label>
+            <input
+              id="tanggal_berlaku"
+              type="date"
+              className="border w-full h-8 my-4"
+              onChange={handleChange}
+              name="tanggal_berlaku"
+            />
+            <label
+              htmlFor="tanggal_berakhir"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Tanggal Berakhir
+            </label>
+            <input
+              id="tanggal_berakhir"
+              type="date"
+              className="border w-full h-8 my-4"
+              onChange={handleChange}
+              name="tanggal_berakhir"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Upload Dokumen
             </label>
-            <input type="file" name="" id="" className="æ" />
+            <input
+              type="file"
+              name="document"
+              onChange={handleFileChange}
+              className="border w-full h-8 my-4"
+            />
             <div className="flex justify-end items-end">
-              <Button color="green">submit</Button>
+              <Button type="submit" color="green">
+                Submit
+              </Button>
             </div>
           </form>
         </div>

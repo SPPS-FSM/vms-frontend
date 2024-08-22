@@ -40,3 +40,22 @@ export const submitDokumen = async (data) => {
     throw new Error("Submit dokumen gagal");
   }
 };
+
+export const editDokumen = async (data, id) => {
+  try {
+    const response = await axios.put(
+      "http://localhost:4000/api/userdocuments/" + id,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Edit dokumen gagal", error);
+    throw new Error("Edit dokumen gagal");
+  }
+};

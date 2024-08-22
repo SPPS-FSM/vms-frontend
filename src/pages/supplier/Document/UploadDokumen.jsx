@@ -5,10 +5,13 @@ import NavbarSupplier from "../../../components/supplier/navbar";
 import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import Cookies from "js-cookie";
 
 export default function UploadDokumen() {
+  const user = Cookies.get("user");
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
+  const [missingDocs, setMissingDocs] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,40 +26,46 @@ export default function UploadDokumen() {
     };
   }, []);
 
-  const TABLE_HEAD = ["Nama Dokumen", "Status Upload", "Status Dokumen"];
+  async function fetchUserDocument() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/userdocuments/user/" + user,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
 
-  const TABLE_ROWS = [
-    {
-      job: "Manager",
-      org: "Organization",
-      online: true,
-      date: "23/04/18",
-    },
-    {
-      job: "Programator",
-      org: "Developer",
-      online: false,
-      date: "23/04/18",
-    },
-    {
-      job: "Executive",
-      org: "Projects",
-      online: false,
-      date: "19/09/17",
-    },
-    {
-      job: "Programator",
-      org: "Developer",
-      online: true,
-      date: "24/12/08",
-    },
-    {
-      job: "Manager",
-      org: "Executive",
-      online: false,
-      date: "04/10/21",
-    },
-  ];
+      setData(response.data);
+    } catch (error) {
+      console.error("Get jenis dokumen gagal", error);
+      throw new Error("Get jenis dokumen gagal");
+    }
+  }
+
+  async function fetchMissingDocument() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/userdocuments/missing/" + user,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      setMissingDocs(response.data);
+    } catch (error) {
+      console.error("Get jenis dokumen gagal", error);
+      throw new Error("Get jenis dokumen gagal");
+    }
+  }
+
+  useEffect(() => {
+    fetchUserDocument();
+    fetchMissingDocument();
+  }, []);
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
@@ -99,19 +108,18 @@ export default function UploadDokumen() {
             agar dapat diverifikasi oleh petugas untuk menjadi Rekanan/Vendor
           </div>
           <div>
-            <TableUploadDocument />
+            <TableUploadDocument data={data} setData={setData} />
             <div className="py-4">
               <div className="text-sm text-gray-500 my-4">
                 KEKURANGAN DOKUMEN :
               </div>
               <div className="flex flex-col">
-                <div className="text-sm">- Surat Permohonan DRM</div>
-                <div className="text-sm">- Surat Permohonan DRM</div>
-                <div className="text-sm">- Surat Permohonan DRM</div>
-                <div className="text-sm">- Surat Permohonan DRM</div>
-                <div className="text-sm">- Surat Permohonan DRM</div>
-                <div className="text-sm">- Surat Permohonan DRM</div>
-                <div className="text-sm">- Surat Permohonan DRM</div>
+                {missingDocs.map(
+                  (doc) =>
+                    doc.id_jenis_document !== 15 && (
+                      <div className="text-sm">- {doc.jenis_document}</div>
+                    )
+                )}
               </div>
             </div>
           </div>

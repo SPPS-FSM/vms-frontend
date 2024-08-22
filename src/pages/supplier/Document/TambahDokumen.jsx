@@ -5,10 +5,12 @@ import axios from "axios";
 import NavbarSupplier from "../../../components/supplier/navbar";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
 import SidebarSupplier from "../../../components/supplier/sidebar";
-import { getJenisDokumen, submitDokumen } from "../../../services/Dokumen";
+import { submitDokumen } from "../../../services/Dokumen";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function TambahDokumen() {
+  const user = Cookies.get("user");
   const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [jenisDokumen, setJenisDokumen] = useState([]);
@@ -67,17 +69,25 @@ export default function TambahDokumen() {
   }, []);
 
   useEffect(() => {
-    const fetchJenisDokumen = async () => {
+    async function fetchMissingDocument() {
       try {
-        const response = await getJenisDokumen();
+        const response = await axios.get(
+          "http://localhost:4000/api/userdocuments/missing/" + user,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
 
-        setJenisDokumen(response);
+        setJenisDokumen(response.data);
       } catch (error) {
         console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
       }
-    };
+    }
 
-    fetchJenisDokumen();
+    fetchMissingDocument();
   }, []);
 
   return (
@@ -135,7 +145,7 @@ export default function TambahDokumen() {
                   key={dokumen.id_jenis_document}
                   value={dokumen.id_jenis_document}
                 >
-                  {dokumen.nama_document}
+                  {dokumen.jenis_document}
                 </option>
               ))}
             </select>

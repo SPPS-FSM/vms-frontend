@@ -5,11 +5,15 @@ import NavbarSupplier from "../../../components/supplier/navbar";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
 import SidebarSupplier from "../../../components/supplier/sidebar";
 import { Button } from "@material-tailwind/react";
+import Cookies from "js-cookie";
+import { useSearchParams } from "react-router-dom";
+import { formatDateIndo } from "../../../utils/date";
 
 export default function DetailDokumen() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [data, setData] = useState({});
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,7 +28,28 @@ export default function DetailDokumen() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userdocuments/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setData(response.data[0]);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -63,35 +88,51 @@ export default function DetailDokumen() {
           <div className="p-4 text-md ">
             <div className="md:flex flex-none gap-0 mb-4">
               <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
-              <p className="w-full md:w-1/3">PT BPYD JAYA</p>
+              <p className="w-full md:w-1/3">{data.nama_perusahaan}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4">
               <p className="font-bold w-full md:w-1/3">Nama Document</p>
-              <p className="w-full md:w-1/3">Company Profile PT BPYD JAYA</p>
+              <p className="w-full md:w-1/3">{data.nama_document}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Jenis Document</p>
-              <p className="w-full md:w-1/3">Company Profile</p>
+              <p className="w-full md:w-1/3">{data.jenis_document}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Berlaku</p>
-              <p className="w-full md:w-1/3">2024-06-12</p>
+              <p className="w-full md:w-1/3">
+                {data.tanggal_berlaku && formatDateIndo(data.tanggal_berlaku)}
+              </p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Berakhir</p>
-              <p className="w-full md:w-1/3">2026-06-12</p>
+              <p className="w-full md:w-1/3">
+                {data.tanggal_berakhir && formatDateIndo(data.tanggal_berakhir)}
+              </p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Status Upload</p>
-              <p className="w-full md:w-1/3">Sudah</p>
+              <p className="w-full md:w-1/3">{data.nama_status}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Nama File Upload</p>
-              <p className="w-full md:w-1/3">file.pdf</p>
+              <div className="flex flex-col">
+                <p className="w-full">{data.file}</p>
+                <a
+                  className="text-blue-800 hover:underline"
+                  href={`http://localhost:4000/api/file/${
+                    data.file && data.file.split("/")[1]
+                  }`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Lihat file
+                </a>
+              </div>
             </div>
           </div>
           <div className="flex justify-start gap-2 px-4">
-            <a href="/supplier/edit-dokumen">
+            <a href={`/supplier/edit-dokumen?id=${id}`}>
               <Button className="bg-green-500">Edit</Button>
             </a>
             {/* <Button className="bg-red-500">Cancel</Button> */}

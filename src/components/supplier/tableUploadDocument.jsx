@@ -4,6 +4,10 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { formatDateIndo } from "../../utils/date";
+import { splitText } from "../../utils/text";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const TABLE_HEAD = [
   "No",
@@ -12,23 +16,27 @@ const TABLE_HEAD = [
   "Tanggal Beralaku",
   "Tanggal Berakhir",
   "Status Upload",
-  "Nama File Upload",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    nama_document: "Company Profile PT BPYD JAYA",
-    jenis_document: "Company Profile",
-    tanggal_berlaku: "2024-06-12",
-    tanggal_berakhir: "2026-06-12",
-    status_upload: "Sudah",
-    nama_file: "file.pdf",
-  },
-];
-
-export function TableUploadDocument() {
+export function TableUploadDocument({ data, setData }) {
+  const handleDelete = async (id_document) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/userdocuments/${id_document}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevState) =>
+        prevState.filter((item) => item.id_document !== id_document)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -52,8 +60,18 @@ export function TableUploadDocument() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ id, nama_document,jenis_document, tanggal_berlaku, tanggal_berakhir, status_upload, nama_file }, index) => (
+            {data.map(
+              (
+                {
+                  id_document,
+                  nama_document,
+                  jenis_document,
+                  tanggal_berlaku,
+                  tanggal_berakhir,
+                  nama_status,
+                },
+                index
+              ) => (
                 <tr key={nama_document} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -61,25 +79,36 @@ export function TableUploadDocument() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal"
-                    >
-                      {nama_document}
-                    </Typography>
+                      className="font-normal text-wrap"
+                      dangerouslySetInnerHTML={{
+                        __html: splitText(nama_document, 30),
+                      }}
+                    ></Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal"
+                      className="font-normal text-wrap"
+                      dangerouslySetInnerHTML={{
+                        __html: splitText(jenis_document, 30),
+                      }}
+                    ></Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
                     >
-                      {jenis_document}
+                      {formatDateIndo(tanggal_berlaku)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -88,7 +117,7 @@ export function TableUploadDocument() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berlaku}
+                      {formatDateIndo(tanggal_berakhir)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -97,43 +126,22 @@ export function TableUploadDocument() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berakhir}
+                      {nama_status}
                     </Typography>
                   </td>
+
                   <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {status_upload}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {nama_file}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    {/* <a href="/supplier/edit-dokumen">
-                      <button className="bg-green-500 p-2 rounded-md shadow-md">
-                        <PencilSquareIcon height={17} color="white" />
-                      </button>
-                    </a> */}
-                    <a href="/supplier/detail-dokumen">
+                    <a href={`/supplier/detail-dokumen?id=${id_document}`}>
                       <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                         <EyeIcon height={17} color="white" />
                       </button>
                     </a>
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() => handleDelete(id_document)}
+                      className="bg-red-500 p-2 rounded-md shadow-md"
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )

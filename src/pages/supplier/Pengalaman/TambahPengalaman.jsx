@@ -17,8 +17,11 @@ import { TableUploadDocument } from "../../../components/supplier/tableUploadDoc
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function TambahPengalaman() {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState({});
   const handleChange = (e) => {
@@ -32,7 +35,22 @@ export default function TambahPengalaman() {
     e.preventDefault();
 
     try {
-      console.log("data", data);
+      const res = await axios.post(
+        "http://localhost:4000/api/userpengalaman",
+        {
+          ...data,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      if (res.status === 201) {
+        console.log("success");
+        navigate("/supplier/pengalaman_perusahaan");
+      }
     } catch (error) {
       console.error("Error register:", error);
     }
@@ -133,7 +151,12 @@ export default function TambahPengalaman() {
             >
               Nilai Proyek
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="nilai_proyek"
+              onChange={handleChange}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"

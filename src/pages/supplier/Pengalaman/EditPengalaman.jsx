@@ -1,27 +1,75 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import Cookies from "js-cookie";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { formatDateInput } from "../../../utils/date";
 
 export default function EditPengalaman() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [data, setData] = useState({});
+  const [jenisDocument, setJenisDocument] = useState([]);
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.put(
+        "http://localhost:4000/api/userpengalaman/" + id,
+        {
+          ...data,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      if (res.status === 200) {
+        console.log("success");
+        navigate("/supplier/pengalaman_perusahaan");
+      }
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userpengalaman/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +84,30 @@ export default function EditPengalaman() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userpengalaman/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        console.log("res", response.data);
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -72,7 +143,7 @@ export default function EditPengalaman() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} action="" className="p-4">
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -80,10 +151,11 @@ export default function EditPengalaman() {
               Nama Perusahaan
             </label>
             <input
+              name="nama_perusahaan"
               type="text"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
-              value={"PT BPYD JAYA"}
+              value={data.nama_perusahaan}
             />
             <label
               htmlFor="first-name"
@@ -91,24 +163,42 @@ export default function EditPengalaman() {
             >
               Nama Klien
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="nama_klien"
+              value={data.nama_klien}
+              onChange={handleChange}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama Proyek
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="nama_proyek"
+              value={data.nama_proyek}
+              onChange={handleChange}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Kurs
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              name="id_kurs"
+              id="id_kurs"
+              onChange={handleChange}
+              value={data.id_kurs}
+              className="w-full border h-8 my-4"
+            >
               <option value=""></option>
-              <option value="">IDR</option>
-              <option value="">USD</option>
+              <option value="2">IDR</option>
+              <option value="1">USD</option>
             </select>
             <label
               htmlFor="first-name"
@@ -116,37 +206,69 @@ export default function EditPengalaman() {
             >
               Nilai Proyek
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="nilai_proyek"
+              value={data.nilai_proyek}
+              onChange={handleChange}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               No Kontrak
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="no_kontrak"
+              value={data.no_kontrak}
+              onChange={handleChange}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Kontak Klien
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="kontak_klien"
+              onChange={handleChange}
+              value={data.kontak_klien}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Mulai
             </label>
-            <input type="date" className="border w-full  my-4" />
+            <input
+              name="tanggal_mulai"
+              onChange={handleChange}
+              value={formatDateInput(data.tanggal_mulai)}
+              type="date"
+              className="border w-full  my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Selesai
             </label>
-            <input type="date" className="border w-full  my-4" />
+            <input
+              name="tanggal_selesai"
+              onChange={handleChange}
+              value={formatDateInput(data.tanggal_selesai)}
+              type="date"
+              className="border w-full  my-4"
+            />
             <div className="flex justify-end items-end">
-              <Button color="green">Submit</Button>
+              <Button type="submit" color="green">
+                Submit
+              </Button>
             </div>
           </form>
         </div>

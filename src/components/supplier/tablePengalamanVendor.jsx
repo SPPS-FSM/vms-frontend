@@ -5,6 +5,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
 import { formatDateIndo } from "../../utils/date";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -20,6 +23,24 @@ const TABLE_HEAD = [
 ];
 
 export function TablePengalamanVendor({ data, setData }) {
+  const navigate = useNavigate();
+  const handleDelete = async (id_pengalaman) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/userpengalaman/${id_pengalaman}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevState) =>
+        prevState.filter((item) => item.id_pengalaman !== id_pengalaman)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -146,16 +167,22 @@ export function TablePengalamanVendor({ data, setData }) {
                         <PencilSquareIcon height={17} color="white" />
                       </button>
                     </a> */}
-                    <a href="/supplier/detail-pengalaman">
-                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </a>
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() =>
+                        navigate(
+                          "/supplier/detail-pengalaman?id=" + id_pengalaman
+                        )
+                      }
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(id_pengalaman)}
+                      className="bg-red-500 p-2 rounded-md shadow-md"
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )

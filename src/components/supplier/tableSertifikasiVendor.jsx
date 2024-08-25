@@ -4,6 +4,10 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { formatDateIndo } from "../../utils/date";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const TABLE_HEAD = [
   "No",
@@ -11,22 +15,29 @@ const TABLE_HEAD = [
   "Jenis Sertifikasi",
   "Tanggal Beralaku",
   "Tanggal Berakhir",
-  "Nama File Upload",
+  "File",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    nama_sertifikasi: "Company Profile PT BPYD JAYA",
-    jenis_sertifikasi: "Company Profile",
-    tanggal_berlaku: "2024-06-12",
-    tanggal_berakhir: "2026-06-12",
-    nama_file: "file.pdf",
-  },
-];
-
-export function TableSertifikasiVendor() {
+export function TableSertifikasiVendor({ data, setData }) {
+  const navigate = useNavigate();
+  const handleDelete = async (id_sertifikasi) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/usersertifikasi/${id_sertifikasi}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevState) =>
+        prevState.filter((item) => item.id_sertifikasi !== id_sertifikasi)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -50,15 +61,15 @@ export function TableSertifikasiVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {data.map(
               (
                 {
-                  id,
+                  id_sertifikasi,
                   nama_sertifikasi,
                   jenis_sertifikasi,
                   tanggal_berlaku,
                   tanggal_berakhir,
-                  nama_file,
+                  file,
                 },
                 index
               ) => (
@@ -69,7 +80,7 @@ export function TableSertifikasiVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -96,25 +107,33 @@ export function TableSertifikasiVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berlaku}
+                      {formatDateIndo(tanggal_berlaku)}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal"
                     >
-                      {tanggal_berakhir}
+                      {formatDateIndo(tanggal_berakhir)}
                     </Typography>
                   </td>
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal "
+                      className="font-normal hover:underline"
                     >
-                      {nama_file}
+                      <a
+                        href={
+                          "http://localhost:4000/api/file/" + file.split("/")[1]
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Lihat File
+                      </a>
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -123,16 +142,22 @@ export function TableSertifikasiVendor() {
                         <PencilSquareIcon height={17} color="white" />
                       </button>
                     </a> */}
-                    <a href="/supplier/detail-sertifikasi">
-                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </a>
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() =>
+                        navigate(
+                          "/supplier/detail-sertifikasi?id=" + id_sertifikasi
+                        )
+                      }
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(id_sertifikasi)}
+                      className="bg-red-500 p-2 rounded-md shadow-md"
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )

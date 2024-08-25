@@ -74,7 +74,7 @@ export default function NavbarManager({ setOpenSidebar, openSidebar }) {
               <a href="#">
                 <button
                   role="menuitem"
-                  class="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  className="flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-3 pt-[9px] pb-2 text-start leading-tight outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
                 >
                   <svg
                     width="16"
@@ -90,12 +90,12 @@ export default function NavbarManager({ setOpenSidebar, openSidebar }) {
                       fill="#90A4AE"
                     ></path>
                   </svg>
-                  <p class="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
+                  <p className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
                     Edit Profile
                   </p>
                 </button>
               </a>
-              <hr class="my-2 border-blue-gray-50" role="menuitem" />
+              <hr className="my-2 border-blue-gray-50" role="menuitem" />
               <a href="#">
                 <button
                   onClick={handleSignOut}
@@ -116,7 +116,7 @@ export default function NavbarManager({ setOpenSidebar, openSidebar }) {
                       fill="#90A4AE"
                     ></path>
                   </svg>
-                  <p class="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
+                  <p className="block font-sans text-sm antialiased font-medium leading-normal text-inherit">
                     Sign Out
                   </p>
                 </button>

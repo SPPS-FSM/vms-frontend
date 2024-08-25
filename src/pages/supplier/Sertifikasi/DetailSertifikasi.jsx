@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import { getDetailSertifikasi } from "../../../services/Sertifikasi";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { formatDateIndo } from "../../../utils/date";
 
 export default function DetailSertifikasi() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +29,21 @@ export default function DetailSertifikasi() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getDetailSertifikasi(id);
+
+        setData(response);
+      } catch (error) {
+        console.error("Get sertifikasi gagal", error);
+        throw new Error("Get sertifikasi gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -65,47 +72,62 @@ export default function DetailSertifikasi() {
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <div className="font-semibold">Detail Document</div>
-            <a href="/supplier/sertifikasi_perusahaan">
-              <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <ArrowLeftIcon height={25} />
-              </button>
-            </a>
+            <button
+              onClick={() => navigate("/supplier/sertifikasi_perusahaan")}
+              className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <ArrowLeftIcon height={25} />
+            </button>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
           <div className="p-4 text-md ">
             <div className="md:flex flex-none gap-0 mb-4">
               <p className="font-bold w-full md:w-1/3">Nama Perusahaan</p>
-              <p className="w-full md:w-1/3">PT BPYD JAYA</p>
+              <p className="w-full md:w-1/3">{data.nama_perusahaan}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4">
               <p className="font-bold w-full md:w-1/3">Nama Sertifikasi</p>
-              <p className="w-full md:w-1/3">Company Profile PT BPYD JAYA</p>
+              <p className="w-full md:w-1/3">{data.nama_sertifikasi}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Jenis Sertifikasi</p>
-              <p className="w-full md:w-1/3">Company Profile</p>
+              <p className="w-full md:w-1/3">{data.jenis_sertifikasi}</p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Berlaku</p>
-              <p className="w-full md:w-1/3">2024-06-12</p>
+              <p className="w-full md:w-1/3">
+                {data.tanggal_berlaku && formatDateIndo(data.tanggal_berlaku)}
+              </p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Berakhir</p>
-              <p className="w-full md:w-1/3">2026-06-12</p>
+              <p className="w-full md:w-1/3">
+                {data.tanggal_berakhir && formatDateIndo(data.tanggal_berakhir)}
+              </p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Status Upload</p>
               <p className="w-full md:w-1/3">Sudah</p>
             </div>
-            <div className="md:flex flex-none gap-0 mb-4  ">
-              <p className="font-bold w-full md:w-1/3">Nama File Upload</p>
-              <p className="w-full md:w-1/3">file.pdf</p>
-            </div>
           </div>
           <div className="flex justify-start gap-2 px-4">
-            <a href="/supplier/edit-sertifikasi">
-              <Button className="bg-green-500">Edit</Button>
-            </a>
+            {data.file && (
+              <a
+                href={
+                  `http://localhost:4000/api/file/` + data.file.split("/")[1]
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button className="bg-blue-500">Lihat File</Button>
+              </a>
+            )}
+            <Button
+              onClick={() => navigate("/supplier/edit-sertifikasi?id=" + id)}
+              className="bg-green-500"
+            >
+              Edit
+            </Button>
             {/* <Button className="bg-red-500">Cancel</Button> */}
           </div>
         </div>

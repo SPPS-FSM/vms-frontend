@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  EyeIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   IconButton,
@@ -23,27 +21,7 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-export default function TablePengalamanVendor() {
-  const [pengalamanData, setPengalamanData] = useState([]);
-
-  const fetchPengalamanData = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/api/userpengalaman", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
-      console.log("API Response:", response.data);
-      setPengalamanData(Array.isArray(response.data) ? response.data : []);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchPengalamanData();
-  }, []);
-
+export default function TablePengalamanVendor({ data, setData }) {
   return (
     <div>
       <div className="overflow-scroll">
@@ -67,17 +45,20 @@ export default function TablePengalamanVendor() {
             </tr>
           </thead>
           <tbody>
-            {pengalamanData.map(
-              ({
-                id_pengalaman,
-                nama_klien,
-                nama_proyek,
-                nilai_proyek,
-                nama_kurs,
-                kontak_klien,
-                tanggal_mulai,
-                tanggal_selesai,
-              }, index) => (
+            {data.map(
+              (
+                {
+                  id_pengalaman,
+                  nama_klien,
+                  nama_proyek,
+                  nilai_proyek,
+                  nama_kurs,
+                  kontak_klien,
+                  tanggal_mulai,
+                  tanggal_selesai,
+                },
+                index
+              ) => (
                 <tr key={id_pengalaman} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -153,7 +134,10 @@ export default function TablePengalamanVendor() {
                   </td>
                   <td className="p-4">
                     <a href="/staff/detail-pengalaman-vendor">
-                      <Tooltip content="Detail Pengalaman Vendor" placement="top">
+                      <Tooltip
+                        content="Detail Pengalaman Vendor"
+                        placement="top"
+                      >
                         <button className="bg-blue-500 rounded-md p-1">
                           <EyeIcon height={17} color="white" />
                         </button>

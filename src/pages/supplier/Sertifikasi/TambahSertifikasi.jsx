@@ -1,27 +1,58 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
-import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { submitSertifikasi } from "../../../services/Sertifikasi";
+import { useNavigate } from "react-router-dom";
 
 export default function TambahSertifikasi() {
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [jenisSertifikasi, setJenisSertifikasi] = useState([]);
+  const [formData, setFormData] = useState({
+    nama_sertifikat: "",
+    id_jenis_sertifikasi: "",
+    tanggal_berlaku: "",
+    tanggal_berakhir: "",
+  });
+  const [file, setFile] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("nama_sertifikasi", formData.nama_sertifikat);
+      data.append(
+        "id_jenis_sertifikasi",
+        Number(formData.id_jenis_sertifikasi)
+      );
+      data.append("tanggal_berlaku", formData.tanggal_berlaku);
+      data.append("tanggal_berakhir", formData.tanggal_berakhir);
+
+      const res = await submitSertifikasi(data);
+
+      if (res) {
+        navigate("/supplier/sertifikasi_perusahaan");
+      }
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +67,28 @@ export default function TambahSertifikasi() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/jenis-sertifikasi/sertifikasi",
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setJenisSertifikasi(response.data);
+      } catch (error) {
+        console.error("Get sertifikasi gagal", error);
+        throw new Error("Get sertifikasi gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -73,41 +125,45 @@ export default function TambahSertifikasi() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} className="p-4">
             <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Nama Perusahaan
-            </label>
-            <input type="text" className="border w-full h-8 my-4" disabled />
-            <label
-              htmlFor="first-name"
+              htmlFor="nama_sertifikat"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama Sertifikat
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="nama_sertifikat"
+              id="nama_sertifikat"
+              type="text"
+              required
+              className="border w-full h-8 my-4"
+              onChange={handleChange}
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="id_jenis_sertifikasi"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Jenis Sertifikat
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
-              <option value="">-- Pilih Jenis Sertifikat --</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
-              <option value="">1</option>
-            </select>
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
+            <select
+              name="id_jenis_sertifikasi"
+              id="id_jenis_sertifikasi"
+              className="w-full border h-8 my-4"
+              onChange={handleChange}
+              required
             >
-              Nomor Sertifikat
-            </label>
-            <input type="text" className="border w-full h-8 my-4" />
+              <option value="">--Pilih Jenis Sertifikat--</option>
+              {jenisSertifikasi.map((sertifikasi) => (
+                <option
+                  key={sertifikasi.id_jenis_sertifikasi}
+                  value={sertifikasi.id_jenis_sertifikasi}
+                >
+                  {sertifikasi.nama_sertifikasi}
+                </option>
+              ))}
+            </select>
+
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -116,17 +172,13 @@ export default function TambahSertifikasi() {
             </label>
             <input
               type="file"
-              name=""
-              id=""
+              name="file"
+              id="file"
+              onChange={handleFileChange}
+              required
               className="border w-full h-8 my-4"
             />
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Lembaga Pemberi Sertifikat
-            </label>
-            <input type="text" className="border w-full h-8 my-4" />
+
             <div className="grid grid-cols-12 gap-4 my-4">
               <div className="col-span-12 md:col-span-6">
                 <label
@@ -136,9 +188,11 @@ export default function TambahSertifikasi() {
                   Tanggal Berlaku
                 </label>
                 <input
+                  required
                   type="date"
-                  name=""
-                  id=""
+                  name="tanggal_berlaku"
+                  id="tanggal_berlaku"
+                  onChange={handleChange}
                   className="border w-full h-8"
                 />
               </div>
@@ -147,25 +201,23 @@ export default function TambahSertifikasi() {
                   htmlFor="first-name"
                   className="block text-sm font-semibold leading-6 text-gray-900"
                 >
-                  Tanggal Berlaku
+                  Tanggal Berakhir
                 </label>
                 <input
+                  required
                   type="date"
-                  name=""
-                  id=""
+                  name="tanggal_berakhir"
+                  id="tanggal_berakhir"
+                  onChange={handleChange}
                   className="border w-full h-8"
                 />
               </div>
             </div>
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Keterangan Sertifikat
-            </label>
-            <textarea type="text" className="border w-full h-20 my-4" />
+
             <div className="flex justify-end items-end">
-              <Button color="green">submit</Button>
+              <Button type="submit" color="green">
+                submit
+              </Button>
             </div>
           </form>
         </div>

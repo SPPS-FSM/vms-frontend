@@ -3,7 +3,7 @@ import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import SidebarSupplier from "../../../components/supplier/sidebar";
 import Cookies from "js-cookie";
 import { useSearchParams } from "react-router-dom";
@@ -258,7 +258,13 @@ export default function EditDokumen() {
                 Lihat file lama
               </a>
             </div>
-            <input type="file" name="" id="" className="æ" />
+            <input
+              type="file"
+              name="file"
+              id="file"
+              className="æ"
+              onChange={handleFileChange}
+            />
             <div className="flex justify-end items-end">
               <Button type="submit" color="green">
                 Submit

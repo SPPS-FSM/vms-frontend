@@ -8,6 +8,7 @@ import { formatDateIndo } from "../../utils/date";
 import { splitText } from "../../utils/text";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -20,6 +21,7 @@ const TABLE_HEAD = [
 ];
 
 export function TableUploadDocument({ data, setData }) {
+  const navigate = useNavigate();
   const handleDelete = async (id_document) => {
     try {
       await axios.delete(
@@ -131,11 +133,14 @@ export function TableUploadDocument({ data, setData }) {
                   </td>
 
                   <td className="p-4">
-                    <a href={`/supplier/detail-dokumen?id=${id_document}`}>
-                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() =>
+                        navigate(`/supplier/detail-dokumen?id=${id_document}`)
+                      }
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
                     <button
                       onClick={() => handleDelete(id_document)}
                       className="bg-red-500 p-2 rounded-md shadow-md"

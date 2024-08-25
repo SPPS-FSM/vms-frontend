@@ -5,13 +5,14 @@ import SidebarStaff from "../../../components/staff/sidebar";
 import NavbarStaff from "../../../components/staff/navbar";
 import { BiSearch } from "react-icons/bi";
 import FooterAdmin from "../../../components/admin/footer";
-import TablePengalamanVendor  from "../../../components/staff/Kompetensi/tablePengalamanVendor";
+import TablePengalamanVendor from "../../../components/staff/Kompetensi/tablePengalamanVendor";
+import Cookies from "js-cookie";
 
 export default function PengalamanVendor() {
+  const userId = Cookies.get("user");
   const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,7 +27,23 @@ export default function PengalamanVendor() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userpengalaman/user/" + userId
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get pengalaman vendor gagal", error);
+        throw new Error("Get pengalaman vendor gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -64,7 +81,7 @@ export default function PengalamanVendor() {
             </div>
           </div>
           <div className="text-sm text-gray-500 my-4">
-            <TablePengalamanVendor />
+            <TablePengalamanVendor data={data} setData={setData} />
           </div>
         </div>
       </div>

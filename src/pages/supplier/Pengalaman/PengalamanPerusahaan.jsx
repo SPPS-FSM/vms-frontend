@@ -18,11 +18,12 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
 import { TablePengalamanVendor } from "../../../components/supplier/tablePengalamanVendor";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function PengalamanPerusahaan() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,42 +38,31 @@ export default function PengalamanPerusahaan() {
     };
   }, []);
 
-  const TABLE_HEAD = ["Nama Dokumen", "Status Upload", "Status Dokumen"];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userpengalaman/user/" +
+            Cookies.get("user"),
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
 
-  const TABLE_ROWS = [
-    {
-      job: "Manager",
-      org: "Organization",
-      online: true,
-      date: "23/04/18",
-    },
-    {
-      job: "Programator",
-      org: "Developer",
-      online: false,
-      date: "23/04/18",
-    },
-    {
-      job: "Executive",
-      org: "Projects",
-      online: false,
-      date: "19/09/17",
-    },
-    {
-      job: "Programator",
-      org: "Developer",
-      online: true,
-      date: "24/12/08",
-    },
-    {
-      job: "Manager",
-      org: "Executive",
-      online: false,
-      date: "04/10/21",
-    },
-  ];
+        setData(response.data);
+      } catch (error) {
+        console.error("Get pengalaman perusahaan gagal", error);
+        throw new Error("Get pengalaman perusahaan gagal");
+      }
+    };
 
-  console.log(result);
+    fetchData();
+  }, []);
+
+  const navigate = useNavigate();
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -102,17 +92,20 @@ export default function PengalamanPerusahaan() {
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <div className="font-semibold">Pengalaman Perusahaan</div>
-            <a href="/supplier/tambah-pengalaman">
-              <button className="bg-blue-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <PlusIcon height={25} />
-              </button>
-            </a>
+            <button
+              onClick={() => {
+                navigate("/supplier/tambah-pengalaman");
+              }}
+              className="bg-blue-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <PlusIcon height={25} />
+            </button>
           </div>
           <div className="text-sm text-gray-500 my-4">
             *catatan: <br /> - untuk menambah pengalaman tekan tombol Tambah (+)
           </div>
           <div>
-            <TablePengalamanVendor />
+            <TablePengalamanVendor data={data} setData={setData} />
           </div>
         </div>
       </div>

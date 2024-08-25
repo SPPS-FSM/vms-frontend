@@ -20,8 +20,23 @@ import SidebarSupplier from "../../../components/supplier/sidebar";
 
 export default function TambahPengalaman() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [data, setData] = useState({});
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log("data", data);
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +51,6 @@ export default function TambahPengalaman() {
     };
   }, []);
 
-  console.log(result);
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -72,43 +86,46 @@ export default function TambahPengalaman() {
             </a>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} className="p-4">
             <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Nama Perusahaan
-            </label>
-            <input
-              type="text"
-              className="border w-full h-8 my-4 bg-gray-200 pl-2"
-              disabled
-              value={"PT BPYD JAYA"}
-            />
-            <label
-              htmlFor="first-name"
+              htmlFor="nama_klien"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama Klien
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              onChange={handleChange}
+              name="nama_klien"
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="nama_proyek"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama Proyek
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              type="text"
+              name="nama_proyek"
+              onChange={handleChange}
+              className="border w-full h-8 my-4"
+            />
             <label
-              htmlFor="first-name"
+              htmlFor="kurs"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Kurs
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              name="id_kurs"
+              id=""
+              onChange={handleChange}
+              className="w-full border h-8 my-4"
+            >
               <option value=""></option>
-              <option value="">IDR</option>
-              <option value="">USD</option>
+              <option value="2">IDR</option>
+              <option value="1">USD</option>
             </select>
             <label
               htmlFor="first-name"
@@ -123,30 +140,52 @@ export default function TambahPengalaman() {
             >
               No Kontrak
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              onChange={handleChange}
+              name="no_kontrak"
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Kontak Klien
             </label>
-            <input type="text" className="border w-full h-8 my-4" />
+            <input
+              name="kontak_klien"
+              onChange={handleChange}
+              type="text"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Mulai
             </label>
-            <input type="date" className="border w-full  my-4" />
+            <input
+              name="tanggal_mulai"
+              onChange={handleChange}
+              type="date"
+              className="border w-full  my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Selesai
             </label>
-            <input type="date" className="border w-full  my-4" />
+            <input
+              onChange={handleChange}
+              name="tanggal_selesai"
+              type="date"
+              className="border w-full  my-4"
+            />
             <div className="flex justify-end items-end">
-              <Button color="green">Submit</Button>
+              <Button type="submit" color="green">
+                Submit
+              </Button>
             </div>
           </form>
         </div>

@@ -96,7 +96,13 @@ export default function EditPengalaman() {
           }
         );
 
-        console.log("res", response.data);
+        // edit the data, so it can be displayed in the form
+        response.data.tanggal_mulai = formatDateInput(
+          response.data.tanggal_mulai
+        );
+        response.data.tanggal_selesai = formatDateInput(
+          response.data.tanggal_selesai
+        );
 
         setData(response.data);
       } catch (error) {
@@ -248,7 +254,7 @@ export default function EditPengalaman() {
             <input
               name="tanggal_mulai"
               onChange={handleChange}
-              value={formatDateInput(data.tanggal_mulai)}
+              value={data.tanggal_mulai}
               type="date"
               className="border w-full  my-4"
             />
@@ -261,7 +267,7 @@ export default function EditPengalaman() {
             <input
               name="tanggal_selesai"
               onChange={handleChange}
-              value={formatDateInput(data.tanggal_selesai)}
+              value={data.tanggal_selesai}
               type="date"
               className="border w-full  my-4"
             />

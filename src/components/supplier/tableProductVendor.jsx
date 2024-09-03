@@ -4,6 +4,8 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan", "Aksi"];
 
@@ -18,7 +20,24 @@ const TABLE_ROWS = [
   },
 ];
 
-export function TableProductVendor() {
+export function TableProductVendor({ data, setData }) {
+  const handleDelete = async (id_product) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/userproduct/${id_product}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevState) =>
+        prevState.filter((item) => item.id_product !== id_product)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -42,8 +61,11 @@ export function TableProductVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ id, brand, price, kurs, stock, satuan }, index) => (
+            {data.map(
+              (
+                { id_product, brand, price, nama_kurs, stock, nama_satuan },
+                index
+              ) => (
                 <tr key={brand} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -51,7 +73,7 @@ export function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -78,7 +100,7 @@ export function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {kurs}
+                      {nama_kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -96,7 +118,7 @@ export function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {satuan}
+                      {nama_satuan}
                     </Typography>
                   </td>
                   <td className="">
@@ -105,16 +127,17 @@ export function TableProductVendor() {
                         <PencilSquareIcon height={17} color="white" />
                       </button>
                     </a> */}
-                    <a href="/supplier/detail-product">
+                    <a href={"/supplier/detail-product?id=" + id_product}>
                       <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
                         <EyeIcon height={17} color="white" />
                       </button>
                     </a>
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() => handleDelete(id_product)}
+                      className="bg-red-500 p-2 rounded-md shadow-md"
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )

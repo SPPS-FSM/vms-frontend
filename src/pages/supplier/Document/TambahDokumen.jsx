@@ -15,6 +15,9 @@ export default function TambahDokumen() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [jenisDokumen, setJenisDokumen] = useState([]);
   const [file, setFile] = useState(null);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const [formData, setFormData] = useState({
     nama_document: "",
@@ -28,10 +31,6 @@ export default function TambahDokumen() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {

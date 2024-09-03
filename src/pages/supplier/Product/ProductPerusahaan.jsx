@@ -18,11 +18,11 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
 import { TableProductVendor } from "../../../components/supplier/tableProductVendor";
+import Cookies from "js-cookie";
 
 export default function ProductPerusahaan() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,7 +72,28 @@ export default function ProductPerusahaan() {
     },
   ];
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userproduct/user/" + Cookies.get("user"),
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get pengalaman perusahaan gagal", error);
+        throw new Error("Get pengalaman perusahaan gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -112,7 +133,7 @@ export default function ProductPerusahaan() {
             *catatan: <br /> - untuk menambah product tekan tombol Tambah (+)
           </div>
           <div>
-            <TableProductVendor />
+            <TableProductVendor data={data} setData={setData} />
           </div>
         </div>
       </div>

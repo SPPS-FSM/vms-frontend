@@ -35,7 +35,6 @@ export default function EditDokumen() {
     e.preventDefault();
 
     try {
-      console.log("data", data);
       const formData = new FormData();
       if (file) {
         formData.append("file", file);

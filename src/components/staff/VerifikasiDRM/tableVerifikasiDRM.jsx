@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -19,6 +20,7 @@ const TABLE_HEAD = [
 ];
 
 export function TableVerifDRM() {
+  const navigate = useNavigate();
   const [DRM, setDRM] = useState([]);
   const fetchDRM = async () => {
     try {
@@ -39,6 +41,8 @@ export function TableVerifDRM() {
   useEffect(() => {
     fetchDRM();
   }, []);
+
+  console.log("drm", DRM);
 
   return (
     <div>
@@ -65,17 +69,23 @@ export function TableVerifDRM() {
           <tbody>
             {DRM.map(
               (
-                { no, nama_perusahaan, nama_pic, no_telephone, nama_status },
+                {
+                  id_user,
+                  nama_perusahaan,
+                  nama_pic,
+                  no_telephone,
+                  nama_status,
+                },
                 index
               ) => (
-                <tr key={no} className="even:bg-blue-gray-50/50">
+                <tr key={id_user} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {index+1}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -111,7 +121,7 @@ export function TableVerifDRM() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {nama_status}
+                      {nama_status ?? "Belum Terverifikasi"}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -121,13 +131,16 @@ export function TableVerifDRM() {
                       className="font-normal "
                     >
                       <td className="p-4">
-                        <a href="/staff/verifikasi-drm">
-                          <Tooltip content="Verifikasi DRM" placement="top">
-                            <button className="text-green-500 hover:bg-green-500 hover:text-white hover:rounded-lg p-1 ">
-                              <CheckIcon height={17} />
-                            </button>
-                          </Tooltip>
-                        </a>
+                        <Tooltip content="Verifikasi DRM" placement="top">
+                          <button
+                            onClick={() =>
+                              navigate("/staff/verifikasi-drm?id=" + id_user)
+                            }
+                            className="text-green-500 hover:bg-green-500 hover:text-white hover:rounded-lg p-1 "
+                          >
+                            <CheckIcon height={17} />
+                          </button>
+                        </Tooltip>
                       </td>
                     </Typography>
                   </td>
@@ -136,7 +149,7 @@ export function TableVerifDRM() {
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -157,6 +170,7 @@ export function TableVerifDRM() {
               8
             </IconButton>
             <IconButton variant="text" size="sm">
+              {" "}
               9
             </IconButton>
             <IconButton variant="text" size="sm">
@@ -166,7 +180,7 @@ export function TableVerifDRM() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

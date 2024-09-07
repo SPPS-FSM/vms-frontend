@@ -1,6 +1,4 @@
-import {
-  EyeIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   IconButton,
@@ -20,26 +18,27 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-
 export function TableAllUserDRM() {
-
-  const [DRM, setDRM] = useState([])
-  const fetchDRM = async()=>{
+  const [DRM, setDRM] = useState([]);
+  const fetchDRM = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/user/userDRM", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      const response = await axios.get(
+        "http://localhost:4000/api/user/userDRM",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
         }
-      })
-      setDRM(response.data)
+      );
+      setDRM(response.data);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
-  
-  useEffect(()=>{
-    fetchDRM()
-  },[])
+  };
+
+  useEffect(() => {
+    fetchDRM();
+  }, []);
 
   return (
     <div>
@@ -65,7 +64,10 @@ export function TableAllUserDRM() {
           </thead>
           <tbody>
             {DRM.map(
-              ({ no, nama_perusahaan, nama_pic, no_telephone, nama_status }, index) => (
+              (
+                { no, nama_perusahaan, nama_pic, no_telephone, nama_status },
+                index
+              ) => (
                 <tr key={no} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -73,7 +75,7 @@ export function TableAllUserDRM() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {index+1}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -132,7 +134,7 @@ export function TableAllUserDRM() {
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -153,6 +155,7 @@ export function TableAllUserDRM() {
               8
             </IconButton>
             <IconButton variant="text" size="sm">
+              {" "}
               9
             </IconButton>
             <IconButton variant="text" size="sm">
@@ -162,7 +165,7 @@ export function TableAllUserDRM() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

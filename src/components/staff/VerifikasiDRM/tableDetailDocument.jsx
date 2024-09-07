@@ -4,6 +4,11 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { formatDateIndo } from "../../../utils/date";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -11,22 +16,36 @@ const TABLE_HEAD = [
   "Jenis Document",
   "Tanggal Beralaku",
   "Tanggal Berakhir",
-  "Status Upload",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    nama_document: "Company Profile PT BPYD JAYA",
-    jenis_document: "Company Profile",
-    tanggal_berlaku: "2024-06-12",
-    tanggal_berakhir: "2026-06-12",
-    status_upload: "Sudah",
-  },
-];
-
 export function TableDetailDocument() {
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("id");
+  const [dokumen, setDokumen] = useState([]);
+
+  async function fetchUserDocument() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/userdocuments/user/" + userId,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      setDokumen(response.data);
+    } catch (error) {
+      console.error("Get jenis dokumen gagal", error);
+      throw new Error("Get jenis dokumen gagal");
+    }
+  }
+
+  useEffect(() => {
+    fetchUserDocument();
+  }, []);
+
   return (
     <div>
       <div className="overflow-y-scroll">
@@ -50,7 +69,7 @@ export function TableDetailDocument() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {dokumen.map(
               (
                 {
                   id,
@@ -59,7 +78,7 @@ export function TableDetailDocument() {
                   tanggal_berlaku,
                   tanggal_berakhir,
                   status_upload,
-                  nama_file,
+                  file,
                 },
                 index
               ) => (
@@ -70,7 +89,7 @@ export function TableDetailDocument() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -97,7 +116,7 @@ export function TableDetailDocument() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berlaku}
+                      {formatDateIndo(tanggal_berlaku)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -106,59 +125,27 @@ export function TableDetailDocument() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berakhir}
+                      {formatDateIndo(tanggal_berakhir)}
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
+                    <a
+                      target="_blank"
+                      href={
+                        "http://localhost:4000/api/file/" + file.split("/")[1]
+                      }
+                      rel="noreferrer"
                     >
-                      {status_upload}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                      <EyeIcon height={17} color="white" />
-                    </button>
+                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
+                        <EyeIcon height={17} color="white" />
+                      </button>
+                    </a>
                   </td>
                 </tr>
               )
             )}
           </tbody>
         </table>
-        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
-          <Button variant="outlined" size="sm">
-            Previous
-          </Button>
-          <div className="flex items-center gap-2">
-            <IconButton variant="outlined" size="sm">
-              1
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              2
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              3
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              ...
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              8
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              9
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              10
-            </IconButton>
-          </div>
-          <Button variant="outlined" size="sm">
-            Next
-          </Button>
-        </div> */}
       </div>
     </div>
   );

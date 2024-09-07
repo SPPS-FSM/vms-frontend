@@ -128,7 +128,7 @@ export default function TableProductVendor() {
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -149,6 +149,7 @@ export default function TableProductVendor() {
               8
             </IconButton>
             <IconButton variant="text" size="sm">
+              {" "}
               9
             </IconButton>
             <IconButton variant="text" size="sm">
@@ -158,7 +159,7 @@ export default function TableProductVendor() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

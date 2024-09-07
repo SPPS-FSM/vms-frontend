@@ -4,6 +4,11 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { formatDateIndo } from "../../../utils/date";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -14,17 +19,32 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    nama_sertifikasi: "Company Profile PT BPYD JAYA",
-    jenis_sertifikasi: "Company Profile",
-    tanggal_berlaku: "2024-06-12",
-    tanggal_berakhir: "2026-06-12",
-  },
-];
-
 export function TableDetailSertifikasi() {
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("id");
+  const [sertifikasi, setSertifikasi] = useState([]);
+
+  async function fetchUserSertifikasi() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/usersertifikasi/user/" + userId,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      setSertifikasi(response.data);
+    } catch (error) {
+      console.error("Get jenis dokumen gagal", error);
+      throw new Error("Get jenis dokumen gagal");
+    }
+  }
+
+  useEffect(() => {
+    fetchUserSertifikasi();
+  }, []);
   return (
     <div>
       <div className="overflow-y-scroll">
@@ -48,7 +68,7 @@ export function TableDetailSertifikasi() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {sertifikasi.map(
               (
                 {
                   id,
@@ -56,7 +76,7 @@ export function TableDetailSertifikasi() {
                   jenis_sertifikasi,
                   tanggal_berlaku,
                   tanggal_berakhir,
-                  nama_file,
+                  file,
                 },
                 index
               ) => (
@@ -67,7 +87,7 @@ export function TableDetailSertifikasi() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -94,7 +114,7 @@ export function TableDetailSertifikasi() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berlaku}
+                      {formatDateIndo(tanggal_berlaku)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -103,13 +123,21 @@ export function TableDetailSertifikasi() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berakhir}
+                      {formatDateIndo(tanggal_berakhir)}
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                      <EyeIcon height={17} color="white" />
-                    </button>
+                    <a
+                      target="_blank"
+                      href={
+                        "http://localhost:4000/api/file/" + file.split("/")[1]
+                      }
+                      rel="noreferrer"
+                    >
+                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
+                        <EyeIcon height={17} color="white" />
+                      </button>
+                    </a>
                   </td>
                 </tr>
               )

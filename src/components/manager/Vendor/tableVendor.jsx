@@ -1,8 +1,14 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
-import { Button, IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -15,14 +21,18 @@ const TABLE_HEAD = [
 
 export function TableVendor() {
   const [DRM, setDRM] = useState([]);
+  const navigate = useNavigate();
 
   const fetchDRM = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/user/userDRM", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:4000/api/user/userDRM",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
       setDRM(response.data);
     } catch (error) {
       console.log(error.message);
@@ -57,7 +67,10 @@ export function TableVendor() {
           </thead>
           <tbody>
             {DRM.map(
-              ({ no, nama_perusahaan, nama_pic, no_telephone, nama_status }) => (
+              (
+                { no, nama_perusahaan, nama_pic, no_telephone, nama_status },
+                index
+              ) => (
                 <tr key={no} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -65,7 +78,7 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {no}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -101,7 +114,7 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {nama_status}
+                      {nama_status ?? "Belum Diverifikasi"}
                     </Typography>
                   </td>
                   <td className="p-4">

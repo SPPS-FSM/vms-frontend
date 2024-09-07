@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function TambahPenawaran() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [formData, setFormData] = useState({
+    no_penawaran: "",
+    id_product: "",
+    tanggal_dibuat_penawaran: "",
+    tanggal_mulai_penawaran: "",
+    tanggal_berakhir_penawaran: "",
+    terms_of_payment: "",
+    terms_of_delivery: "",
+    id_status_penawaran: "",
+    description: "",
+  });
+  const [products, setProducts] = useState([]);
+  const userId = Cookies.get("user");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +38,55 @@ export default function TambahPenawaran() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userproduct/user/" + userId,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/userpenawaran",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      console.log(response.data);
+
+      if (response.data) {
+        navigate("/supplier/penawaran");
+      }
+    } catch (error) {
+      console.error("Post penawaran gagal", error);
+      // throw new Error("Post penawaran gagal");
+    }
+  };
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -65,120 +115,143 @@ export default function TambahPenawaran() {
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <div className="font-semibold">Tambah Penawaran </div>
-            <a href="/supplier/penawaran">
-              <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <ArrowLeftIcon height={25} />
-              </button>
-            </a>
+            <button
+              onClick={() => navigate("/supplier/penawaran")}
+              className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <ArrowLeftIcon height={25} />
+            </button>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} className="p-4">
             <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Nama Perusahaan
-            </label>
-            <input
-              type="text"
-              className="border w-full h-8 my-4 pl-2"
-            />
-            <label
-              htmlFor="first-name"
+              htmlFor="no_penawaran"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nomor Penawaran
             </label>
             <input
+              onChange={handleChange}
               type="text"
+              name="no_penawaran"
               className="border w-full h-8 my-4 pl-2"
             />
             <label
-              htmlFor="first-name"
+              htmlFor="no_penawaran"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Pilih ID Product
+              Pilih Product
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              onChange={handleChange}
+              name="id_product"
+              id="id_product"
+              className="w-full border h-8 my-4"
+            >
               <option value=""></option>
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
+              {products.map((product) => (
+                <option value={product.id_product}>{product.brand}</option>
+              ))}
             </select>
             <label
-              htmlFor="first-name"
+              htmlFor="tanggal_dibuat_penawaran"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Dibuat Penawaran
             </label>
             <input
+              onChange={handleChange}
+              name="tanggal_dibuat_penawaran"
+              id="tanggal_dibuat_penawaran"
               type="date"
               className="border w-full h-8 my-4 pl-2"
             />
             <label
-              htmlFor="first-name"
+              htmlFor="tanggal_mulai_penawaran"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Mulai Penawaran
             </label>
             <input
+              onChange={handleChange}
+              id="tanggal_mulai_penawaran"
+              name="tanggal_mulai_penawaran"
               type="date"
               className="border w-full h-8 my-4 pl-2"
             />
             <label
-              htmlFor="first-name"
+              htmlFor="tanggal_berakhir_penawaran"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Berakhir Penawaran
             </label>
             <input
+              onChange={handleChange}
+              name="tanggal_berakhir_penawaran"
               type="date"
               className="border w-full h-8 my-4 pl-2"
             />
             <label
-              htmlFor="first-name"
+              htmlFor="terms_of_payment"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Terms of Payment
             </label>
             <select
-              name=""
-              id=""
+              onChange={handleChange}
+              name="terms_of_payment"
+              id="terms_of_payment"
               className="border w-full h-8 my-4 pl-2"
             >
               <option value=""></option>
-              <option value="">COD</option>
-              <option value="">CBD</option>
+              <option value="cod">COD</option>
+              <option value="cbd">CBD</option>
             </select>
             <label
-              htmlFor="first-name"
+              htmlFor="terms_of_delivery"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Terms of Delivery
             </label>
-            <select
-              name=""
-              id=""
+            <input
+              onChange={handleChange}
               className="border w-full h-8 my-4 pl-2"
-            >
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
+              name="terms_of_delivery"
+              id="terms_of_delivery"
+            />
+
             <label
-              htmlFor="first-name"
+              htmlFor="id_status_penawaran"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Status Penawaran
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              onChange={handleChange}
+              name="id_status_penawaran"
+              id="id_status_penawaran"
+              className="w-full border h-8 my-4"
+            >
               <option value=""></option>
-              <option value="">Berlaku</option>
-              <option value="">Tidak Berlaku</option>
+              <option value="8">Berlaku</option>
+              <option value="9">Tidak Berlaku</option>
             </select>
+            <label
+              htmlFor="description"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Description
+            </label>
+            <input
+              onChange={handleChange}
+              className="border w-full h-8 my-4 pl-2"
+              id="description"
+              name="description"
+            />
             <div className="flex justify-end items-end">
-              <Button color="green">submit</Button>
+              <Button type="submit" color="green">
+                submit
+              </Button>
             </div>
           </form>
         </div>

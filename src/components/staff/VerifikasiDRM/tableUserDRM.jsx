@@ -4,7 +4,13 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { Button, Card, IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Card,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@material-tailwind/react";
 
 const TABLE_HEAD = [
   "No",
@@ -139,7 +145,7 @@ export function TableUserDRM() {
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -160,6 +166,7 @@ export function TableUserDRM() {
               8
             </IconButton>
             <IconButton variant="text" size="sm">
+              {" "}
               9
             </IconButton>
             <IconButton variant="text" size="sm">
@@ -169,7 +176,7 @@ export function TableUserDRM() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

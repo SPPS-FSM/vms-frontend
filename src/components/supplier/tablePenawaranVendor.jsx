@@ -10,40 +10,40 @@ import {
   IconButton,
   Typography,
 } from "@material-tailwind/react";
+import { formatDateIndo } from "../../utils/date";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const TABLE_HEAD = [
   "No",
   "Kode Penawaran",
-  "Nama Vendor",
-  "PIC Vendor",
-  "No Telephone",
-  "Product",
-  "Status Vendor",
+  "Brand",
+  "Tanggal Dibuat",
+  "Tanggal Dimulai",
+  "Tanggal Berakhir",
+  "Harga",
   "Status Penawaran",
   "Status Proses Penawaran",
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    kode_penawaran: "A101",
-    pic_vendor: "Farhan",
-    company_name: "PT BPYD JAYA",
-    no_hp: "085710116209",
-    product: "Mangosteen",
-    status_vendor: "Terverifikasi",
-    status_penawaran: "Berlaku",
-    status_proses_vendor: "Dipilih oleh Staff",
-    date_buat_penawaran: "-",
-    date_start_penawaran: "-",
-    date_end_penawaran: "-",
-    top: "-",
-    tod: "-",
-  },
-];
-
-export function TablePenawaranVendor() {
+export function TablePenawaranVendor({ data, setData }) {
+  const navigate = useNavigate();
+  const handleDelete = async (id_penawaran) => {
+    const res = await axios.delete(
+      "http://localhost:4000/api/userpenawaran/" + id_penawaran,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      }
+    );
+    const filteredData = data.filter(
+      (item) => item.id_penawaran !== id_penawaran
+    );
+    setData(filteredData);
+  };
   return (
     <div>
       <div className="overflow-scroll">
@@ -67,38 +67,30 @@ export function TablePenawaranVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {data.map(
               (
                 {
-                  id,
-                  kode_penawaran,
-                  pic_vendor,
-                  company_name,
-                  no_hp,
-                  product,
-                  status_vendor,
-                  status_penawaran,
-                  status_proses_vendor,
+                  id_penawaran,
+                  no_penawaran,
+                  brand,
+                  tanggal_dibuat_penawaran,
+                  tanggal_mulai_penawaran,
+                  tanggal_berakhir_penawaran,
+                  price,
+                  nama_status_penawaran,
+                  nama_status_proses_penawaran,
+                  nama_kurs,
                 },
                 index
               ) => (
-                <tr key={company_name} className="even:bg-blue-gray-50/50">
+                <tr key={no_penawaran} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {kode_penawaran}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -107,7 +99,26 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {company_name}
+                      {no_penawaran}
+                    </Typography>
+                  </td>
+
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal "
+                    >
+                      {brand}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {formatDateIndo(tanggal_dibuat_penawaran)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -116,7 +127,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {pic_vendor}
+                      {formatDateIndo(tanggal_mulai_penawaran)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -125,7 +136,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {no_hp}
+                      {formatDateIndo(tanggal_berakhir_penawaran)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -134,7 +145,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {product}
+                      {nama_kurs} {price}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -143,7 +154,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_vendor}
+                      {nama_status_penawaran}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -152,16 +163,7 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {status_penawaran}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal "
-                    >
-                      {status_proses_vendor}
+                      {nama_status_proses_penawaran}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -170,23 +172,27 @@ export function TablePenawaranVendor() {
                         <PencilSquareIcon height={17} color="white" />
                       </button>
                     </a> */}
-                    <a href="/supplier/detail-penawaran">
-                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </a>
-                    <a href="#">
-                      <button className="bg-red-500 p-2 rounded-md shadow-md">
-                        <TrashIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() =>
+                        navigate("/supplier/edit-penawaran?id=" + id_penawaran)
+                      }
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(id_penawaran)}
+                      className="bg-red-500 p-2 rounded-md shadow-md"
+                    >
+                      <TrashIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
+        {/* <div className="flex items-center justify-between border-t border-blue-gray-50 py-4 gap-2  ">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
@@ -207,6 +213,7 @@ export function TablePenawaranVendor() {
               8
             </IconButton>
             <IconButton variant="text" size="sm">
+              {" "}
               9
             </IconButton>
             <IconButton variant="text" size="sm">
@@ -216,7 +223,7 @@ export function TablePenawaranVendor() {
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

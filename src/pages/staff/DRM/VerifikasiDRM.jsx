@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import SidebarStaff from "../../../components/staff/sidebar";
 import NavbarStaff from "../../../components/staff/navbar";
 import { BiSearch } from "react-icons/bi";
@@ -14,12 +14,14 @@ import { TableDetailDocument } from "../../../components/staff/VerifikasiDRM/tab
 import { TableDetailSertifikasi } from "../../../components/staff/VerifikasiDRM/tableDetailSertifikasi";
 import { TableDetailProduct } from "../../../components/staff/VerifikasiDRM/tableDetailProduct";
 import { TableDetailPengalaman } from "../../../components/staff/VerifikasiDRM/tableDetailPengalaman";
+import Cookies from "js-cookie";
 
 export default function VerifikasiDRM() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("id");
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,7 +36,30 @@ export default function VerifikasiDRM() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/user/" + userId,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setUser(response.data);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    if (!user) {
+      fetchUser();
+    }
+  }, []);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -75,61 +100,105 @@ export default function VerifikasiDRM() {
             >
               Nama Perusahaan
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input
+              value={user && user.nama_perusahaan}
+              type="text"
+              className="border w-full h-8 my-2"
+              disabled
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Nama PIC
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input
+              value={user && user.nama_pic}
+              type="text"
+              className="border w-full h-8 my-2"
+              disabled
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Email
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input
+              value={user && user.email}
+              type="text"
+              className="border w-full h-8 my-2"
+              disabled
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               No Telephone
             </label>
-            <input type="text" className="border w-full h-8 my-2" disabled />
+            <input
+              value={user && user.no_telephone}
+              type="text"
+              className="border w-full h-8 my-2"
+              disabled
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Status Vendor
             </label>
-            <select name="" id="" className="w-full border h-8 my-1">
-              <option value=""></option>
-              <option value="Dipilih Staff">Terverifikasi</option>
-              <option value="Dipilih Manager">Tolak</option>
-            </select>
+            <input
+              id="id_status"
+              className="w-full border h-8 my-1"
+              disabled
+              value={
+                user && user.id_status === 1
+                  ? "Terverifikasi"
+                  : "Belum Terverifikasi"
+              }
+            />
           </form>
 
           <div className="px-4">
-            <label
-              htmlFor="first-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Document Persyaratan
-            </label>
-            <div className="mt-8">
+            <div className="mt-5">
+              <label
+                htmlFor="first-name"
+                className="block mb-5 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Document Persyaratan
+              </label>
               <TableDetailDocument />
             </div>
             <hr className="my-3 border-blue-gray-300 " />
-            <div className=" mt-8">
+
+            <div className=" mt-5">
+              <label
+                htmlFor="first-name"
+                className="block mb-5 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Sertifikasi
+              </label>
               <TableDetailSertifikasi />
             </div>
             <hr className="my-3 border-blue-gray-300 " />
-            <div className=" mt-8">
+            <div className=" mt-5">
+              <label
+                htmlFor="first-name"
+                className="block mb-5 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Product
+              </label>
               <TableDetailProduct />
             </div>
             <hr className="my-3 border-blue-gray-300 " />
-            <div className=" mt-8">
+            <div className=" mt-5">
+              <label
+                htmlFor="first-name"
+                className="block mb-5 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Pengalaman
+              </label>
               <TableDetailPengalaman />
             </div>
             <hr className="my-3 border-blue-gray-300 " />

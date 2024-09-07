@@ -4,21 +4,40 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { formatDateIndo } from "../../../utils/date";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan"];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    brand: "Mangosteen",
-    price: "1000",
-    kurs: "Rp",
-    stock: "100000",
-    satuan: "Kg",
-  },
-];
-
 export function TableDetailProduct() {
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("id");
+  const [product, setProduct] = useState([]);
+
+  async function fetchProduct() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/userproduct/user/" + userId,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      setProduct(response.data);
+    } catch (error) {
+      console.error("Get jenis dokumen gagal", error);
+      throw new Error("Get jenis dokumen gagal");
+    }
+  }
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
   return (
     <div>
       <div className="overflow-y-scroll">
@@ -42,8 +61,8 @@ export function TableDetailProduct() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ id, brand, price, kurs, stock, satuan }, index) => (
+            {product.map(
+              ({ id, brand, price, nama_kurs, stock, nama_satuan }, index) => (
                 <tr key={brand} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -51,7 +70,7 @@ export function TableDetailProduct() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -78,7 +97,7 @@ export function TableDetailProduct() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {kurs}
+                      {nama_kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -96,7 +115,7 @@ export function TableDetailProduct() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {satuan}
+                      {nama_satuan}
                     </Typography>
                   </td>
                   {/* <td className="">

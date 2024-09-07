@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
 import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { formatDateInput } from "../../../utils/date";
 
 export default function EditPenawaran() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [data, setData] = useState(null);
+  const userId = Cookies.get("user");
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +36,50 @@ export default function EditPenawaran() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userpenawaran/" + id,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.put(
+        "http://localhost:4000/api/userpenawaran/" + id,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      if (res) {
+        navigate("/supplier/penawaran");
+      }
+    } catch (error) {
+      console.error("Error register:", error);
+    }
+  };
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -66,14 +109,15 @@ export default function EditPenawaran() {
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <div className="font-semibold">Edit Penawaran </div>
-            <a href="/supplier/penawaran">
-              <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <ArrowLeftIcon height={25} />
-              </button>
-            </a>
+            <button
+              onClick={() => navigate("/supplier/penawaran")}
+              className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <ArrowLeftIcon height={25} />
+            </button>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} action="" className="p-4">
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -84,7 +128,7 @@ export default function EditPenawaran() {
               type="text"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
-              value={"PT BPYD JAYA"}
+              value={data && data.nama_perusahaan}
             />
             <label
               htmlFor="first-name"
@@ -95,21 +139,20 @@ export default function EditPenawaran() {
             <input
               type="text"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
+              value={data && data.no_penawaran}
               disabled
             />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Pilih ID Product
+              Pilih Product
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
-              <option value=""></option>
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
-            </select>
+            <input
+              value={data && data.brand}
+              disabled
+              className="border w-full h-8 my-4 bg-gray-200 pl-2"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -120,6 +163,7 @@ export default function EditPenawaran() {
               type="date"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
+              value={data && formatDateInput(data.tanggal_dibuat_penawaran)}
             />
             <label
               htmlFor="first-name"
@@ -131,6 +175,7 @@ export default function EditPenawaran() {
               type="date"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
+              value={data && formatDateInput(data.tanggal_mulai_penawaran)}
             />
             <label
               htmlFor="first-name"
@@ -142,6 +187,7 @@ export default function EditPenawaran() {
               type="date"
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
+              value={data && formatDateInput(data.tanggal_berakhir_penawaran)}
             />
             <label
               htmlFor="first-name"
@@ -149,42 +195,43 @@ export default function EditPenawaran() {
             >
               Terms of Payment
             </label>
-            <select
+            <input
               name=""
               id=""
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
-            >
-              <option value=""></option>
-              <option value="">COD</option>
-              <option value="">CBD</option>
-            </select>
+              value={data && data.Terms_of_Payment}
+            />
+
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Terms of Delivery
             </label>
-            <select
+            <input
               name=""
               id=""
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
               disabled
-            >
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
+              value={data && data.Terms_of_Delivery}
+            />
+
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Status Penawaran
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              name="id_status_penawaran"
+              value={data && data.id_status_penawaran}
+              className="w-full border h-8 my-4"
+              onChange={handleChange}
+            >
               <option value=""></option>
-              <option value="">Berlaku</option>
-              <option value="">Tidak Berlaku</option>
+              <option value="8">Berlaku</option>
+              <option value="9">Tidak Berlaku</option>
             </select>
             <label
               htmlFor="first-name"
@@ -192,19 +239,18 @@ export default function EditPenawaran() {
             >
               Status Proses Penawaran
             </label>
-            <select
+            {/* <input
               name=""
               id=""
               className="w-full border h-8 my-4 bg-gray-200"
               disabled
-              value={"Dipilih Staff"}
-            >
-              <option value=""></option>
-              <option value="">Berlaku</option>
-              <option value="">Tidak Berlaku</option>
-            </select>
+              value={data && data.nama_status_proses_penawaran}
+            /> */}
+
             <div className="flex justify-end items-end">
-              <Button color="green">submit</Button>
+              <Button type="submit" color="green">
+                submit
+              </Button>
             </div>
           </form>
         </div>

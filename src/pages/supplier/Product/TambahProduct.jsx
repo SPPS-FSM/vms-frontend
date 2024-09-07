@@ -65,8 +65,6 @@ export default function TambahProduct() {
         }
       );
 
-      console.log("res", res);
-
       if (res) {
         navigate("/supplier/product_perusahaan");
       }

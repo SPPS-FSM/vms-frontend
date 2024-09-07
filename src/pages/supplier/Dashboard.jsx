@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import FooterAdmin from "../../components/admin/footer";
 import NavbarSupplier from "../../components/supplier/navbar";
 import SidebarSupplier from "../../components/supplier/sidebar";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function DashboardDekan() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [data, setData] = useState({
+    total_product: 0,
+    total_penawaran: 0,
+  });
   const [showContent, setShowContent] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -23,12 +27,45 @@ export default function DashboardDekan() {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const res = await axios.get(
+        "http://localhost:4000/api/userproduct/summary",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevData) => ({
+        ...prevData,
+        total_product: res.data.total_product,
+      }));
+    };
+    const fetchPenawaran = async () => {
+      const res = await axios.get(
+        "http://localhost:4000/api/userpenawaran/summary",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevData) => ({
+        ...prevData,
+        total_penawaran: res.data.total_penawaran,
+      }));
+    };
+    fetchProduct();
+    fetchPenawaran();
+  }, []);
+
   const handleClick = () => {
     setShowContent(true);
     setButtonDisabled(true);
   };
+  console.log("data", data);
 
-  console.log(result);
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -68,7 +105,7 @@ export default function DashboardDekan() {
           <div className="bg-white col-span-12 xl:col-span-5 rounded-md shadow-md flex items-center gap-4 p-4">
             <div className="flex-col">
               <p className="font-bold text-xl">Total Product</p>
-              <p className="font-semibold text-2xl">100</p>
+              <p className="font-semibold text-2xl">{data.total_product}</p>
             </div>
           </div>
           <div className="bg-white col-span-12 xl:col-span-5 rounded-md shadow-md flex items-center gap-4 p-4">
@@ -78,7 +115,7 @@ export default function DashboardDekan() {
               disabled={buttonDisabled}
             >
               <p className="font-bold text-xl">Total Penawaran</p>
-              <p className="font-semibold text-2xl">100</p>
+              <p className="font-semibold text-2xl">{data.total_penawaran}</p>
             </button>
           </div>
         </div>

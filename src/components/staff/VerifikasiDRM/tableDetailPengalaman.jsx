@@ -4,6 +4,11 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Card, IconButton, Typography } from "@material-tailwind/react";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+import { formatDateIndo } from "../../../utils/date";
 
 const TABLE_HEAD = [
   "No",
@@ -18,21 +23,33 @@ const TABLE_HEAD = [
   // "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    nama_klien: "PT ABC",
-    nama_proyek: "Proyek Pengadaan Barang",
-    nilai_proyek: "1000000",
-    kurs: "Rp",
-    no_kontrak: "123",
-    kontak_klien: "085710116209",
-    tanggal_mulai: "2024-06-13",
-    tanggal_berakhir: "2026-06-13",
-  },
-];
-
 export function TableDetailPengalaman() {
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("id");
+  const [pengalaman, setPengalaman] = useState([]);
+
+  async function fetchPengalaman() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/userpengalaman/user/" + userId,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      setPengalaman(response.data);
+    } catch (error) {
+      console.error("Get jenis dokumen gagal", error);
+      throw new Error("Get jenis dokumen gagal");
+    }
+  }
+
+  useEffect(() => {
+    fetchPengalaman();
+  }, []);
+
   return (
     <div>
       <div className="overflow-y-scroll">
@@ -56,18 +73,17 @@ export function TableDetailPengalaman() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {pengalaman.map(
               (
                 {
-                  id,
                   nama_klien,
                   nama_proyek,
                   nilai_proyek,
-                  kurs,
+                  nama_kurs,
                   no_kontrak,
                   kontak_klien,
                   tanggal_mulai,
-                  tanggal_berakhir,
+                  tanggal_selesai,
                 },
                 index
               ) => (
@@ -78,7 +94,7 @@ export function TableDetailPengalaman() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -114,7 +130,7 @@ export function TableDetailPengalaman() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {kurs}
+                      {nama_kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -141,7 +157,7 @@ export function TableDetailPengalaman() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_mulai}
+                      {formatDateIndo(tanggal_mulai)}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -150,7 +166,7 @@ export function TableDetailPengalaman() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {tanggal_berakhir}
+                      {formatDateIndo(tanggal_selesai)}
                     </Typography>
                   </td>
                   {/* <td className="p-4">

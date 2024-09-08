@@ -19,11 +19,29 @@ import { PlusCircleIcon } from "@heroicons/react/16/solid";
 import SidebarSupplier from "../../../components/supplier/sidebar";
 import NavbarManager from "../../../components/manager/navbar";
 import SidebarManager from "../../../components/manager/sidebar";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function TambahPO() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [penawaran, setPenawaran] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPenawaran = async () => {
+      const res = await axios.get(
+        "http://localhost:4000/api/userpenawaran/statusproses/5",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setPenawaran(res.data);
+    };
+
+    fetchPenawaran();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,7 +56,8 @@ export default function TambahPO() {
     };
   }, []);
 
-  console.log(result);
+  console.log("penawaran", penawaran);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -68,11 +87,12 @@ export default function TambahPO() {
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center">
             <div className="font-semibold">Buat PO</div>
-            <a href="/manager/buat-po">
-              <button className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <ArrowLeftIcon height={25} />
-              </button>
-            </a>
+            <button
+              onClick={() => navigate("/manager/buat-po")}
+              className="bg-red-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <ArrowLeftIcon height={25} />
+            </button>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
           <form action="" className="p-4">
@@ -80,13 +100,12 @@ export default function TambahPO() {
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Kode PO
+              Nomor PO
             </label>
             <input
               type="text"
               className="border w-full h-8 my-4"
-              disabled
-              value={"PO101"}
+              name="no_po"
             />
             <label
               htmlFor="first-name"
@@ -94,12 +113,17 @@ export default function TambahPO() {
             >
               Kode Penawaran
             </label>
-            <select name="" id="" className="w-full border h-8 mt-4">
+            <select
+              name="no_penawaran"
+              id=""
+              className="w-full border h-8 mt-4"
+            >
               <option value=""></option>
-              <option value="">A101</option>
-              <option value="">A102</option>
-              <option value="">A103</option>
-              <option value="">A104</option>
+              {penawaran.map((item) => (
+                <option value={item.no_penawaran}>
+                  {item.no_penawaran} | {item.brand}
+                </option>
+              ))}
             </select>
             <div className="text-gray-500 mb-4">
               <p>

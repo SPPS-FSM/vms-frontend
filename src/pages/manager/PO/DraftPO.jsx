@@ -8,10 +8,11 @@ import {
   TableDraftPO,
 } from "../../../components/manager/Kompetensi/tableDraftPO";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 export default function DraftPO() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,11 +56,12 @@ export default function DraftPO() {
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
           <div className="flex justify-between items-center mb-2">
             <div className="font-semibold">List Purchase Order</div>
-            <a href="/manager/tambah-po">
-              <button className="bg-blue-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <PlusIcon height={25} />
-              </button>
-            </a>
+            <button
+              onClick={() => navigate("/manager/tambah-po")}
+              className="bg-blue-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <PlusIcon height={25} />
+            </button>
           </div>
           <div>
             <TableDraftPO />

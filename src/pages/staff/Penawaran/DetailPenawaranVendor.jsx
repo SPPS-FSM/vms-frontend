@@ -251,16 +251,16 @@ export default function DetailPenawaranDRM() {
                   {data.nama_status_proses_penawaran}
                 </p>
               </div>
-              {/* {data.id_status_proses_penawaran === 3 && ( */}
-              <div className="pt-4 flex justify-start">
-                {/* <a href="/staff/pilih-penawaran-vendor"> */}
-                {/* <Button color="orange">Pilih Penawaran</Button> */}
-                <TolakDialog id={penawaranId} />
-                <VerifikasiDialog id={penawaranId} />
+              {data.id_status_proses_penawaran === 3 && (
+                <div className="pt-4 flex justify-start">
+                  {/* <a href="/staff/pilih-penawaran-vendor"> */}
+                  {/* <Button color="orange">Pilih Penawaran</Button> */}
+                  <TolakDialog id={penawaranId} />
+                  <VerifikasiDialog id={penawaranId} />
 
-                {/* </a> */}
-              </div>
-              {/* )} */}
+                  {/* </a> */}
+                </div>
+              )}
             </div>
           </div>
         ) : (

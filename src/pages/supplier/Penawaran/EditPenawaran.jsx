@@ -22,6 +22,12 @@ export default function EditPenawaran() {
       [e.target.name]: e.target.value,
     });
   };
+  const editable =
+    data &&
+    !(
+      data.id_status_proses_penawaran === 6 ||
+      data.id_status_proses_penawaran === 7
+    );
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,9 +68,20 @@ export default function EditPenawaran() {
     e.preventDefault();
 
     try {
+      const reqBody = {
+        ...data,
+        id_status_penawaran: parseInt(data.id_status_penawaran),
+        id_status_proses_penawaran: 3,
+        tanggal_berakhir_penawaran: new Date(data.tanggal_berakhir_penawaran),
+        tanggal_mulai_penawaran: new Date(data.tanggal_mulai_penawaran),
+        tanggal_dibuat_penawaran: new Date(data.tanggal_dibuat_penawaran),
+      };
+
+      console.log("reqBody", reqBody);
+
       const res = await axios.put(
         "http://localhost:4000/api/userpenawaran/" + id,
-        data,
+        reqBody,
         {
           headers: {
             Authorization: `Bearer ${Cookies.get("accessToken")}`,
@@ -149,6 +166,7 @@ export default function EditPenawaran() {
               Pilih Product
             </label>
             <input
+              type="text"
               value={data && data.brand}
               disabled
               className="border w-full h-8 my-4 bg-gray-200 pl-2"
@@ -160,9 +178,11 @@ export default function EditPenawaran() {
               Tanggal Dibuat Penawaran
             </label>
             <input
+              name="tanggal_dibuat_penawaran"
               type="date"
-              className="border w-full h-8 my-4 bg-gray-200 pl-2"
-              disabled
+              className="border w-full h-8 my-4 pl-2"
+              disabled={editable}
+              onChange={handleChange}
               value={data && formatDateInput(data.tanggal_dibuat_penawaran)}
             />
             <label
@@ -173,8 +193,10 @@ export default function EditPenawaran() {
             </label>
             <input
               type="date"
-              className="border w-full h-8 my-4 bg-gray-200 pl-2"
-              disabled
+              name="tanggal_mulai_penawaran"
+              className="border w-full h-8 my-4  pl-2"
+              disabled={editable}
+              onChange={handleChange}
               value={data && formatDateInput(data.tanggal_mulai_penawaran)}
             />
             <label
@@ -184,9 +206,11 @@ export default function EditPenawaran() {
               Tanggal Berakhir Penawaran
             </label>
             <input
+              name="tanggal_berakhir_penawaran"
               type="date"
-              className="border w-full h-8 my-4 bg-gray-200 pl-2"
-              disabled
+              className="border w-full h-8 my-4  pl-2"
+              disabled={editable}
+              onChange={handleChange}
               value={data && formatDateInput(data.tanggal_berakhir_penawaran)}
             />
             <label
@@ -196,10 +220,11 @@ export default function EditPenawaran() {
               Terms of Payment
             </label>
             <input
-              name=""
+              name="Terms_of_Payment"
               id=""
-              className="border w-full h-8 my-4 bg-gray-200 pl-2"
-              disabled
+              className="border w-full h-8 my-4  pl-2"
+              disabled={editable}
+              onChange={handleChange}
               value={data && data.Terms_of_Payment}
             />
 
@@ -210,10 +235,11 @@ export default function EditPenawaran() {
               Terms of Delivery
             </label>
             <input
-              name=""
+              name="Terms_of_Delivery"
               id=""
-              className="border w-full h-8 my-4 bg-gray-200 pl-2"
-              disabled
+              className="border w-full h-8 my-4  pl-2"
+              disabled={editable}
+              onChange={handleChange}
               value={data && data.Terms_of_Delivery}
             />
 
@@ -239,13 +265,13 @@ export default function EditPenawaran() {
             >
               Status Proses Penawaran
             </label>
-            {/* <input
+            <input
               name=""
               id=""
               className="w-full border h-8 my-4 bg-gray-200"
               disabled
               value={data && data.nama_status_proses_penawaran}
-            /> */}
+            />
 
             <div className="flex justify-end items-end">
               <Button type="submit" color="green">

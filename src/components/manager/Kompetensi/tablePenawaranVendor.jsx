@@ -1,6 +1,4 @@
-import {
-  EyeIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   IconButton,
@@ -10,6 +8,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -32,20 +31,24 @@ const TABLE_HEAD = [
 
 export function TablePenawaranVendor() {
   const [penawaranManager, setpenawaranManager] = useState([]);
-  
+  const navigate = useNavigate();
   const fetchpenawaranManager = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/userpenawaran/manager", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      const response = await axios.get(
+        // "http://localhost:4000/api/userpenawaran/statusproses/4",
+        "http://localhost:4000/api/userpenawaran/manager",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
         }
-      });
+      );
       setpenawaranManager(response.data);
     } catch (error) {
       console.log(error.message);
     }
   };
-  
+
   useEffect(() => {
     fetchpenawaranManager();
   }, []);
@@ -74,7 +77,26 @@ export function TablePenawaranVendor() {
           </thead>
           <tbody>
             {penawaranManager.map(
-              ({ no_penawaran, brand, price, nama_kurs, stock, nama_satuan, tanggal_dibuat_penawaran, tanggal_mulai_penawaran, tanggal_berakhir_penawaran, Terms_of_Payment, Terms_of_Delivery, description, nama_status_penawaran, nama_status_proses_penawaran }, index) => (
+              (
+                {
+                  id_penawaran,
+                  no_penawaran,
+                  brand,
+                  price,
+                  nama_kurs,
+                  stock,
+                  nama_satuan,
+                  tanggal_dibuat_penawaran,
+                  tanggal_mulai_penawaran,
+                  tanggal_berakhir_penawaran,
+                  Terms_of_Payment,
+                  Terms_of_Delivery,
+                  description,
+                  nama_status_penawaran,
+                  nama_status_proses_penawaran,
+                },
+                index
+              ) => (
                 <tr key={no_penawaran} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -163,7 +185,9 @@ export function TablePenawaranVendor() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {new Date(tanggal_berakhir_penawaran).toLocaleDateString()}
+                      {new Date(
+                        tanggal_berakhir_penawaran
+                      ).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -212,13 +236,19 @@ export function TablePenawaranVendor() {
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <a href="/manager/detail-penawaran-manager">
-                      <Tooltip content="Detail Penawaran Vendor">
-                        <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                          <EyeIcon height={17} color="white" />
-                        </button>
-                      </Tooltip>
-                    </a>
+                    <Tooltip content="Detail Penawaran Vendor">
+                      <button
+                        onClick={() =>
+                          navigate(
+                            "/manager/detail-penawaran-manager?id=" +
+                              id_penawaran
+                          )
+                        }
+                        className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                      >
+                        <EyeIcon height={17} color="white" />
+                      </button>
+                    </Tooltip>
                   </td>
                 </tr>
               )

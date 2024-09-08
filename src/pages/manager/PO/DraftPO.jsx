@@ -3,13 +3,15 @@ import FooterAdmin from "../../../components/admin/footer";
 import { TablePenawaranVendor } from "../../../components/manager/Kompetensi/tablePenawaranVendor";
 import SidebarManager from "../../../components/manager/sidebar";
 import NavbarManager from "../../../components/manager/navbar";
-import { TableDraftKontrak, TableDraftPO } from "../../../components/manager/Kompetensi/tableDraftPO";
+import {
+  TableDraftKontrak,
+  TableDraftPO,
+} from "../../../components/manager/Kompetensi/tableDraftPO";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 export default function DraftPO() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,7 +26,6 @@ export default function DraftPO() {
     };
   }, []);
 
-  console.log(result);
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}

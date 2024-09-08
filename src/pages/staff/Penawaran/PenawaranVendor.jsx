@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import FooterAdmin from "../../../components/admin/footer";
+import NavbarSupplier from "../../../components/supplier/navbar";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import SidebarSupplier from "../../../components/supplier/sidebar";
+import { TablePenawaranVendor } from "../../../components/staff/Penawaran/tablePenawaranVendor";
+import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import SidebarStaff from "../../../components/staff/sidebar";
-import NavbarStaff from "../../../components/staff/navbar";
-import { BiSearch } from "react-icons/bi";
-import FooterAdmin from "../../../components/admin/footer";
-import TablePenawaranVendor from "../../../components/staff/Penawaran/tablePenawaranVendor";
 
-export default function PenawaranVendor() {
-  const navigate = useNavigate();
+export default function Penawaran() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
+  const [user, setUser] = useState(null);
+  const userId = Cookies.get("user");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,7 +28,30 @@ export default function PenawaranVendor() {
     };
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userpenawaran",
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get jenis dokumen gagal", error);
+        throw new Error("Get jenis dokumen gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log("data", data);
+
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}
@@ -35,7 +60,7 @@ export default function PenawaranVendor() {
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarStaff />
+        <SidebarSupplier />
       </div>
 
       {openSidebar && (
@@ -46,25 +71,29 @@ export default function PenawaranVendor() {
       )}
 
       {/* Navbar */}
-      <NavbarStaff openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+      <NavbarSupplier
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
 
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
-          <div className="md:flex justify-between items-center">
-            <div className="font-semibold mb-4 md:mb-0">Penawaran Vendor</div>
-            <div className="flex gap-1">
-              <input
-                type="text"
-                className="border border-gray-500 rounded-md w-full md:w-auto"
-              />
-              <button className="bg-green-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <BiSearch height={25} />
-              </button>
-            </div>
+          <div className="flex justify-between items-center">
+            <div className="font-semibold">Penawaran Product</div>
+            <button
+              onClick={() => navigate("/supplier/tambah-penawaran")}
+              className="bg-blue-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4"
+            >
+              <PlusIcon height={25} />
+            </button>
           </div>
           <div className="text-sm text-gray-500 my-4">
-            <TablePenawaranVendor />
+            *catatan: <br /> - untuk menambah penawaran product tekan tombol
+            Tambah (+)
+          </div>
+          <div>
+            <TablePenawaranVendor data={data} setData={setData} />
           </div>
         </div>
       </div>

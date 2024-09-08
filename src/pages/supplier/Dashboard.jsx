@@ -10,10 +10,11 @@ export default function DashboardDekan() {
   const [data, setData] = useState({
     total_product: 0,
     total_penawaran: 0,
+    id_status: null,
+    status_description: null,
   });
   const [showContent, setShowContent] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-
   useEffect(() => {
     const handleResize = () => {
       setOpenSidebar(window.innerWidth >= 640);
@@ -56,15 +57,30 @@ export default function DashboardDekan() {
         total_penawaran: res.data.total_penawaran,
       }));
     };
+    const fetchUser = async () => {
+      const res = await axios.get(
+        "http://localhost:4000/api/user/" + Cookies.get("user"),
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      setData((prevData) => ({
+        ...prevData,
+        id_status: res.data.id_status,
+        status_description: res.data.status_description,
+      }));
+    };
     fetchProduct();
     fetchPenawaran();
+    fetchUser();
   }, []);
 
   const handleClick = () => {
     setShowContent(true);
     setButtonDisabled(true);
   };
-  console.log("data", data);
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
@@ -94,21 +110,41 @@ export default function DashboardDekan() {
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="mb-2">Dashboard</div>
         <div className="grid grid-cols-12 gap-2 md:gap-4">
-          <div className="bg-white col-span-12 xl:col-span-2 rounded-md shadow-md flex items-center justify-center gap-4 p-4">
+          <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
             <div className="flex-col">
               <p className="font-bold text-xl mb-2">Status Vendor</p>
-              <p className="font-semibold text-lg bg-green-300 rounded-xl text-center text-white border">
-                Terverifikasi
+              <p
+                className={`font-semibold text-lg rounded-xl text-center text-white border ${
+                  data.id_status === 1
+                    ? "bg-green-500"
+                    : data.id_status === 2
+                    ? "bg-red-500"
+                    : "bg-gray-500"
+                }`}
+              >
+                {data.id_status === 1
+                  ? "Terverifikasi"
+                  : data.id_status === 2
+                  ? "Ditolak"
+                  : "Belum Diverifikasi"}
               </p>
+              {data.id_status === 2 && (
+                <div className="mt-3">
+                  <p>Alasan:</p>
+                  <p>
+                    <b>{data.status_description}</b>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-          <div className="bg-white col-span-12 xl:col-span-5 rounded-md shadow-md flex items-center gap-4 p-4">
+          <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
             <div className="flex-col">
               <p className="font-bold text-xl">Total Product</p>
               <p className="font-semibold text-2xl">{data.total_product}</p>
             </div>
           </div>
-          <div className="bg-white col-span-12 xl:col-span-5 rounded-md shadow-md flex items-center gap-4 p-4">
+          <div className="bg-white col-span-12 xl:col-span-4 rounded-md shadow-md flex items-center gap-4 p-4">
             <button
               className="text-start"
               onClick={handleClick}

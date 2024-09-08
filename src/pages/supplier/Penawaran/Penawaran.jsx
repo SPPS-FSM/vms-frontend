@@ -98,7 +98,7 @@ export default function Penawaran() {
 
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
-        {user && user.status === 1 ? (
+        {user && user.id_status === 1 ? (
           <div className="bg-white px-2 py-2 rounded-md shadow-md">
             <div className="flex justify-between items-center">
               <div className="font-semibold">Penawaran Product</div>
@@ -121,8 +121,8 @@ export default function Penawaran() {
           <div className="bg-white px-2 py-2 rounded-md shadow-md">
             <div className="flex flex-col">
               <p>
-                Berkas belum lengkap/diverifikasi. Silakan isi berkas terlebih
-                dahulu.
+                Berkas belum lengkap/diverifikasi/ditolak. Silakan isi berkas
+                terlebih dahulu.
               </p>
               <button
                 onClick={() => navigate("/supplier/upload_dokumen")}

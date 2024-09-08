@@ -43,6 +43,8 @@ export function TableVendor() {
     fetchDRM();
   }, []);
 
+  console.log("DRM", DRM);
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -68,10 +70,16 @@ export function TableVendor() {
           <tbody>
             {DRM.map(
               (
-                { no, nama_perusahaan, nama_pic, no_telephone, nama_status },
+                {
+                  id_user,
+                  nama_perusahaan,
+                  nama_pic,
+                  no_telephone,
+                  nama_status,
+                },
                 index
               ) => (
-                <tr key={no} className="even:bg-blue-gray-50/50">
+                <tr key={index + 1} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -123,13 +131,16 @@ export function TableVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      <a href="/manager/detail-vendor">
-                        <Tooltip content="Detail Vendor">
-                          <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                            <EyeIcon height={17} color="white" />
-                          </button>
-                        </Tooltip>
-                      </a>
+                      <Tooltip content="Detail Vendor">
+                        <button
+                          onClick={() =>
+                            navigate("/manager/detail-vendor?id=" + id_user)
+                          }
+                          className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                        >
+                          <EyeIcon height={17} color="white" />
+                        </button>
+                      </Tooltip>
                     </Typography>
                   </td>
                 </tr>

@@ -10,6 +10,7 @@ import { TableVerifDRM } from "../../../components/staff/VerifikasiDRM/tableVeri
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Button } from "@material-tailwind/react";
 import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
+import { TolakDialog } from "../../../pages/staff/DRM/tolakDialog";
 
 export default function VerifikasiDRM() {
   const navigate = useNavigate();

@@ -8,7 +8,7 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, FolderIcon } from "@heroicons/react/24/outline";
 import { SlChart, SlPeople, SlStar } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 
@@ -169,6 +169,52 @@ export default function SidebarStaff() {
               >
                 <ListItemPrefix></ListItemPrefix>
                 Penawaran Vendor
+              </ListItem>
+            </List>
+            {/* <List className="p-0">
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/staff/ajukan-penawaran-vendor")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                Ajukan Penawaran
+              </ListItem>
+            </List> */}
+          </AccordionBody>
+        </Accordion>
+
+        <Accordion
+          open={isAccordionOpen(5)}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                isAccordionOpen(5) ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0">
+            <AccordionHeader
+              onClick={() => handleAccordionToggle(5)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <FolderIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography className="mr-auto font-normal text-fsmblue-500">
+                Purchase Order
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className="py-1">
+            <List className="p-0">
+              <ListItem
+                className="text-fsmblue-500"
+                onClick={() => navigate("/staff/list-po")}
+              >
+                <ListItemPrefix></ListItemPrefix>
+                List Purchase Order
               </ListItem>
             </List>
             {/* <List className="p-0">

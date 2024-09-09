@@ -54,6 +54,8 @@ import DetailPengalamanVendor from "./pages/staff/Kompetensi/DetailPengalamanVen
 import DetailProductVendor from "./pages/staff/Kompetensi/DetailProductVendor";
 import DetailPenawaranDRM from "./pages/staff/Penawaran/DetailPenawaranVendor";
 import PilihPenawaranDRM from "./pages/staff/Penawaran/PilihPenawaranVendor";
+import ListPO from "./pages/staff/PO/ListPO";
+import DetailPOStaff from "./pages/staff/PO/DetailPO";
 
 function App() {
   return (
@@ -167,7 +169,9 @@ function App() {
           {/* Staff */}
           <Route path="/staff/dashboard" element={<DashboardStaff />} />
           <Route path="/staff/list-drm" element={<ListDRM />} />
+          <Route path="/staff/list-po" element={<ListPO />} />
           <Route path="/staff/verifikasi-drm" element={<VerifikasiDRM />} />
+          <Route path="/staff/detail-po" element={<DetailPOStaff />} />
           <Route
             path="/staff/sertifikasi-vendor"
             element={<SertifikasiVendor />}

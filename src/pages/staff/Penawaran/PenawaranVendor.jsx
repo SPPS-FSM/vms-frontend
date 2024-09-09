@@ -7,6 +7,8 @@ import { TablePenawaranVendor } from "../../../components/staff/Penawaran/tableP
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SidebarStaff from "../../../components/staff/sidebar";
+import NavbarStaff from "../../../components/staff/navbar";
 
 export default function Penawaran() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
@@ -60,7 +62,7 @@ export default function Penawaran() {
           openSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <SidebarSupplier />
+        <SidebarStaff />
       </div>
 
       {openSidebar && (
@@ -71,10 +73,7 @@ export default function Penawaran() {
       )}
 
       {/* Navbar */}
-      <NavbarSupplier
-        openSidebar={openSidebar}
-        setOpenSidebar={setOpenSidebar}
-      />
+      <NavbarStaff openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
 
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">

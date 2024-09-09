@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  EyeIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   IconButton,
@@ -25,14 +22,18 @@ const TABLE_HEAD = [
 export default function TableSertifikasiVendor() {
   const [sertifikasiData, setSertifikasiData] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [url, setUrl] = useState("");
 
   const fetchSertifikasiData = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/usersertifikasi", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:4000/api/usersertifikasi",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
       console.log("API Response:", response.data);
       setSertifikasiData(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
@@ -68,13 +69,17 @@ export default function TableSertifikasiVendor() {
           </thead>
           <tbody>
             {sertifikasiData.map(
-              ({
-                id_sertifikasi,
-                nama_sertifikasi,
-                jenis_sertifikasi,
-                tanggal_berlaku,
-                tanggal_berakhir,
-              }, index) => (
+              (
+                {
+                  id_sertifikasi,
+                  nama_sertifikasi,
+                  jenis_sertifikasi,
+                  tanggal_berlaku,
+                  tanggal_berakhir,
+                  file,
+                },
+                index
+              ) => (
                 <tr key={id_sertifikasi} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
@@ -124,7 +129,13 @@ export default function TableSertifikasiVendor() {
                   <td className="p-4">
                     <button
                       className="bg-blue-500 rounded-md p-1"
-                      onClick={() => setShowModal(true)}
+                      onClick={() => {
+                        setShowModal(true);
+
+                        setUrl(
+                          "http://localhost:4000/api/file/" + file.split("/")[1]
+                        );
+                      }}
                     >
                       <Tooltip content="Lihat Sertifikat" placement="top">
                         <EyeIcon height={17} color="white" />
@@ -149,7 +160,7 @@ export default function TableSertifikasiVendor() {
                 </button>
               </div>
               <div className="h-full py-8">
-                <LihatSertifikasi />
+                <LihatSertifikasi url={url} />
               </div>
             </div>
           </div>

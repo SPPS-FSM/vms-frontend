@@ -5,13 +5,12 @@ import SidebarStaff from "../../../components/staff/sidebar";
 import NavbarStaff from "../../../components/staff/navbar";
 import { BiSearch } from "react-icons/bi";
 import FooterAdmin from "../../../components/admin/footer";
-import  TableProductVendor from "../../../components/staff/Kompetensi/tableProductVendor";
+import TableProductVendor from "../../../components/staff/Kompetensi/tableProductVendor";
+import Cookies from "js-cookie";
 
 export default function ProductVendorz() {
   const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,7 +25,6 @@ export default function ProductVendorz() {
     };
   }, []);
 
-  console.log(result);
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
       {/* Sidebar */}

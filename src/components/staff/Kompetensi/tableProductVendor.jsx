@@ -11,6 +11,10 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = ["No", "Brand", "Price", "Kurs", "Stock", "Satuan", "Aksi"];
 
@@ -26,6 +30,31 @@ const TABLE_ROWS = [
 ];
 
 export default function TableProductVendor() {
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/userproduct",
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.error("Get pengalaman vendor gagal", error);
+        throw new Error("Get pengalaman vendor gagal");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log("data", data);
   return (
     <div>
       <div className="overflow-scroll">
@@ -49,16 +78,19 @@ export default function TableProductVendor() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ id, brand, price, kurs, stock, satuan }, index) => (
-                <tr key={brand} className="even:bg-blue-gray-50/50">
+            {data.map(
+              (
+                { id_product, brand, price, nama_kurs, stock, nama_satuan },
+                index
+              ) => (
+                <tr key={id_product} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {id}
+                      {index + 1}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -85,7 +117,7 @@ export default function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {kurs}
+                      {nama_kurs}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -103,7 +135,7 @@ export default function TableProductVendor() {
                       color="blue-gray"
                       className="font-normal "
                     >
-                      {satuan}
+                      {nama_satuan}
                     </Typography>
                   </td>
                   <td className="">
@@ -112,11 +144,16 @@ export default function TableProductVendor() {
                         <PencilSquareIcon height={17} color="white" />
                       </button>
                     </a> */}
-                    <a href="/staff/detail-product-vendor">
-                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() =>
+                        navigate(
+                          "/staff/detail-product-vendor?id=" + id_product
+                        )
+                      }
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
                     {/* <a href="#">
                       <button className="bg-red-500 p-2 rounded-md shadow-md">
                         <TrashIcon height={17} color="white" />

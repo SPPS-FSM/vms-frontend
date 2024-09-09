@@ -1,29 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { EyeIcon } from "@heroicons/react/24/outline";
-import {
-  Button,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
+import { EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { Button, IconButton, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
-  "Klien",
-  "Proyek",
-  "Nilai Proyek",
-  "Kurs",
-  "No Kontak",
-  "Tanggal Mulai",
-  "Tanggal Selesai",
+  "Nomor PO",
+  "Nomor Penawaran",
+  "Brand",
+  "Tanggal Dibuat PO",
+  "Tanggal Mulai PO",
+  "Tanggal Berakhir PO",
+  "Terms of Payment",
+  "Terms of Delivery",
+  "Description",
   "Aksi",
 ];
 
-export default function TablePengalamanVendor({ data, setData }) {
+export function TableDraftPO() {
   const navigate = useNavigate();
+  const [poData, setPoData] = useState([]);
+
+  const fetchPoData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/userpo/userPO",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      console.log("API Response:", response.data); // Log the API response
+      setPoData(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleDelete = async (id_po) => {
+    const res = await axios.delete(
+      "http://localhost:4000/api/userpo/" + id_po,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      }
+    );
+    const filteredData = poData.filter((item) => item.id_po !== id_po);
+    setPoData(filteredData);
+  };
+
+  useEffect(() => {
+    fetchPoData();
+  }, []);
+
   return (
     <div>
       <div className="overflow-scroll">
@@ -47,21 +80,23 @@ export default function TablePengalamanVendor({ data, setData }) {
             </tr>
           </thead>
           <tbody>
-            {data.map(
+            {poData.map(
               (
                 {
-                  id_pengalaman,
-                  nama_klien,
-                  nama_proyek,
-                  nilai_proyek,
-                  nama_kurs,
-                  kontak_klien,
-                  tanggal_mulai,
-                  tanggal_selesai,
+                  id_po,
+                  no_po,
+                  no_penawaran,
+                  brand,
+                  tanggal_dibuat_po,
+                  tanggal_mulai_po,
+                  tanggal_berakhir_po,
+                  Terms_of_Payment,
+                  Terms_of_Delivery,
+                  description,
                 },
                 index
               ) => (
-                <tr key={id_pengalaman} className="even:bg-blue-gray-50/50">
+                <tr key={no_po} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -77,7 +112,7 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {nama_klien}
+                      {no_po}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -86,7 +121,7 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {nama_proyek}
+                      {no_penawaran}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -95,7 +130,7 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {nilai_proyek}
+                      {brand}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -104,7 +139,7 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {nama_kurs}
+                      {new Date(tanggal_dibuat_po).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -113,7 +148,7 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {kontak_klien}
+                      {new Date(tanggal_mulai_po).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -122,7 +157,7 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {new Date(tanggal_mulai).toLocaleDateString()}
+                      {new Date(tanggal_berakhir_po).toLocaleDateString()}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -131,23 +166,34 @@ export default function TablePengalamanVendor({ data, setData }) {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {new Date(tanggal_selesai).toLocaleDateString()}
+                      {Terms_of_Payment}
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <Tooltip content="Detail Pengalaman Vendor" placement="top">
-                      <button
-                        onClick={() =>
-                          navigate(
-                            "/staff/detail-pengalaman-vendor?id=" +
-                              id_pengalaman
-                          )
-                        }
-                        className="bg-blue-500 rounded-md p-1"
-                      >
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </Tooltip>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {Terms_of_Delivery}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {description}
+                    </Typography>
+                  </td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => navigate("/staff/detail-po?id=" + id_po)}
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
                   </td>
                 </tr>
               )

@@ -4,13 +4,14 @@ import axios from "axios";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import NavbarStaff from "../../../components/staff/navbar";
 import SidebarStaff from "../../../components/staff/sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function DetailPengalamanVendor() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [experienceDetails, setExperienceDetails] = useState(null);
-  const { id } = useParams(); // Assuming you are using react-router-dom to get the experience ID from the URL
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,11 +29,14 @@ export default function DetailPengalamanVendor() {
   useEffect(() => {
     const fetchExperienceDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/userpengalaman/user/${id}`, {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
+        const response = await axios.get(
+          `http://localhost:4000/api/userpengalaman/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
         setExperienceDetails(response.data);
       } catch (error) {
         console.error(error);
@@ -121,11 +125,15 @@ export default function DetailPengalamanVendor() {
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Mulai</p>
-              <p className="w-full md:w-1/3">{new Date(tanggal_mulai).toLocaleDateString()}</p>
+              <p className="w-full md:w-1/3">
+                {new Date(tanggal_mulai).toLocaleDateString()}
+              </p>
             </div>
             <div className="md:flex flex-none gap-0 mb-4  ">
               <p className="font-bold w-full md:w-1/3">Tanggal Selesai</p>
-              <p className="w-full md:w-1/3">{new Date(tanggal_selesai).toLocaleDateString()}</p>
+              <p className="w-full md:w-1/3">
+                {new Date(tanggal_selesai).toLocaleDateString()}
+              </p>
             </div>
           </div>
         </div>

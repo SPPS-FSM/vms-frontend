@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import FooterAdmin from "../../../components/admin/footer";
+import { TablePenawaranVendor } from "../../../components/manager/Kompetensi/tablePenawaranVendor";
+import SidebarManager from "../../../components/manager/sidebar";
+import NavbarManager from "../../../components/manager/navbar";
+
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import SidebarStaff from "../../../components/staff/sidebar";
 import NavbarStaff from "../../../components/staff/navbar";
-import { BiSearch } from "react-icons/bi";
-import FooterAdmin from "../../../components/admin/footer";
-import TablePengalamanVendor from "../../../components/staff/Kompetensi/tablePengalamanVendor";
-import Cookies from "js-cookie";
+import { TableDraftPO } from "../../../components/staff/PO/tablePO";
 
-export default function PengalamanVendor() {
-  const navigate = useNavigate();
+export default function ListPO() {
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
-  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,28 +25,6 @@ export default function PengalamanVendor() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/api/userpengalaman",
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-
-        setData(response.data);
-      } catch (error) {
-        console.error("Get pengalaman vendor gagal", error);
-        throw new Error("Get pengalaman vendor gagal");
-      }
-    };
-
-    fetchData();
   }, []);
 
   return (
@@ -72,20 +51,20 @@ export default function PengalamanVendor() {
       {/* Content Dashboard */}
       <div className="md:ml-80 ml-10 mr-8 mt-10 h-full flex-grow bg-grey-100">
         <div className="bg-white px-2 py-2 rounded-md shadow-md">
-          <div className="md:flex justify-between items-center">
-            <div className="font-semibold mb-4 md:mb-0">Pengalaman Vendor</div>
-            <div className="flex gap-1">
-              <input
-                type="text"
-                className="border border-gray-500 rounded-md w-full md:w-auto"
-              />
-              <button className="bg-green-500 rounded-md h-8 w-8 flex justify-center items-center text-white font-bold shadow-md mr-0 md:mr-4">
-                <BiSearch height={25} />
-              </button>
-            </div>
+          <div className="flex justify-between items-center mb-2">
+            <div className="font-semibold">List Purchase Order</div>
           </div>
-          <div className="text-sm text-gray-500 my-4">
-            <TablePengalamanVendor data={data} setData={setData} />
+          <div>
+            {/* <TableDraftPO /> */}
+            <TableDraftPO />
+          </div>
+          <div className="text-gray-500 mt-8">
+            <p>CATATAN :</p>
+            <p>
+              - Pastikan sudah memilih vendor terlebih dahulu dimenu{" "}
+              <span className="font-bold">Penawaran Vendor</span>
+            </p>
+            <p>- 1 Kontrak hanya bisa 1 penawaran</p>
           </div>
         </div>
       </div>

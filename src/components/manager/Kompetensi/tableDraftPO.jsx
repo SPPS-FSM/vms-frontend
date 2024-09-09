@@ -1,11 +1,9 @@
-import {
-  EyeIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button, IconButton, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -22,20 +20,37 @@ const TABLE_HEAD = [
 ];
 
 export function TableDraftPO() {
+  const navigate = useNavigate();
   const [poData, setPoData] = useState([]);
 
   const fetchPoData = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/userpo/userPO", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:4000/api/userpo/userPO",
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
       console.log("API Response:", response.data); // Log the API response
       setPoData(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleDelete = async (id_po) => {
+    const res = await axios.delete(
+      "http://localhost:4000/api/userpo/" + id_po,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      }
+    );
+    const filteredData = poData.filter((item) => item.id_po !== id_po);
+    setPoData(filteredData);
   };
 
   useEffect(() => {
@@ -68,6 +83,7 @@ export function TableDraftPO() {
             {poData.map(
               (
                 {
+                  id_po,
                   no_po,
                   no_penawaran,
                   brand,
@@ -172,12 +188,16 @@ export function TableDraftPO() {
                     </Typography>
                   </td>
                   <td className="p-4">
-                    <a href="/manager/detail-po">
-                      <button className="bg-blue-500 p-2 rounded-md shadow-md mx-2">
-                        <EyeIcon height={17} color="white" />
-                      </button>
-                    </a>
-                    <button className="bg-red-500 p-2 rounded-md shadow-md">
+                    <button
+                      onClick={() => navigate("/manager/detail-po?id=" + id_po)}
+                      className="bg-blue-500 p-2 rounded-md shadow-md mx-2"
+                    >
+                      <EyeIcon height={17} color="white" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(id_po)}
+                      className="bg-red-500 p-2 rounded-md shadow-md"
+                    >
                       <TrashIcon height={17} color="white" />
                     </button>
                   </td>

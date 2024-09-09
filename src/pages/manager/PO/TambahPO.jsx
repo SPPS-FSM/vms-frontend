@@ -1,31 +1,67 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-tailwind/react";
-import SidebarAdmin from "../../../components/admin/sidebar";
-import NavbarAdmin from "../../../components/admin/navbar";
+import { Button } from "@material-tailwind/react";
 import FooterAdmin from "../../../components/admin/footer";
 import axios from "axios";
-import SidebarDekan from "../../../components/supplier/sidebar";
-import NavbarSupplier from "../../../components/supplier/navbar";
-import { TableUploadDocument } from "../../../components/supplier/tableUploadDocument";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
-import SidebarSupplier from "../../../components/supplier/sidebar";
 import NavbarManager from "../../../components/manager/navbar";
 import SidebarManager from "../../../components/manager/sidebar";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function TambahPO() {
+  const navigate = useNavigate();
+
   const [openSidebar, setOpenSidebar] = useState(window.innerWidth >= 640);
   const [penawaran, setPenawaran] = useState([]);
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    no_po: "",
+    no_penawaran: "",
+    id_product: "",
+    tanggal_dibuat_po: "",
+    tanggal_mulai_po: "",
+    tanggal_berakhir_po: "",
+    Terms_of_Payment: "",
+    Terms_of_Delivery: "",
+    description: "",
+  });
+
+  const handleChangePenawaran = (e) => {
+    const id = e.target.value;
+    const penawaranData = penawaran.find(
+      (item) => item.id_penawaran === Number(id)
+    );
+    setFormData({
+      ...formData,
+      no_penawaran: penawaranData.no_penawaran,
+      id_product: penawaranData.id_product,
+    });
+  };
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/userpo",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      console.log(response);
+      navigate("/manager/buat-po");
+    } catch (error) {
+      console.error("Post PO gagal", error);
+      throw new Error("Post PO gagal");
+    }
+  };
 
   useEffect(() => {
     const fetchPenawaran = async () => {
@@ -55,8 +91,6 @@ export default function TambahPO() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  console.log("penawaran", penawaran);
 
   return (
     <div className="bg-gray-100 h-full flex flex-col min-h-screen font-m-plus-rounded">
@@ -95,7 +129,7 @@ export default function TambahPO() {
             </button>
           </div>
           <hr className="my-3 border-blue-gray-300 " />
-          <form action="" className="p-4">
+          <form onSubmit={handleSubmit} action="" className="p-4">
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -103,6 +137,7 @@ export default function TambahPO() {
               Nomor PO
             </label>
             <input
+              onChange={handleChange}
               type="text"
               className="border w-full h-8 my-4"
               name="no_po"
@@ -114,13 +149,14 @@ export default function TambahPO() {
               Kode Penawaran
             </label>
             <select
-              name="no_penawaran"
+              name="id_penawaran"
               id=""
               className="w-full border h-8 mt-4"
+              onChange={handleChangePenawaran}
             >
               <option value=""></option>
               {penawaran.map((item) => (
-                <option value={item.no_penawaran}>
+                <option value={item.id_penawaran}>
                   {item.no_penawaran} | {item.brand}
                 </option>
               ))}
@@ -136,31 +172,51 @@ export default function TambahPO() {
             >
               Tanggal Dibuat PO
             </label>
-            <input type="date" className="border w-full h-8 my-4" />
+            <input
+              onChange={handleChange}
+              name="tanggal_dibuat_po"
+              type="date"
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Dimulai PO
             </label>
-            <input type="date" className="border w-full h-8 my-4" />
+            <input
+              type="date"
+              name="tanggal_mulai_po"
+              onChange={handleChange}
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Tanggal Berakhir PO
             </label>
-            <input type="date" className="border w-full h-8 my-4" />
+            <input
+              type="date"
+              name="tanggal_berakhir_po"
+              onChange={handleChange}
+              className="border w-full h-8 my-4"
+            />
             <label
               htmlFor="first-name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
               Terms of Payment
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              name="Terms_of_Payment"
+              id=""
+              className="w-full border h-8 my-4"
+              onChange={handleChange}
+            >
               <option value=""></option>
-              <option value="">COD</option>
-              <option value="">CBD</option>
+              <option value="COD">COD</option>
+              <option value="CBD">CBD</option>
             </select>
             <label
               htmlFor="first-name"
@@ -168,12 +224,33 @@ export default function TambahPO() {
             >
               Terms of Delivery
             </label>
-            <select name="" id="" className="w-full border h-8 my-4">
+            <select
+              name="Terms_of_Delivery"
+              onChange={handleChange}
+              id=""
+              className="w-full border h-8 my-4"
+            >
               <option value=""></option>
-              <option value="">CPT</option>
+              <option value="Same Day">Same Day</option>
+              <option value="Next Day">Next Day</option>
+              <option value="CPT">CPT</option>
             </select>
+            <label
+              htmlFor="description"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Description
+            </label>
+            <textarea
+              className="border w-full h-32 my-4"
+              name="description"
+              id="description"
+              onChange={handleChange}
+            />
             <div className="flex justify-end items-end">
-              <Button color="green">submit</Button>
+              <Button type="submit" color="green">
+                submit
+              </Button>
             </div>
           </form>
         </div>
